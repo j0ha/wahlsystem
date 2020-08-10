@@ -17,10 +17,10 @@ class CreateVotersTable extends Migration
             $table->id();
             $table->string('surname');
             $table->string('name');
-            $table->year('birth_year');
-            $table->boolean('voted_via_email');
-            $table->boolean('voted_via_terminal');
-            $table->boolean('got_email');
+            $table->date('birth_year')->default('1111-11-11');
+            $table->boolean('voted_via_email')->default(false);
+            $table->boolean('voted_via_terminal')->default(false);
+            $table->boolean('got_email')->default(false);
             $table->uuid('uuid');
             $table->timestamps();
         });

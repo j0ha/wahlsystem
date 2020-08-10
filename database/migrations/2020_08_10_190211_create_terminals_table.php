@@ -15,13 +15,13 @@ class CreateTerminalsTable extends Migration
     {
         Schema::create('terminals', function (Blueprint $table) {
             $table->id();
-            $tabel->string('name');
+            $table->string('name');
             $table->string('kind');
             $table->text('description');
             $table->string('position');
             $table->time('start_time');
             $table->time('end_time');
-            $table->ip('ip_restriction');
+            $table->ipAddress('ip_restriction');
             $table->uuid('uuid');
             $table->timestamps();
         });

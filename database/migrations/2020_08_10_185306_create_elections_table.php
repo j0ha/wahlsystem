@@ -16,8 +16,8 @@ class CreateElectionsTable extends Migration
         Schema::create('elections', function (Blueprint $table) {
             $table->id();
             $table->String('name');
-            $tabel->boolean('abstention');
-            $tabel->char('status', 16);
+            $table->boolean('abstention');
+            $table->char('status', 16);
             $table->uuid('uuid');
             $table->timestamps();
         });

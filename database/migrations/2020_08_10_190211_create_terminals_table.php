@@ -19,10 +19,11 @@ class CreateTerminalsTable extends Migration
             $table->string('kind');
             $table->text('description');
             $table->string('position');
-            $table->time('start_time');
-            $table->time('end_time');
-            $table->ipAddress('ip_restriction');
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('end_time')->nullable();
+            $table->ipAddress('ip_restriction')->nullable();
             $table->uuid('uuid');
+            $table->integer('election_id');
             $table->timestamps();
         });
     }

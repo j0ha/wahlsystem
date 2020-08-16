@@ -22,6 +22,7 @@ class CreateVotersTable extends Migration
             $table->boolean('voted_via_terminal')->default(false);
             $table->boolean('got_email')->default(false);
             $table->uuid('uuid');
+            $table->integer('election_id');
             $table->timestamps();
         });
     }

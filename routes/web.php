@@ -21,4 +21,4 @@ Route::get('/testRoute', 'testController@querryTerminal');
 
 //ROUTE FOR TERMINAL
 
-Route::get('/election/vote/{electionUUID}/{terminalUUID}', 'terminalController@verifyTruthiness', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID']);
+Route::get('/election/vote/{electionUUID}/{terminalUUID}', 'terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID']);

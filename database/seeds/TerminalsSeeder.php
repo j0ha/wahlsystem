@@ -18,6 +18,7 @@ class TerminalsSeeder extends Seeder
           'position' => "Hall A Room 12",
           'uuid' => Str::uuid(),
           'election_id' => 1,
+          'status' => "active",
       ]);
     }
 }

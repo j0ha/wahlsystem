@@ -19,6 +19,7 @@ class CreateTerminalsTable extends Migration
             $table->string('kind');
             $table->text('description');
             $table->string('position');
+            $table->string('status')->default('active');
             $table->dateTime('start_time')->nullable();
             $table->dateTime('end_time')->nullable();
             $table->ipAddress('ip_restriction')->nullable();

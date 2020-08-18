@@ -11,7 +11,7 @@ class terminalController extends Controller
 {
 
   //Function to verify if the controller and the termial fit together
-    public function verifyTruthiness($electionUUID, $terminalUUID)
+    private function verifyTruthiness($electionUUID, $terminalUUID)
     {
       $election = null;
       $terminal = null;
@@ -30,7 +30,7 @@ class terminalController extends Controller
       }
     }
     //Function to check if the terminal is within the time slot for operation
-    public function checkActiveTime($electionUUID, $terminalUUID) {
+    private function checkActiveTime($electionUUID, $terminalUUID) {
       try {
         $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
 
@@ -48,7 +48,7 @@ class terminalController extends Controller
 
     }
     //Function to check if the Clients IP is allowed to visit the termial
-    public function checkUserIp($electionUUID, $terminalUUID) {
+    private function checkUserIp($electionUUID, $terminalUUID) {
       $clientIp = \Request::getClientIp();
       try {
         $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
@@ -64,6 +64,62 @@ class terminalController extends Controller
         }
 
       } catch (\Exception $e) {
+        return false;
+      }
+    }
+
+    //Function to check the terminal status
+    private function checkTerminalStatus($electionUUID, $terminalUUID) {
+      try {
+        $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
+
+        if($terminal->status == "active") {
+
+          return true;
+
+        } else {
+
+          return false;
+
+        }
+
+      } catch (\Exception $e) {
+        return false;
+      }
+    }
+
+    //Function to check the terminal status
+    private function checkElectionStatus($electionUUID, $terminalUUID) {
+      try {
+        $election = Election::where('uuid', $electionUUID)->firstOrFail();
+
+        if($election->status == "active") {
+
+          return true;
+
+        } else {
+
+          return false;
+
+        }
+
+      } catch (\Exception $e) {
+
+        return false;
+      }
+    }
+
+    public function verifyTerminalAcces($electionUUID, $terminalUUID) {
+
+      $ces = Self::checkElectionStatus($electionUUID, $terminalUUID);
+      $cts = Self::checkTerminalStatus($electionUUID, $terminalUUID);
+      $cuip = Self::checkUserIp($electionUUID, $terminalUUID);
+      $cat = Self::checkActiveTime($electionUUID, $terminalUUID);
+      $vt = Self::verifyTruthiness($electionUUID, $terminalUUID);
+
+      if($ces == true && $cts == true && $cuip == true && $cat == true && $vt == true) {
+        return true;
+      } else {
         return false;
       }
     }

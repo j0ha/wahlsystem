@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Form extends Model
 {
-  public function Schoolclasses()
-  {
-    return $this->hasMany('App\Schoolclass');
+  public function voters() {
+    return $this->hasMany('App\Voter');
   }
 }

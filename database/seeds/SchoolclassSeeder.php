@@ -11,10 +11,10 @@ class SchoolclassSeeder extends Seeder
      */
     public function run()
     {
-      for ($i=0; $i < 10; $i++) {
+      for ($i=0; $i < 20; $i++) {
         DB::table('classes')->insert([
             'name' => Str::random(10),
-            'form_id' => rand(1, 5),
+            'election_id' => 1,
         ]);
       }
     }

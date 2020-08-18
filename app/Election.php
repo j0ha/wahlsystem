@@ -20,4 +20,12 @@ class Election extends Model
     {
       return $this->hasMany('App\Candidate');
     }
+
+    public function schoolclasses() {
+      return $this->hasMany(App\Schoolclass);
+    }
+
+    public function forms() {
+      return $this->hasMany(App\Form);
+    }
 }

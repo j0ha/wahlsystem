@@ -24,6 +24,7 @@ class CreateVotersTable extends Migration
             $table->uuid('uuid');
             $table->integer('election_id');
             $table->integer('schoolclass_id');
+            $table->integer('form_id');
             $table->timestamps();
         });
     }

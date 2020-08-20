@@ -17,6 +17,7 @@ class CreateFormsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('election_id');
+            $table->uuid('uuid');
             $table->timestamps();
         });
     }

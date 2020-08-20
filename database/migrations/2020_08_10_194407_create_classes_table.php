@@ -17,6 +17,8 @@ class CreateClassesTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('election_id');
+            $table->integer('form_id');
+            $table->uuid('uuid');
             $table->timestamps();
         });
     }

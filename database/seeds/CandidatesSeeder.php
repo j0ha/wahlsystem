@@ -15,6 +15,7 @@ class CandidatesSeeder extends Seeder
         DB::table('candidates')->insert([
             'name' => Str::random(10),
             'election_id' => 1,
+            'uuid' => Str::uuid(),
         ]);
       }
     }

@@ -11,11 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(VotersSeeder::class);
         $this->call(ElectionsSeeder::class);
         $this->call(CandidatesSeeder::class);
         $this->call(TerminalsSeeder::class);
-        $this->call(FormSeeder::class);
-        $this->call(SchoolclassSeeder::class);
+        $this->call(AddElectionSeeder::class);
     }
 }

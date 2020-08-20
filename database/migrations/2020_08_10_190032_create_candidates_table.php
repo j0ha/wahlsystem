@@ -19,6 +19,8 @@ class CreateCandidatesTable extends Migration
             $table->text('description')->nullable();
             $table->binary('image')->nullable();
             $table->integer('election_id');
+            $table->integer('votes')->default(0);
+            $table->uuid('uuid');
             $table->timestamps();
         });
     }

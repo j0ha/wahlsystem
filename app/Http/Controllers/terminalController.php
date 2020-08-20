@@ -109,6 +109,7 @@ class terminalController extends Controller
       }
     }
 
+    //Function to verify the acces to the vote terminal
     public function verifyTerminalAcces($electionUUID, $terminalUUID) {
 
       $ces = Self::checkElectionStatus($electionUUID, $terminalUUID);

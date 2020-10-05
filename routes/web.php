@@ -22,3 +22,7 @@ Route::get('/testRoute/{thing}/{uuid}/{elctionUUID}', 'securityController@verify
 //ROUTE FOR TERMINAL
 
 Route::get('/election/vote/{electionUUID}/{terminalUUID}', 'terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID']);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

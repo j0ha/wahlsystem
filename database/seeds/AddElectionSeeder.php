@@ -15,7 +15,7 @@ class AddElectionSeeder extends Seeder
         $ci = 0;
         for ($i=5; $i < 14; $i++) {
           DB::table('forms')->insert([
-              'name' => "Jahrgang " . $i+4,
+              'name' => "Jahrgang " . $i,
               'election_id' => 1,
               'uuid' => Str::uuid(),
           ]);

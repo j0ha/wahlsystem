@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
+
 class UserSeeder extends Seeder
 {
     /**
@@ -11,11 +12,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+      $password = "keineahnung";
       DB::table('users')->insert([
           'surname' => "Wahlmacher",
           'name' => "Admin",
           'email' => "admin@einfachabstimmen.online",
-          'password' => "keineahnung",
+          'password' => Hash::make($password),
           'approved' => '1',
 
       ]);

@@ -26,3 +26,9 @@ Route::get('/election/vote/{electionUUID}/{terminalUUID}', 'terminalController@v
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/emailelection', function() {
+  return view('emailelection');
+});
+
+Route::post('/emailElectionInsert', 'EmailElectionController@insert');

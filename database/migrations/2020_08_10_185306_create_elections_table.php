@@ -19,6 +19,9 @@ class CreateElectionsTable extends Migration
             $table->boolean('abstention');
             $table->char('status', 16);
             $table->uuid('uuid');
+            $table->char('type');
+            $table->datetime('activeby')->nullable();
+            $table->datetime('activeto')->nullable();
             $table->timestamps();
         });
     }

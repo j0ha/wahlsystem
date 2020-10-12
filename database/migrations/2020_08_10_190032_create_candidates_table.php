@@ -21,6 +21,8 @@ class CreateCandidatesTable extends Migration
             $table->integer('election_id');
             $table->integer('votes')->default(0);
             $table->uuid('uuid');
+            $table->char('type');
+            $table->integer('level');
             $table->timestamps();
         });
     }

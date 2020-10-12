@@ -23,6 +23,7 @@ class CreateVotersTable extends Migration
             $table->boolean('got_email')->default(false);
             $table->uuid('uuid');
             $table->uuid('direct_uuid');
+            $table->char('direct_token')->nullable();
             $table->string('email');
             $table->integer('election_id');
             $table->integer('schoolclass_id');

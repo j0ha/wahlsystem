@@ -26,3 +26,7 @@ Route::get('/election/vote/{electionUUID}/{terminalUUID}', 'terminalController@v
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('tokenTest', 'electiontypes\token@index')->name('Election Creation');
+
+Route::post('/tokenInsert', 'electiontypes\token@insert');

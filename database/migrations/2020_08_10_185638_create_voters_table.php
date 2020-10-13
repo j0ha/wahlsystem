@@ -18,9 +18,9 @@ class CreateVotersTable extends Migration
             $table->string('surname')->nullable();
             $table->string('name')->nullable();
             $table->date('birth_year')->default('1111-11-11')->nullable();
-            $table->boolean('voted_via_email')->default(false);
-            $table->boolean('voted_via_terminal')->default(false);
-            $table->boolean('got_email')->default(false);
+            $table->boolean('voted_via_email')->default(false)->nullable();
+            $table->boolean('voted_via_terminal')->default(false)->nullable();
+            $table->boolean('got_email')->default(false)->nullable();
             $table->uuid('uuid');
             $table->uuid('direct_uuid');
             $table->char('direct_token')->nullable();

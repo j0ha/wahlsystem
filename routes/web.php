@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Mail\ElectionRegisteredMail;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +29,22 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('tokenTest', 'electiontypes\token@index')->name('Election Creation');
+Route::get('/tokenTest', 'electiontypes\token@index')->name('Election Creation');
 
 Route::post('/tokenInsert', 'electiontypes\token@insert');
+
+Route::get('/token', function (){
+  return view('mails/token');
+});
+
+Route::get('/email', function() {
+
+  Mail::to('email@email.com')->send(new ElectionRegisteredMail());
+
+  return new ElectionRegisteredMail();
+});
+
+Route::get('/invoice', function() {
+  $pdf = PDF::loadView('invoice');
+  return $pdf->download('invoice.pdf');
+});

@@ -88,7 +88,7 @@ class electionProcessController extends Controller
 
     }
 
-    public function getId($uuid, $table) {
+    public static function getId($uuid, $table) {
       try {
         switch ($table) {
           case 'voters':

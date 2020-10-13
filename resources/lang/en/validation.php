@@ -117,6 +117,8 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'token.boolean' => 'Ungültig!',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -130,8 +132,18 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'token' => [
+          'required' => '',
+          'min:' => [
+            'numeric' => '',
+          ],
+          'max:' => [
+            'numeric' => '',
+            'string' => '',
+          ],
+          'alpha_dash' => '',
+          'numeric' => '',
+          'boolean' => '',
         ],
     ],
 
@@ -146,6 +158,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+      'token' => 'Email - Election',
+    ],
 
 ];

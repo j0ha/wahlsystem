@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use App\Mode;
 
 class Multiform extends Component
 {
@@ -20,7 +21,7 @@ class Multiform extends Component
   ];
 
   public function mount(){
-    $this->step = 0;
+    $this->step = 1;
   }
 
   public function decrease(){
@@ -28,7 +29,9 @@ class Multiform extends Component
   }
 
   public function render(){
-        return view('livewire.multiform');
+    $modes = Mode::all();
+
+        return view('livewire.multiform')->withModes($modes);;
   }
 
   public function submit(){

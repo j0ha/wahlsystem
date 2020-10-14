@@ -14,12 +14,20 @@ class Multiform extends Component
   public $description;
   public $mode;
 
+  public $election;
+
   public $step;
 
   private $stepActions = [
     'submit1',
     'submit2',
     'submit3',
+  ];
+
+  protected $rules = [
+    'name' => 'required|max:20',
+    'description' => 'required|max:255',
+    'mode' => 'required',
   ];
 
   public function mount(){
@@ -34,27 +42,30 @@ class Multiform extends Component
     $this->step--;
   }
 
+  public function submit(){
+    $this->validate();
+
+    Election::create([
+      'name' => $this->name,
+      'description' => $this->description,
+      'token' => 'test',
+    ]);
+  }
+
   public function render(){
     $modes = Mode::all();
 
         return view('livewire.multiform')->withModes($modes);
   }
 
-  public function submit(){
-    $action = $this->stepActions[$this->step];
-    $this->$action();
-  }
-
+/*
   public function submit1(){
     $this->validate([
       'name' => 'bail|required|max:20',
       'description' => 'required',
     ]);
 
-    
-
-
-
+    Election::create(['name' => $this->name]);
 
     $this->step++;
   }
@@ -73,4 +84,5 @@ class Multiform extends Component
     // ]);
     return view('welcome');
   }
+  */
 }

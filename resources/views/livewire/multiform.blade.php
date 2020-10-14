@@ -2,7 +2,7 @@
   <h1>Testingpage</h1>
   <form wire:submit.prevent="submit">
 
-
+    
   <!-- Name der Wahl -->
   @if($step == 0)
   <div class="form-group">

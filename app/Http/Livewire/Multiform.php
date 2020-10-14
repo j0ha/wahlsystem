@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Mode;
+use App\Election;
+use Illuminate\Http\Request;
 
 class Multiform extends Component
 {
@@ -21,17 +23,21 @@ class Multiform extends Component
   ];
 
   public function mount(){
-    $this->step = 1;
+    $this->step = 0;
   }
 
-  public function decrease(){
-    $this->step = $step--;
+  public function increaseStep(){
+    $this->step++;
+  }
+
+  public function decreaseStep(){
+    $this->step--;
   }
 
   public function render(){
     $modes = Mode::all();
 
-        return view('livewire.multiform')->withModes($modes);;
+        return view('livewire.multiform')->withModes($modes);
   }
 
   public function submit(){
@@ -40,9 +46,15 @@ class Multiform extends Component
   }
 
   public function submit1(){
-    // $this->validate([
-    //   '' => '',
-    // ]);
+    $this->validate([
+      'name' => 'bail|required|max:20',
+      'description' => 'required',
+    ]);
+
+    
+
+
+
 
     $this->step++;
   }
@@ -52,12 +64,13 @@ class Multiform extends Component
     //   '' => '',
     // ]);
     $this->step++;
+    return view('welcome');
   }
 
   public function submit3(){
     // $this->validate([
     //   '' => '',
     // ]);
-    $this->step++;
+    return view('welcome');
   }
 }

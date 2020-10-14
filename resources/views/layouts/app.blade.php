@@ -77,6 +77,6 @@
             @yield('content')
         </main>
     </div>
-    <laravel:scripts>
+    <livewire:scripts>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <div>
   <h1>Testingpage</h1>
-  <form wire:submit.prevent="submit">
+  <form method="post" action="/electionInsert" wire:submit.prevent="submit">
 
 
   <!-- Name der Wahl -->
@@ -31,14 +31,15 @@
    <small id="electionnamehelp" class="form-text text-muted">The mode decides wheter the elector can abstain inside of your election or not.</small>
  </div>
 @endif
-@if($step > 0 && $step <= 2)
+@if($step > 0 && $step <= 1)
   <!-- Submit Button -->
-  <button type="button" wire:click="decrease" class="btn btn-primary">Backwards</button>
+  <button type="button" wire:click="decreaseStep" class="btn btn-primary">Backwards</button>
 @endif
-@if($step <= 2)
+@if($step <= 1)
   <!-- Submit Button -->
-  <button type="submit" class="btn btn-primary">Next</button>
+  <button type="button" wire:click="increaseStep" class="btn btn-primary">Next</button>
 @endif
+
 
 
 </form>

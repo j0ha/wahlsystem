@@ -18,7 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    @livewireStyles
+    <livewire:styles>
 </head>
 <body>
     <div id="app">
@@ -77,6 +77,6 @@
             @yield('content')
         </main>
     </div>
-    @livewireStyles
+    <laravel:scripts>
 </body>
 </html>

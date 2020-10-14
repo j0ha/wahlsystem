@@ -37,24 +37,24 @@ class Multiform extends Component
   }
 
   public function submit1(){
-    $this->validate([
-      '' => '',
-    ]);
+    // $this->validate([
+    //   '' => '',
+    // ]);
 
     $this->step++;
   }
 
   public function submit2(){
-    $this->validate([
-      '' => '',
-    ]);
+    // $this->validate([
+    //   '' => '',
+    // ]);
     $this->step++;
   }
 
   public function submit3(){
-    $this->validate([
-      '' => '',
-    ]);
+    // $this->validate([
+    //   '' => '',
+    // ]);
     $this->step++;
   }
 }

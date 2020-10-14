@@ -26,3 +26,8 @@ Route::get('/election/vote/{electionUUID}/{terminalUUID}', 'terminalController@v
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::post('/multiform', App\Http\Livewire\Multiform::class);
+Route::get('/multiform', function(){
+  return view('electionCreation');
+});

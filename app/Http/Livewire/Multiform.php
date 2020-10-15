@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Mode;
 use App\Election;
 use Illuminate\Http\Request;
+use 
+
 
 class Multiform extends Component
 {
@@ -29,6 +31,18 @@ class Multiform extends Component
   }
 
   public function submit(){
+
+      $e = new Election;
+
+      $e->name = $this->name;
+      $e->description = $this->description;
+      $e->abstention = 1;
+      $e->status = "active";
+      $e->uuid = $uuid=Str::uuid();
+      $e->type = $this->mode;
+      $e->save();
+
+      return "erfolg";
   }
 
   public function render(){

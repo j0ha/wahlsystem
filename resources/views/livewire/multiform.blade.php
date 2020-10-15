@@ -1,7 +1,6 @@
 <div>
   <h1>Create your own and differentiated Election!</h1>
-  <form method="post" action="/electionInsert">
-
+  <form wire:submit.prevent="submit" method="POST">
 
   <!-- Name der Wahl -->
   @if($step == 0)

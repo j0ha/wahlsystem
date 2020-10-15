@@ -35,7 +35,7 @@ Route::group(['prefix' => 'vote'], function(){
 
 //ROUTES FOR BACKEND
 Route::group(['prefix' => 'dvi'], function() {
-    Route::group(['prefix' => 'home'], function(){
+  Route::group(['prefix' => 'home'], function(){
     Route::get('/', function(){return 'home without election';});
     Route::get('/{electionUUID}', function(){return 'home with election';});
     Route::get('/{electionUUID}/stats', function(){return 'stats';});
@@ -50,6 +50,9 @@ Route::group(['prefix' => 'dvi'], function() {
   });
   Route::get('/setup', 'App\Http\Controllers\createController@index');
 
+  Route::group(['prefix' => 'profil'],  function() {
+    Route::get('/', function(){return 'user profil setting site';});
+  });
 });
 
 

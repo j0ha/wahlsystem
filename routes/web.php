@@ -61,3 +61,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::post('/multiform', App\Http\Livewire\Multiform::class);
 Route::get('/multiform', 'App\Http\Controllers\createController@index');
+
+Route::post('/electionInsert', 'createController@insert');
+
+Route::get('/backend', function(){
+  return view('layouts.backend');
+});

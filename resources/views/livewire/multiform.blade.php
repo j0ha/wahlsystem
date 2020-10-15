@@ -1,13 +1,13 @@
 <div>
-  <h1>Testingpage</h1>
-  <form wire:submit.prevent="submit">
+  <h1>Create your own and differentiated Election!</h1>
+  <form method="post" action="/electionCreation">
 
 
   <!-- Name der Wahl -->
   @if($step == 0)
   <div class="form-group">
     <label for="electionName">Name</label>
-    <input type="text" class="form-control" wire:model.lazy="name" name="electionName" aria-describedby="electionNameHelp" placeholder="Enter Electionname">
+    <input type="text" class="form-control" wire:model="name" name="electionName" aria-describedby="electionNameHelp" placeholder="Enter Electionname">
     <small id="electionnamehelp" class="form-text text-muted">The Name of your Election should fit well.</small>
   </div>
 
@@ -15,7 +15,7 @@
 
   <div class="form-group">
     <label for="description">Description</label>
-    <input type="text" class="form-control" wire:model.lazy="description" name="electionDescription" aria-describedby="electionDescriptionHelp" placeholder="Type in the Description of the Election.">
+    <input type="text" class="form-control" wire:model="description" name="electionDescription" aria-describedby="electionDescriptionHelp" placeholder="Type in the Description of the Election.">
     <small id="electionDescriptionHelp" class="form-text text-muted">Type in whether the questioning or the problematic of the topic that the election is dealing with.</small>
   </div>
 @endif
@@ -23,22 +23,27 @@
 @if($step == 1)
   <div class="form-group">
    <label for="electionMode">Select the Electionmode</label>
-   <select class="form-control" wire:model.lazy="mode" name="electionMode">
+   <select class="form-control" wire:model="mode" name="electionMode">
      @foreach ($modes as $mode)
-      <option value=" {{ $mode->id }} "> {{$mode->name}} </option>
+      <option value=" {{ $mode->mode }} "> {{$mode->name}} </option>
      @endforeach
    </select>
    <small id="electionnamehelp" class="form-text text-muted">The mode decides wheter the elector can abstain inside of your election or not.</small>
  </div>
 @endif
-@if($step > 0 && $step <= 2)
+@if($step > 0 && $step <= 1)
   <!-- Submit Button -->
-  <button type="button" wire:click="decrease" class="btn btn-primary">Backwards</button>
+  <button type="button" wire:click="decreaseStep" class="btn btn-primary">Backwards</button>
 @endif
-@if($step <= 2)
+@if($step < 1)
   <!-- Submit Button -->
-  <button type="submit" class="btn btn-primary">Next</button>
+  <button type="button" wire:click="increaseStep" class="btn btn-primary">Next</button>
 @endif
+@if($step == 1)
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-primary">Submit</button>
+@endif
+
 
 
 </form>

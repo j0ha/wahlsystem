@@ -33,6 +33,27 @@ Route::group(['prefix' => 'vote'], function(){
 
 });
 
+//ROUTES FOR BACKEND
+Route::group(['prefix' => 'dvi'], function() {
+    Route::group(['prefix' => 'home'], function(){
+    Route::get('/', function(){return 'home without election';});
+    Route::get('/{electionUUID}', function(){return 'home with election';});
+    Route::get('/{electionUUID}/stats', function(){return 'stats';});
+    Route::get('/{electionUUID}/baseinfo', function(){return 'basic infomations';});
+    Route::get('/{electionUUID}/voters', function(){return 'voter overview';});
+    Route::get('/{electionUUID}/voters/add', function(){return 'voters add';});
+    Route::get('/{electionUUID}/voters/bulkadd', function(){return 'voters bulk add';});
+    Route::get('/{electionUUID}/candidates', function(){return 'candidates overview';});
+    Route::get('/{electionUUID}/candidates/add', function(){return 'candidates add';});
+    Route::get('/{electionUUID}/candidates/bulkadd', function(){return 'candidates bulk add';});
+    Route::get('/{electionUUID}/bulkemail', function(){return 'send bulk emails';});
+  });
+  Route::get('/setup', 'App\Http\Controllers\createController@index');
+
+});
+
+
+
 
 Auth::routes();
 

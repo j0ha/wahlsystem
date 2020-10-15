@@ -6,7 +6,8 @@ use Livewire\Component;
 use App\Mode;
 use App\Election;
 use Illuminate\Http\Request;
-use 
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 
 class Multiform extends Component
@@ -18,7 +19,8 @@ class Multiform extends Component
 
   public $step;
 
-  public function mount(){
+  public function mount($mod){
+    $this->mode = $mod;
     $this->step = 0;
   }
 
@@ -32,6 +34,8 @@ class Multiform extends Component
 
   public function submit(){
 
+
+
       $e = new Election;
 
       $e->name = $this->name;
@@ -41,6 +45,8 @@ class Multiform extends Component
       $e->uuid = $uuid=Str::uuid();
       $e->type = $this->mode;
       $e->save();
+
+      //$this->step++;
 
       return "erfolg";
   }

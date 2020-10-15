@@ -1,13 +1,13 @@
 <div>
   <h1>Create your own and differentiated Election!</h1>
-  <form method="post" action="/electionCreation">
-
+  <form wire:submit.prevent="submit" method="POST">
 
   <!-- Name der Wahl -->
   @if($step == 0)
   <div class="form-group">
     <label for="electionName">Name</label>
-    <input type="text" class="form-control" wire:model="name" name="electionName" aria-describedby="electionNameHelp" placeholder="Enter Electionname">
+    <input type="text" class="form-control" wire:model.lazy="name" name="electionName" aria-describedby="electionNameHelp" placeholder="Enter Electionname">
+    @error('name') <span class="error"> {{ $message }} </span> @enderror
     <small id="electionnamehelp" class="form-text text-muted">The Name of your Election should fit well.</small>
   </div>
 
@@ -15,7 +15,8 @@
 
   <div class="form-group">
     <label for="description">Description</label>
-    <input type="text" class="form-control" wire:model="description" name="electionDescription" aria-describedby="electionDescriptionHelp" placeholder="Type in the Description of the Election.">
+    <input type="text" class="form-control" wire:model.lazy="description" name="electionDescription" aria-describedby="electionDescriptionHelp" placeholder="Type in the Description of the Election.">
+    @error('description') <span class="error"> {{ $message }} </span> @enderror
     <small id="electionDescriptionHelp" class="form-text text-muted">Type in whether the questioning or the problematic of the topic that the election is dealing with.</small>
   </div>
 @endif
@@ -23,11 +24,10 @@
 @if($step == 1)
   <div class="form-group">
    <label for="electionMode">Select the Electionmode</label>
-   <select class="form-control" wire:model="mode" name="electionMode">
-     @foreach ($modes as $mode)
-      <option value=" {{ $mode->mode }} "> {{$mode->name}} </option>
+     @foreach ($modes as $m)
+      <label>{{$m->name}}</label>
+      <input type="radio" wire:model.lazy="mode" name="type" value="{{$m->mode}}">
      @endforeach
-   </select>
    <small id="electionnamehelp" class="form-text text-muted">The mode decides wheter the elector can abstain inside of your election or not.</small>
  </div>
 @endif

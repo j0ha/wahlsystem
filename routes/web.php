@@ -37,7 +37,7 @@ Route::group(['prefix' => 'vote'], function(){
 Route::group(['prefix' => 'dvi'], function() {
   Route::group(['prefix' => 'home'], function(){
     Route::get('/', function(){return 'home without election';});
-    Route::get('/{electionUUID}', function(){return 'home with election';});
+    Route::get('/{electionUUID}', function(){return 'home with election';})->name('homeE');
     Route::get('/{electionUUID}/stats', function(){return 'stats';});
     Route::get('/{electionUUID}/baseinfo', function(){return 'basic infomations';});
     Route::get('/{electionUUID}/voters', function(){return 'voter overview';});
@@ -49,6 +49,7 @@ Route::group(['prefix' => 'dvi'], function() {
     Route::get('/{electionUUID}/bulkemail', function(){return 'send bulk emails';});
   });
   Route::get('/setup', 'App\Http\Controllers\createController@index');
+  Route::post('/setup', 'App\Http\Controllers\createController@insert');
 
   Route::group(['prefix' => 'profil'],  function() {
     Route::get('/', function(){return 'user profil setting site';});
@@ -65,7 +66,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route::post('/multiform', App\Http\Livewire\Multiform::class);
 Route::get('/multiform', 'App\Http\Controllers\createController@index');
 
-Route::post('/electionInsert', 'createController@insert');
+Route::post('/electionInsert', 'App\Http\Controllers\createController@insert');
 
 Route::get('/backend', function(){
   return view('layouts.backend');

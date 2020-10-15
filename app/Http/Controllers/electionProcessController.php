@@ -13,63 +13,6 @@ use Illuminate\Support\Facades\DB;
 
 class electionProcessController extends Controller
 {
-    public function querrySchoolForms($electtionUUID) {
-      try {
-        $election = Election::where('uuid', $electtionUUID)->firstOrFail();
-        $forms = Form::where('election_id', $election->id)->get();
-
-        return $forms;
-
-      } catch (\Exception $e) {
-
-        return 'error';
-      }
-
-    }
-
-    public function querrySchoolClassesInForm($formUUID) {
-      try {
-        $schoolClasses = Schoolclass::where('form_id', Self::getId($formUUID, 'forms'))->get();
-
-        return $schoolClasses;
-      } catch (\Exception $e) {
-        return 'error';
-            }
-
-    }
-
-    public function querryStudentsInClasses($classUUID) {
-      try {
-        $students = Voter::where('schoolclass_id', Self::getId($classUUID, 'classes'))->get();
-
-        return $students;
-      } catch (\Exception $e) {
-        return 'error';
-      }
-
-    }
-
-    public function querryStudentData($studentUUID) {
-      try {
-        $student = Voter::find(Self::getId($studentUUID, 'voters'));
-
-        return $student;
-      } catch (\Exception $e) {
-        return 'error';
-      }
-
-    }
-
-    public function querryElectionCandidates($electionUUID) {
-      try {
-        $candidates = Candidate::where('election_id', Self::getId($electionUUID, 'elections'))->get();
-
-        return $candidates;
-      } catch (\Exception $e) {
-        return 'error';
-      }
-
-    }
 
     public function vote($candidateUUID, $voterUUID) {
         try {
@@ -88,6 +31,17 @@ class electionProcessController extends Controller
 
     }
 
+    public function querryElectionCandidates($electionUUID) {
+      try {
+        $candidates = Candidate::where('election_id', Self::getId($electionUUID, 'elections'))->get();
+
+        return $candidates;
+      } catch (\Exception $e) {
+        return 'error';
+      }
+
+    }
+
     public function getId($uuid, $table) {
       try {
         switch ($table) {
@@ -96,12 +50,6 @@ class electionProcessController extends Controller
             break;
           case 'terminals':
             return Terminal::where('uuid', $uuid)->firstOrFail()->id;
-            break;
-          case 'forms':
-            return Form::where('uuid', $uuid)->firstOrFail()->id;
-            break;
-          case 'classes':
-            return Schoolclass::where('uuid', $uuid)->firstOrFail()->id;
             break;
           case 'elections':
             return Election::where('uuid', $uuid)->firstOrFail()->id;

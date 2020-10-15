@@ -49,6 +49,7 @@ Route::group(['prefix' => 'dvi'], function() {
     Route::get('/{electionUUID}/bulkemail', function(){return 'send bulk emails';});
   });
   Route::get('/setup', 'App\Http\Controllers\createController@index');
+  Route::post('/setup', 'App\Http\Controllers\createController@insert');
 
 });
 

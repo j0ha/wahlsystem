@@ -1,6 +1,6 @@
 <div>
   <h1>Create your own and differentiated Election!</h1>
-  <form method="post" action="/electionCreation">
+  <form method="post" action="/setup">
 
 
   <!-- Name der Wahl -->

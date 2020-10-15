@@ -17,11 +17,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 //TESTROUTE
-Route::get('/testRoute/{thing}/{uuid}/{elctionUUID}', 'securityController@verifyToElection', ['thing' => 'thing'], ['uuid' => 'UUID'], ['electionUUID' => 'electionUUID']);
+Route::get('/testRoute/{thing}/{uuid}/{elctionUUID}', 'App\Http\Controllers\securityController@verifyToElection', ['thing' => 'thing'], ['uuid' => 'UUID'], ['electionUUID' => 'electionUUID']);
+Route::get('/testRoute/candidates/{electionUUID}', 'App\Http\Controllers\electionProcessController@querryElectionCandidates', ['electionUUID' => 'electionUUID']);
 
-//ROUTE FOR TERMINAL
+//ROUTES FOR TERMINAL
+Route::group(['prefix' => 'vote'], function(){
+  //STANDARD ROUTE
+  Route::get('/{electionUUID}/{terminalUUID}', 'App\Http\Controllers\terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID'])->name('vote');
 
-Route::get('/election/vote/{electionUUID}/{terminalUUID}', 'terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID']);
+  //DIRECT ROUTE
+  Route::get('/{electionUUID}/{terminalUUID}/d/{dircetUUID}', 'App\Http\Controllers\terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID'], ['directUUID' => 'directUUID'])->name('vote.direct');
+
+  //TOKEN
+  Route::get('/token', 'App\Http\Controllers\terminalController@verifyTerminalAcces')->name('vote.token');
+
+});
+
 
 Auth::routes();
 

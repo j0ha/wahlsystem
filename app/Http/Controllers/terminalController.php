@@ -34,7 +34,7 @@ class terminalController extends Controller
       try {
         $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
 
-        if($terminal->start_time <= Carbon::now() && $terminal->end_time >= Carbon::now()) {
+        if(($terminal->start_time <= Carbon::now() && $terminal->end_time >= Carbon::now()) OR ($terminal->start_time == null && $terminal->end_time ==null)) {
           return true;
 
         } else {
@@ -53,7 +53,7 @@ class terminalController extends Controller
       try {
         $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
 
-        if($terminal->ip_restriction == $clientIp) {
+        if($terminal->ip_restriction == $clientIp OR $terminal->ip_restriction == null) {
 
           return true;
 
@@ -117,6 +117,7 @@ class terminalController extends Controller
       $cuip = Self::checkUserIp($electionUUID, $terminalUUID);
       $cat = Self::checkActiveTime($electionUUID, $terminalUUID);
       $vt = Self::verifyTruthiness($electionUUID, $terminalUUID);
+
 
       if($ces == true && $cts == true && $cuip == true && $cat == true && $vt == true) {
         return true;

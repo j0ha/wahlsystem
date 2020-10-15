@@ -16,6 +16,8 @@ class CandidatesSeeder extends Seeder
             'name' => Str::random(10),
             'election_id' => 1,
             'uuid' => Str::uuid(),
+            'type' => 'spt',
+            'level' => 0,
         ]);
       }
     }

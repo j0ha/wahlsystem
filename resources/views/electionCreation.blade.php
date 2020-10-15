@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-@livewire('multiform', ['mod => $mode->mode'])
+@livewire('multiform')
 @endsection

@@ -37,7 +37,7 @@ Route::group(['prefix' => 'vote'], function(){
 Route::group(['prefix' => 'dvi'], function() {
     Route::group(['prefix' => 'home'], function(){
     Route::get('/', function(){return 'home without election';});
-    Route::get('/{electionUUID}', function(){return 'home with election';});
+    Route::get('/{electionUUID}', function(){return 'home with election';})->name('homeE');
     Route::get('/{electionUUID}/stats', function(){return 'stats';});
     Route::get('/{electionUUID}/baseinfo', function(){return 'basic infomations';});
     Route::get('/{electionUUID}/voters', function(){return 'voter overview';});

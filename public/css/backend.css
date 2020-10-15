@@ -1,38 +1,105 @@
-*{
-  box-sizing: border-box;
-
+* {
+  margin: 0 auto;
+  padding: 0;
 }
 
-body{
+.main {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Jost', sans-serif;
+}
+
+.firstcloum {
+  height: 100%;
+  width: 20%;
+}
+
+.secondcloum {
+  height: 100%;
+  width: 80%;
+}
+.header {
+  display: flex;
+  width: 100%;
+  height: 5%;
+  background-color: #E3E3E3;
+  align-items: center;
+}
+
+.logout-span {
+  margin-left: 7%;
+  font-size: 0.8em;
+}
+
+.setting-span {
+ margin-right: 7%;
+ font-size: 0.8em;
+}
+
+.election-selector {
+  font-size: 1.4em;
+}
+
+.namebody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  width: 100%;
+  height: 12%;
+  background-color: #EFECEC;
+}
+
+.navigation {
+  width: 100%;
+  height: 76%;
+  background-color: #EFECEC;
+}
+
+.navigation-list {
+  width: 100%;
+  height: 100%;
+}
+
+.navigation-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 7%;
+  font-size: 1.2em;
+}
+.navigation-list-item:nth-child(2n-1) {
+  background-color: #E4E4E4;
+}
+
+.timefooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  width: 100%;
+  height: 7%;
+  background-color: #E3E3E3;
+}
+
+.namebody-name {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5em;
 }
 
-.leftside {
-  position: relative;
-  height: 100%;
-  width: 200px;
-  top: 0;
-  left: 0;
-  background-color: black;
-  overflow-x: hidden;
+.namebody-institution {
+  margin: 0;
+  font-size: 1em;
 }
 
-.rightside {
-  position: relative;
-  margin-left: 200px;
-  padding-left: 20px;
-  height: 100%;
-  background-color: grey;
+.timefooter-timestamp {
+  margin: 0;
+  font-size: 1.2em;
 }
 
-.logout{
-  position: absolute;
-  height: 100px;;
-  width: 200px;
-}
-
-.namefield {
-  position: absolute;
-  margin-top: 100px;
+.timefooter-session {
+  margin: 0;
+  font-size: 0.8em;
 }

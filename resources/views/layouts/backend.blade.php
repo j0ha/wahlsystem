@@ -15,7 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Jost" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('css/backend.css') }}" rel="stylesheet">
 
@@ -24,54 +24,36 @@
     <livewire:styles>
 </head>
   <body>
-      <!-- Left Side of the Page -->
-      <div class="leftside">
-
-        <!-- Logout Tab -->
-        <div class="logout">
-
-          <button type="button" name="button">Logout</button>
-          
-
+      <div class="main">
+        <div class="firstcloum">
+          <div class="header">
+            <span class="logout-span">Abmelden</span>
+            <span class="setting-span">Einstellungen</span>
+          </div>
+          <div class="namebody">
+            <span class="namebody-name">Amelia Hutson</span>
+            <span class="namebody-institution">Internat Louisenlund</span>
+          </div>
+          <div class="navigation">
+            <ul class="navigation-list">
+              <li class="navigation-list-item">Menu</li>
+              <li class="navigation-list-item">Menu</li>
+              <li class="navigation-list-item">Menu</li>
+              <li class="navigation-list-item">Menu</li>
+              <li class="navigation-list-item">Menu</li>
+              <li class="navigation-list-item">Menu</li>
+            </ul>
+          </div>
+          <div class="timefooter">
+            <span class="timefooter-timestamp">09:41 CET 10.09.2020</span>
+            <span class="timefooter-session">Session: f673f2ca-3e86-4f40-8184-746ea2c29e95</span>
+          </div>
         </div>
-        <!-- Namfield consisting Name + Institution -->
-        <div class="namefield">
-
-          <span>Name</span>
-          <span>Institution</span>
-
+        <div class="secondcloum">
+          <div class="header">
+            <span class="election-selector">Louisenlund Dorm REP Wahl</span>
+          </div>
         </div>
-        <!-- Navigation -->
-        <div class="navbar">
-
-          <a href="#">Link</a>
-          <a href="#">Link</a>
-          <a href="#">Link</a>
-
-        </div>
-        <!-- Live Time -->
-        <div class="time">
-
-          Hello Im your Time
-
-        </div>
-
-      </div>
-      <!-- Right Side of the Page -->
-      <div class="rightside">
-        <h2>CSS Test</h2>
-        <p>HELLO IM A TEST</p>
-        <div class="Heading">
-
-        </div>
-        <div class="content">
-
-          <main class="py-4">
-              @yield('backendcontent')
-          </main>
-
-        </div>
-
       </div>
   </body>
 </html>

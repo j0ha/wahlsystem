@@ -1,6 +1,6 @@
 <div>
   <h1>Create your own and differentiated Election!</h1>
-  <form method="post" action="/setup">
+  <form method="post" action="/electionInsert">
 
 
   <!-- Name der Wahl -->
@@ -23,7 +23,7 @@
 @if($step == 1)
   <div class="form-group">
    <label for="electionMode">Select the Electionmode</label>
-   <select class="form-control" wire:model="mode" name="electionMode">
+   <select class="form-control" wire:model="mode" name="electionMode" id="electionMode">
      @foreach ($modes as $mode)
       <option value=" {{ $mode->mode }} "> {{$mode->name}} </option>
      @endforeach

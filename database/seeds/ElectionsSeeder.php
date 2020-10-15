@@ -13,6 +13,7 @@ class ElectionsSeeder extends Seeder
     {
       DB::table('elections')->insert([
           'name' => Str::random(8),
+          'description' => "Test",
           'abstention' => false,
           'uuid' => Str::uuid(),
           'status' => "active",

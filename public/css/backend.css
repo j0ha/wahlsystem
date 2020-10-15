@@ -1,0 +1,38 @@
+*{
+  box-sizing: border-box;
+
+}
+
+body{
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.leftside {
+  position: relative;
+  height: 100%;
+  width: 200px;
+  top: 0;
+  left: 0;
+  background-color: black;
+  overflow-x: hidden;
+}
+
+.rightside {
+  position: relative;
+  margin-left: 200px;
+  padding-left: 20px;
+  height: 100%;
+  background-color: grey;
+}
+
+.logout{
+  position: absolute;
+  height: 100px;;
+  width: 200px;
+}
+
+.namefield {
+  position: absolute;
+  margin-top: 100px;
+}

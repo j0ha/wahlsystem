@@ -25,7 +25,7 @@
    <label for="electionMode">Select the Electionmode</label>
    <select class="form-control" wire:model="mode" name="electionMode">
      @foreach ($modes as $mode)
-      <option value=" {{ $mode->id }} "> {{$mode->name}} </option>
+      <option value=" {{ $mode->mode }} "> {{$mode->name}} </option>
      @endforeach
    </select>
    <small id="electionnamehelp" class="form-text text-muted">The mode decides wheter the elector can abstain inside of your election or not.</small>

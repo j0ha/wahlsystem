@@ -31,3 +31,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/multiform', 'App\Http\Controllers\createController@index');
 
 Route::post('/electionInsert', 'createController@insert');
+
+Route::get('/backend', function(){
+  return view('layouts.backend');
+});

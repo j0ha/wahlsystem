@@ -38,27 +38,32 @@ Route::group(['prefix' => 'dvi'], function() {
   Route::group(['prefix' => 'home'], function(){
     Route::get('/', function(){return 'home without election';});
     Route::get('/{electionUUID}', 'App\Http\Controllers\backendController@home')->name('homeE');
-    Route::get('/{electionUUID}/stats', function(){return 'stats';});
-    Route::get('/{electionUUID}/baseinfo', function(){return 'basic infomations';});
-    Route::get('/{electionUUID}/voters', function(){return 'voter overview';});
-    Route::get('/{electionUUID}/voters/add', function(){return 'voters add';});
-    Route::get('/{electionUUID}/voters/bulkadd', function(){return 'voters bulk add';});
-    Route::get('/{electionUUID}/candidates', function(){return 'candidates overview';});
-    Route::get('/{electionUUID}/candidates/add', function(){return 'candidates add';});
-    Route::get('/{electionUUID}/candidates/bulkadd', function(){return 'candidates bulk add';});
-    Route::get('/{electionUUID}/bulkemail', function(){return 'send bulk emails';});
+    //Everything with stats
+    Route::get('/{electionUUID}/stats', 'App\Http\Controllers\backendController@stats')->name('stats');
+    //All Voter to the elecetion
+    Route::get('/{electionUUID}/voters', 'App\Http\Controllers\backendController@voter')->name('voters');
+    //Ein Datensatz kann hinzugefügt werden
+    Route::get('/{electionUUID}/voters/add', 'App\Http\Controllers\backendController@voteradd')->name('addingvoters');
+    //Großer Datensatz inform von einer Datei
+    Route::get('/{electionUUID}/voters/bulkadd', 'App\Http\Controllers\backendController@bulkadd')->name('addingbulk');
+    Route::get('/{electionUUID}/candidates', 'App\Http\Controllers\backendController@candidates')->name('candidates');
+    Route::get('/{electionUUID}/candidates/add', 'App\Http\Controllers\backendController@candidateadd')->name('addingcandidates');
+    Route::get('/{electionUUID}/candidates/bulkadd', 'App\Http\Controllers\backendController@candidatebulk')->name('candidatesbulkadding');
+    //Alle Emails versenden, an die eingetragenen Emails, with options?
+    Route::get('/{electionUUID}/bulkemail', 'App\Http\Controllers\backendController@bulkemail')->name('bulkemail');
   });
   Route::get('/setup', 'App\Http\Controllers\createController@index');
   Route::post('/setup', 'App\Http\Controllers\createController@insert');
 
   Route::group(['prefix' => 'profil'],  function() {
     Route::get('/', function(){return 'user profil setting site';});
+    Route::get('/', function(){return 'user profil setting site';});
+    Route::get('/', function(){return 'user profil setting site';});
+    Route::get('/', function(){return 'user profil setting site';});
+    Route::get('/', function(){return 'user profil setting site';});
   });
 });
 
-Route::get('/stats', function(){
-  return view('backendviews.stastistics');
-});
 
 Route::namespace('App\Http\Controllers')->group(function () {
     Auth::routes();

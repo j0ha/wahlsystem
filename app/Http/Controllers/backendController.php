@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Election;
+use Illuminate\Database\Eloquent\Model;
 
 class backendController extends Controller
 {
@@ -13,6 +14,8 @@ class backendController extends Controller
     }
     public function stats($electionUUID){
       $elections = Election::all();
+
+      $selectedElection = Election::where('UUID', $electionUUID);
 
       return view('backendviews.Stats', ['electionUUID' => $electionUUID])->withElections($elections);
     }

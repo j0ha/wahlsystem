@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
 /*!
- * Bootstrap v4.5.2 (https://getbootstrap.com/)
+ * Bootstrap v4.5.3 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -74,6 +74,108 @@ body {
   text-align: left;
   background-color: #f8fafc;
 }
+
+.main {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Jost', sans-serif;
+}
+
+.firstcloum {
+  height: 100%;
+  width: 20%;
+}
+
+.secondcloum {
+  height: 100%;
+  width: 80%;
+}
+.header {
+  display: flex;
+  width: 100%;
+  height: 5%;
+  background-color: #E3E3E3;
+  align-items: center;
+}
+
+.logout-span {
+  margin-left: 7%;
+  font-size: 0.8em;
+}
+
+.setting-span {
+ margin-right: 7%;
+ font-size: 0.8em;
+}
+
+.election-selector {
+  font-size: 1.4em;
+}
+
+.namebody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  width: 100%;
+  height: 12%;
+  background-color: #EFECEC;
+}
+
+.navigation {
+  width: 100%;
+  height: 76%;
+  background-color: #EFECEC;
+}
+
+.navigation-list {
+  width: 100%;
+  height: 100%;
+}
+
+.navigation-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 7%;
+  font-size: 1.2em;
+}
+.navigation-list-item:nth-child(2n-1) {
+  background-color: #E4E4E4;
+}
+
+.timefooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  width: 100%;
+  height: 7%;
+  background-color: #E3E3E3;
+}
+
+.namebody-name {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.namebody-institution {
+  margin: 0;
+  font-size: 1em;
+}
+
+.timefooter-timestamp {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.timefooter-session {
+  margin: 0;
+  font-size: 0.8em;
+}
+
 
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;
@@ -233,6 +335,7 @@ caption {
 
 th {
   text-align: inherit;
+  text-align: -webkit-match-parent;
 }
 
 label {
@@ -3939,6 +4042,8 @@ input[type=button].btn-block {
   display: block;
   min-height: 1.44rem;
   padding-left: 1.5rem;
+  -webkit-print-color-adjust: exact;
+          color-adjust: exact;
 }
 
 .custom-control-inline {
@@ -5518,6 +5623,7 @@ a.badge-dark.focus {
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 2;
   padding: 0.75rem 1.25rem;
   color: inherit;
 }
@@ -10786,7 +10892,7 @@ a.text-dark:focus {
 
 .text-break {
   word-break: break-word !important;
-  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
 }
 
 .text-reset {
@@ -10897,5 +11003,6 @@ a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
-}
 
+
+}

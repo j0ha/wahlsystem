@@ -37,7 +37,7 @@ Route::group(['prefix' => 'vote'], function(){
 Route::group(['prefix' => 'dvi'], function() {
   Route::group(['prefix' => 'home'], function(){
     Route::get('/', function(){return 'home without election';});
-    Route::get('/{electionUUID}', function(){return 'home with election';})->name('homeE');
+    Route::get('/{electionUUID}', 'App\Http\Controllers\backendController@home')->name('homeE');
     Route::get('/{electionUUID}/stats', function(){return 'stats';});
     Route::get('/{electionUUID}/baseinfo', function(){return 'basic infomations';});
     Route::get('/{electionUUID}/voters', function(){return 'voter overview';});
@@ -56,12 +56,16 @@ Route::group(['prefix' => 'dvi'], function() {
   });
 });
 
+Route::get('/stats', function(){
+  return view('backendviews.stastistics');
+});
+
+Route::namespace('App\Http\Controllers')->group(function () {
+    Auth::routes();
+});
 
 
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::get('/backend', function(){
   return view('layouts.backend');

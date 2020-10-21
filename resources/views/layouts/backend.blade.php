@@ -16,8 +16,9 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Jost" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUIyJ" crossorigin="anonymous">
     <!-- Styles -->
-    <link href="{{ asset('css/backend.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
     </style>
@@ -51,7 +52,21 @@
         </div>
         <div class="secondcloum">
           <div class="header">
-            <span class="election-selector">Louisenlund Dorm REP Wahl</span>
+            <!-- <span class="election-selector">Louisenlund Dorm REP Wahl</span> -->
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Election-Selector
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                @foreach($elections as $e)
+                <a class="dropdown-item" href="{{ route('homeE', ['electionUUID' => $e->uuid]) }}">{{$e->name}}</a>
+                @endforeach
+              </div>
+            </div>
+
+          <div class="content">
+            @yield('content')
           </div>
         </div>
       </div>

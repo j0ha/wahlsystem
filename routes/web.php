@@ -52,15 +52,19 @@ Route::group(['prefix' => 'dvi'], function() {
     //Alle Emails versenden, an die eingetragenen Emails, with options?
     Route::get('/{electionUUID}/bulkemail', 'App\Http\Controllers\backendController@bulkemail')->name('bulkemail');
   });
-  Route::get('/setup', 'App\Http\Controllers\createController@index');
+  Route::get('/setup', 'App\Http\Controllers\createController@index')->name('creElec');
   Route::post('/setup', 'App\Http\Controllers\createController@insert');
 
   Route::group(['prefix' => 'profil'],  function() {
+    //Lists up all of the data, some fields maybe changeable?
+    Route::get('/data', 'App\Http\Controllers\backendController@data')->name('profileData');
+    //Lists up the permissions groups that a user has, maybe a field to ask for more permissions
+    Route::get('/permissions', function(){return 'user profil setting site';});
+    //User can delete his account
+    Route::get('/privacy', function(){return 'user profil setting site';});
+    //Open for everything
     Route::get('/', function(){return 'user profil setting site';});
-    Route::get('/', function(){return 'user profil setting site';});
-    Route::get('/', function(){return 'user profil setting site';});
-    Route::get('/', function(){return 'user profil setting site';});
-    Route::get('/', function(){return 'user profil setting site';});
+
   });
 });
 

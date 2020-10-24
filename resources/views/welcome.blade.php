@@ -63,7 +63,12 @@
             }
         </style>
     </head>
-    <body>
+    <body onLoad="renderTime();">
+      <div id="clockDisplay" class="timefooter">
+
+        <!-- <span id="clockDisplay" class="timefooter-timestamp" style="color:black;"></span> -->
+
+      </div>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">

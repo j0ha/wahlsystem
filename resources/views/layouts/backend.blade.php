@@ -11,6 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/scripts.js') }}" defer></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -25,12 +27,25 @@
     </style>
     <livewire:styles>
 </head>
-  <body>
+  <body onLoad="renderTime();">
       <div class="main">
         <div class="firstcloum">
           <div class="header">
-            <span class="logout-span">Abmelden</span>
-            <span class="setting-span">Einstellungen</span>
+            <a class="dropdown-item" href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();">
+                <span class="logout-span">Abmelden</span>
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+
+
+
+
+            <span class="setting-span"> <a href="{{route('profileData')}}"> <img src="{{asset('img\setting_icon.png')}}" alt="settings" style="width:16%"> </a> </span>
+
           </div>
           <div class="namebody">
             <span class="namebody-name">Amelia Hutson</span>
@@ -40,35 +55,30 @@
             <ul class="navigation-list">
               <li class="navigation-list-item"><a href="{{route('homeE', ['electionUUID' => $electionUUID])}}">Basic Informations</a></li>
               <li class="navigation-list-item"><a href="{{route('stats', ['electionUUID' => $electionUUID])}}">Statistics</a></li>
-              <li class="navigation-list-item"><a href="">Voter Administration</a></li>
-              <li class="navigation-list-item"><a href="">Add Voters</a></li>
-              <li class="navigation-list-item"><a href="">Basic Informations</a></li>
-              <li class="navigation-list-item"><a href="">Basic Informations</a></li>
+              <li class="navigation-list-item"><a href="{{route('voters', ['electionUUID' => $electionUUID])}}">Overview Voters</a></li>
+              <li class="navigation-list-item"><a href="">Adding single Voters</a></li>
+              <li class="navigation-list-item"><a href="">Adding massive Voters</a></li>
+              <li class="navigation-list-item"><a href="">Adding Emails</a></li>
             </ul>
           </div>
-          <div class="timefooter">
-            <!-- <script type="text/javascript">
-            function time(){
-              var d = new Date();
-              var s = d.getSeconds();
-              var m = d.getMinutes();
-              var h = d.getHours();
-              document.write(h + ":" + m + ":" + s);
-            }
-            </script> -->
-            <span class="timefooter-timestamp">09:41 CET 10.09.2020</span>
-            <span class="timefooter-session">Session: f673f2ca-3e86-4f40-8184-746ea2c29e95</span>
+
+
+          <div id="clockDisplay" class="timefooter">
+
+            <!-- <span id="clockDisplay" class="timefooter-timestamp" style="color:black;"></span> -->
+
           </div>
         </div>
         <div class="secondcloum">
           <div class="header">
             <!-- <span class="election-selector">Louisenlund Dorm REP Wahl</span> -->
-            <div class="dropdown">
-              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="dropdown" style="background-color:transparent">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                 Election-Selector
               </a>
 
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{{ route('creElec') }}" style="color:red; background-color: darkgrey;">Create a new Election</a>
                 @foreach($elections as $e)
                 <a class="dropdown-item" href="{{ route('homeE', ['electionUUID' => $e->uuid]) }}">{{$e->name}}</a>
                 @endforeach
@@ -81,5 +91,6 @@
           @yield('content')
         </div>
       </div>
+      <livewire:scripts>
   </body>
 </html>

@@ -112,6 +112,13 @@
   color: black;
 }
 
+#active {
+  border-right: 10px solid darkgrey;
+  transition: 1s;
+  transition-delay: 1s;
+  transition-timing-function: ease-in;
+}
+
 .timefooter {
   display: flex;
   align-items: center;

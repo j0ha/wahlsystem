@@ -72,8 +72,8 @@
         <div class="secondcloum">
           <div class="header">
             <!-- <span class="election-selector">Louisenlund Dorm REP Wahl</span> -->
-            <div class="dropdown" style="background-color:transparent">
-              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Election-Selector
               </a>
 

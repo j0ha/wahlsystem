@@ -26,8 +26,8 @@
    <label for="electionMode">Select the Electionmode:</label>
    <br>
      @foreach ($modes as $m)
-      <label>{{$m->name}}</label>
-      <input type="radio" wire:model.lazy="mode" name="type" value="{{$m->mode}}">
+      <label>{{$m['name']}}</label>
+      <input type="radio" wire:model.lazy="mode" name="type" value="{{$m['short']}}">
       <br>
      @endforeach
    <small id="electionnamehelp" class="form-text text-muted">The mode decides wheter the elector can abstain inside of your election or not.</small>

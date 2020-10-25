@@ -63,7 +63,7 @@ class Multiform extends Component
   }
 
   public function render(){
-    $modes = Mode::all();
+    $modes = config('electionmodes');
 
         return view('livewire.multiform')->withModes($modes);
   }

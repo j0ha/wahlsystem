@@ -16,6 +16,5 @@ class DatabaseSeeder extends Seeder
         $this->call(TerminalsSeeder::class);
         $this->call(AddElectionSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(ModesSeeder::class);
     }
 }

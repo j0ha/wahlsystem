@@ -75,6 +75,36 @@
   background-color: #E4E4E4;
 }
 
+.navigation-list-item:hover {
+  background-color: #c9c9c9;
+  transition: 0.4s;
+  transition-delay: 0.05s;
+  transition-timing-function: ease-in-out;
+}
+
+.navigation-list-item a {
+  text-decoration: none;
+  color: black;
+}
+.navigation-list-item a:hover {
+  text-decoration: none;
+  color: black;
+}
+.navigation-list-item a:visited {
+  text-decoration: none;
+  color: black;
+}
+
+.navigation-list-item a:active {
+  text-decoration: none;
+  color: black;
+}
+
+.navigation-list-item a:link {
+  text-decoration: none;
+  color: black;
+}
+
 .timefooter {
   display: flex;
   align-items: center;

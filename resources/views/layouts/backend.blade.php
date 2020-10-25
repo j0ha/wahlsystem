@@ -53,7 +53,7 @@
           </div>
           <div class="navigation">
             <ul class="navigation-list">
-              <li class="navigation-list-item"><a href="{{route('homeE', ['electionUUID' => $electionUUID])}}">Basic Informations</a></li>
+              <li class="navigation-list-item"><a href="{{route('homeE', ['electionUUID' => $electionUUID])}}" class="navigation-list-item-a">Basic Informations</a></li>
               <li class="navigation-list-item"><a href="{{route('stats', ['electionUUID' => $electionUUID])}}">Statistics</a></li>
               <li class="navigation-list-item"><a href="{{route('voters', ['electionUUID' => $electionUUID])}}">Overview Voters</a></li>
               <li class="navigation-list-item"><a href="">Adding single Voters</a></li>

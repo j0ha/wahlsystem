@@ -56,8 +56,8 @@
               <li class="navigation-list-item" id="{{ (request()->segment(4) == '') ? 'active' : '' }}"><a href="{{route('homeE', ['electionUUID' => $electionUUID])}}" class="navigation-list-item-a">Basic Informations</a></li>
               <li class="navigation-list-item" id="{{ (request()->segment(4) == 'stats') ? 'active' : '' }}"><a href="{{route('stats', ['electionUUID' => $electionUUID])}}">Statistics</a></li>
               <li class="navigation-list-item" id="{{ (request()->segment(4) == 'voters') ? 'active' : '' }}"><a href="{{route('voters', ['electionUUID' => $electionUUID])}}">Overview Voters</a></li>
-              <li class="navigation-list-item"><a href="">Adding single Voters</a></li>
-              <li class="navigation-list-item"><a href="">Adding massive Voters</a></li>
+              <li class="navigation-list-item"><a href="{{route('addingvoters', ['electionUUID' => $electionUUID])}}">Adding single Voters</a></li>
+              <li class="navigation-list-item"><a href="{{route('addingbulk', ['electionUUID' => $electionUUID])}}">Adding massive Voters</a></li>
               <li class="navigation-list-item"><a href="">Adding Emails</a></li>
             </ul>
           </div>

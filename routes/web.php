@@ -45,7 +45,7 @@ Route::group(['prefix' => 'dvi'], function() {
     //Ein Datensatz kann hinzugefügt werden
     Route::get('/{electionUUID}/voters/add', 'App\Http\Controllers\backendController@voteradd')->name('addingvoters');
     //Großer Datensatz inform von einer Datei
-    Route::get('/{electionUUID}/voters/bulkadd', 'App\Http\Controllers\backendController@bulkadd')->name('addingbulk');
+    Route::get('/{electionUUID}/voters/bulkadd', 'App\Http\Controllers\backendController@bulkaddV')->name('addingbulk');
     Route::get('/{electionUUID}/candidates', 'App\Http\Controllers\backendController@candidates')->name('candidates');
     Route::get('/{electionUUID}/candidates/add', 'App\Http\Controllers\backendController@candidateadd')->name('addingcandidates');
     Route::get('/{electionUUID}/candidates/bulkadd', 'App\Http\Controllers\backendController@candidatebulk')->name('candidatesbulkadding');

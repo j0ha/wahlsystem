@@ -27,6 +27,13 @@
   align-items: center;
 }
 
+.content {
+  width: 100%;
+  height: 95%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
 .logout-span {
   margin-left: 7%;
   font-size: 0.8em;

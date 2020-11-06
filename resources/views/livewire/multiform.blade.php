@@ -1,4 +1,11 @@
 <div>
+  <div class="container">
+  <div class="row justify-content-center">
+  <div class="col-md-12">
+  <div class="card">
+  <div class="card-header">{{ __('Profile-RegisterCard') }}</div>
+
+  <div class="card-body">
   <h1>Create your own and differentiated Election!</h1>
   <form wire:submit.prevent="submit" method="POST">
 
@@ -7,7 +14,7 @@
   <div class="form-group">
     <label for="electionName">Name</label>
     <input type="text" class="form-control" wire:model.lazy="name" name="electionName" aria-describedby="electionNameHelp" placeholder="Enter Electionname">
-    @error('name') <span class="error"> {{ $message }} </span> @enderror
+    @error('name') <span class="error text-danger"> {{ $message }} </span> @enderror
     <small id="electionnamehelp" class="form-text text-muted">The Name of your Election should fit well.</small>
   </div>
 
@@ -16,7 +23,7 @@
   <div class="form-group">
     <label for="description">Description</label>
     <input type="text" class="form-control" wire:model.lazy="description" name="electionDescription" aria-describedby="electionDescriptionHelp" placeholder="Type in the Description of the Election.">
-    @error('description') <span class="error"> {{ $message }} </span> @enderror
+    @error('description') <span class="error text-danger"> {{ $message }} </span> @enderror
     <small id="electionDescriptionHelp" class="form-text text-muted">Type in whether the questioning or the problematic of the topic that the election is dealing with.</small>
   </div>
 @endif
@@ -43,10 +50,16 @@
 @endif
 @if($step == 1)
   <!-- Submit Button -->
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-success">Submit</button>
 @endif
 
 
 
 </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>

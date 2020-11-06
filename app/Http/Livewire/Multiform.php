@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Mode;
 use App\Election;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;

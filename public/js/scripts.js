@@ -3,7 +3,7 @@ function renderTime(){
   var mydate = new Date();
   var year = mydate.getYear();
     if(year < 1000){
-      year + = 1900
+      year += 1900;
     }
   var day = mydate.getDay();
   var month = mydate.getMonth();
@@ -35,10 +35,10 @@ function renderTime(){
       s = "0" + s;
     }
 
-    var myClock = document.getElemenById("clockDisplay");
+    var myClock = document.getElementById("clockDisplay");
     myClock.textContent = "" +dayarray[day]+ " " +daym+ " " +montharray[month]+ " " +year+ " | " +h+ ":" +m+ ":" +s;
     myClock.innerText = "" +dayarray[day]+ " " +daym+ " " +montharray[month]+ " " +year+ " | " +h+ ":" +m+ ":" +s;
 
     setTimeout("renderTime()", 1000);
+
 }
-renderTime();

@@ -24,7 +24,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
-    </style>
+
     <livewire:styles>
 </head>
   <body onLoad="renderTime();">
@@ -44,7 +44,7 @@
 
 
 
-            <span class="setting-span"> <a href="{{route('profileData')}}"> <img src="{{asset('img\setting_icon.png')}}" alt="settings" style="width:16%"> </a> </span>
+            <a href="{{route('profileData')}}" class="setting"> <img src="{{asset('img\setting_icon.png')}}" alt="settings"> </a>
 
           </div>
           <div class="namebody">
@@ -52,6 +52,7 @@
             <span class="namebody-institution">Internat Louisenlund</span>
           </div>
           <div class="navigation">
+            @if(!empty($electionUUID))
             <ul class="navigation-list">
               <li class="navigation-list-item" id="{{ (request()->segment(4) == '') ? 'active' : '' }}"><a href="{{route('homeE', ['electionUUID' => $electionUUID])}}" class="navigation-list-item-a">Basic Informations</a></li>
               <li class="navigation-list-item" id="{{ (request()->segment(4) == 'stats') ? 'active' : '' }}"><a href="{{route('stats', ['electionUUID' => $electionUUID])}}">Statistics</a></li>
@@ -60,12 +61,13 @@
               <li class="navigation-list-item"><a href="{{route('addingbulk', ['electionUUID' => $electionUUID])}}">Adding massive Voters</a></li>
               <li class="navigation-list-item"><a href="">Adding Emails</a></li>
             </ul>
+            @endif
           </div>
 
 
-          <div id="clockDisplay" class="timefooter">
+          <div class="timefooter">
 
-            <!-- <span id="clockDisplay" class="timefooter-timestamp" style="color:black;"></span> -->
+            <span id="clockDisplay" class="timefooter-span" ></span>
 
           </div>
         </div>

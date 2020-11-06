@@ -29,8 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+    protected $redirectTo = '/dvi/profil/pdata';
     /**
      * Create a new controller instance.
      *

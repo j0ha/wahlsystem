@@ -6979,6 +6979,17 @@ button.bg-secondary:focus {
   background-color: #545b62 !important;
 }
 
+.bg-profile {
+  background-color: #D8D8D8 !important;
+}
+
+a.bg-profile:hover,
+a.bg-profile:focus,
+button.bg-profile:hover,
+button.bg-profile:focus {
+  background-color: #545b62 !important;
+}
+
 .bg-success {
   background-color: #38c172 !important;
 }

@@ -36,7 +36,7 @@ Route::group(['prefix' => 'vote'], function(){
 //ROUTES FOR BACKEND
 Route::group(['prefix' => 'dvi'], function() {
   Route::group(['prefix' => 'home'], function(){
-    Route::get('/', function(){return 'home without election';});
+    Route::get('/', 'App\Http\Controllers\backendController@homewithoutelection')->name('homeWE');
     Route::get('/{electionUUID}', 'App\Http\Controllers\backendController@home')->name('homeE');
     //Everything with stats
     Route::get('/{electionUUID}/stats', 'App\Http\Controllers\backendController@stats')->name('stats');
@@ -55,13 +55,12 @@ Route::group(['prefix' => 'dvi'], function() {
   Route::get('/setup', 'App\Http\Controllers\createController@index')->name('creElec');
   Route::post('/setup', 'App\Http\Controllers\createController@insert');
 
+
   Route::group(['prefix' => 'profil'],  function() {
     //Lists up all of the data, some fields maybe changeable?
-    Route::get('/data', 'App\Http\Controllers\backendController@data')->name('profileData');
-    //Lists up the permissions groups that a user has, maybe a field to ask for more permissions
-    Route::get('/permissions', function(){return 'user profil setting site';});
-    //User can delete his account
-    Route::get('/privacy', function(){return 'user profil setting site';});
+    Route::get('/pdata', 'App\Http\Controllers\backendController@pdata')->name('profileData')->middleware('auth');
+    Route::post('/update', 'App\Http\Controllers\backendController@updatepData')->name('updateProfile')->middleware('auth');
+    Route::post('/deleteAccount', 'App\Http\Controllers\backendController@deleteAcc')->name('deleteAccount')->middleware('auth');
     //Open for everything
     Route::get('/', function(){return 'user profil setting site';});
 
@@ -78,4 +77,8 @@ Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
 Route::get('/backend', function(){
   return view('layouts.backend');
+});
+
+Route::get('/profile', function(){
+  return view('layouts.profile');
 });

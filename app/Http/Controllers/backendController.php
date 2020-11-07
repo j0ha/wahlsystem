@@ -13,43 +13,49 @@ class backendController extends Controller
 {
     // !!! ELECTION BACKEND !!!
     public function homewithoutelection(){
-      $elections = Election::all();
+      $electionArray = Self::electionPermission();
 
-      return view('backendviews.backendhome')->withElections($elections);
+      return view('backendviews.backendhome', compact('electionArray'));
     }
 
     public function home($electionUUID){
-      $elections = Election::all();
+      $electionArray = Self::electionPermission();
       $selectedE = Election::where('uuid', $electionUUID)->get();
-      return view('backendviews.BasicInfos', ['electionUUID' => $electionUUID])->withElections($elections)->with(compact('selectedE'));
+
+      return view('backendviews.BasicInfos', ['electionUUID' => $electionUUID])->with(compact('selectedE', 'electionArray'));
     }
 
     public function stats($electionUUID){
-      $elections = Election::all();
+      $electionArray = Self::electionPermission();
 
-
-
-      return view('backendviews.Stats',['electionUUID' => $electionUUID])->withElections($elections);
+      return view('backendviews.Stats',['electionUUID' => $electionUUID])->with(compact('electionArray'));
     }
 
     public function voter($electionUUID){
-      $elections = Election::all();
+      $electionArray = Self::electionPermission();
 
-      return view('backendviews.VotersTable', ['electionUUID' => $electionUUID])->withElections($elections);
+      return view('backendviews.VotersTable', ['electionUUID' => $electionUUID])->with(compact('electionArray'));
     }
 
     public function voteradd($electionUUID){
-      $elections = Election::all();
+      $electionArray = Self::electionPermission();
 
-      return view('backendviews.AddSingleV', ['electionUUID' => $electionUUID])->withElections($elections);
+      return view('backendviews.AddSingleV', ['electionUUID' => $electionUUID])->with(compact('electionArray'));
     }
 
     public function bulkaddV($electionUUID){
-      $elections = Election::all();
+      $electionArray = Self::electionPermission();
 
-      return view('backendviews.AddMultipleV', ['electionUUID' => $electionUUID])->withElections($elections);
+      return view('backendviews.AddMultipleV', ['electionUUID' => $electionUUID])->with(compact('electionArray'));
     }
     // !!! End - ELECTION BACKEND !!!
+
+
+
+
+
+
+
 
     // !!! Profile BACKEND !!!
     public function pdata(){
@@ -95,5 +101,33 @@ class backendController extends Controller
 
       return redirect('home');
     }
+
+    public function permission(){
+
+      $user = Auth::user();
+
+
+
+      return view('permissionTestingView')->withUser($user);
+    }
     // !!! End-Profile BACKEND !!!
+
+
+
+
+    // !!! General Functions !!!
+
+    public function electionPermission(){
+      $user = Auth::user();
+      $elections = Election::all();
+
+      $earray = array();
+      foreach($elections as $e){
+        if($user->hasPermissionTo($e->permission_id)){
+          $earray[] = $e;
+        }
+      }
+      return $earray;
+    }
+    // !!! End - General Functions !!!
 }

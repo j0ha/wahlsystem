@@ -17,7 +17,7 @@ class ElectionsSeeder extends Seeder
           'abstention' => false,
           'uuid' => Str::uuid(),
           'status' => "active",
-          'type' => "spv"
+          'type' => "spv",
       ]);
     }
 }

@@ -1,8 +1,6 @@
 @extends('layouts.backend')
 
 @section('content')
-
-<h1>Voters-Table:</h1>
-
+<br>
 <livewire:voters-table>
 @endsection

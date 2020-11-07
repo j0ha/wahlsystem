@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
-
+use Illuminate\Support\Facades\Auth;
+use App\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class Multiform extends Component
 {
@@ -47,15 +50,25 @@ class Multiform extends Component
 
         $this->validate();
 
+        $uuid=Str::uuid();
+
+        $permission = Permission::create(['name' => $uuid]);
+        $user = Auth::user();
+        $user->givePermissionTo($permission);
+
         $e = new Election;
 
         $e->name = $this->name;
         $e->description = $this->description;
         $e->abstention = 1;
         $e->status = "active";
-        $e->uuid = $uuid=Str::uuid();
+        $e->uuid = $uuid;
         $e->type = $this->mode;
+        $e->permission_id = $permission->id;
         $e->save();
+
+
+
 
 
       return redirect()->route('homeE', ['electionUUID' => $uuid]);

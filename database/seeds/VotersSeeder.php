@@ -19,6 +19,8 @@ class VotersSeeder extends Seeder
             'name' => Str::random(10),
             'birth_year' => Carbon::parse('2000-01-01'),
             'uuid' => Str::uuid(),
+            'direct_uuid' => Str::uuid(),
+            'direct_token' => Str::uuid(),
             'election_id' => 1,
             'schoolclass_id' => rand(1, 20),
             'form_id' => rand(1, 5),

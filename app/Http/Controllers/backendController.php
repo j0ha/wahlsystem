@@ -34,7 +34,6 @@ class backendController extends Controller
 
     public function voter($electionUUID){
       $elections = Election::all();
-
       return view('backendviews.VotersTable', ['electionUUID' => $electionUUID])->withElections($elections);
     }
 

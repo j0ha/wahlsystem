@@ -28,6 +28,7 @@
     <livewire:styles>
 </head>
   <body onLoad="renderTime();">
+
       <div class="main">
         <div class="firstcloum">
           <div class="header">
@@ -90,9 +91,12 @@
 
         </div>
         <div class="content">
-          @yield('content')
+          <main class="py-4">
+            @yield('content')
+          </main>
         </div>
       </div>
       <livewire:scripts>
+
   </body>
 </html>

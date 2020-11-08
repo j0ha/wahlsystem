@@ -12,7 +12,6 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/scripts.js') }}" defer></script>
-    <script src="{{ asset('profile/app.js') }}" defer></script>
     <script src="https://kit.fontawesome.com/bd94cbc531.js" crossorigin="anonymous"></script>
 
     <!-- Fonts -->
@@ -61,7 +60,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                  
+
                                   <a class="dropdown-item" href="{{ route('homeWE') }}">{{ __('Election-Backend') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

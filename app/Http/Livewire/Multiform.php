@@ -23,8 +23,10 @@ class Multiform extends Component
   public $step;
 
   protected $rules = [
-    'name' => 'required|max:100|alpha_dash',
+    'name' => 'required|max:100',
     'description' => 'required|max:100',
+    'mode' => 'required',
+
   ];
 
   public function mount(){
@@ -33,7 +35,6 @@ class Multiform extends Component
   }
 
   public function increaseStep(){
-    $this->validate();
     $this->step++;
   }
 
@@ -42,7 +43,11 @@ class Multiform extends Component
   }
 
   public function updated($electionName){
-    $this->validateOnly($electionName);
+    $this->validateOnly($electionName,[
+      'name' => 'required|max:100',
+      'description' => 'required|max:100',
+    ]);
+
   }
 
   public function submit(){
@@ -66,10 +71,6 @@ class Multiform extends Component
         $e->type = $this->mode;
         $e->permission_id = $permission->id;
         $e->save();
-
-
-
-
 
       return redirect()->route('homeE', ['electionUUID' => $uuid]);
   }

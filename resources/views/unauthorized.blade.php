@@ -2,7 +2,8 @@
 
 @section('content')
 
-
-<h1>YOU ARE NOT AUTHORIZED TO DO THIS!</h1>
+<div class="container text-danger">
+  <h1>YOU ARE NOT AUTHORIZED TO DO THIS!</h1>
+</div>
 
 @endsection

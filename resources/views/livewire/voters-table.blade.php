@@ -101,8 +101,8 @@
                   <td class="border">{{ $voter->surname }}</td>
                   <td class="border">{{ $voter->birth_year }}</td>
                   <td class="border">{{ $voter->email }}</td>
-                  <td class="border">@if($voter->voted_via_email) <span class="badge badge-success">Direct</span>@elseif ($voter->voted_via_terminal)<span class="badge badge-success">Terminal</span>@else<span class="badge badge-secondary">Freigeschalten</span>@endif @if( $voter->got_email )<span class="badge badge-success">E-Mail</span>@else<span class="badge badge-secondary">E-Mail</span>@endif</td>
-                  <td class="border"><button wire:click.lazy="editVoter('{{$voter->uuid}}')" type="button" class="btn btn-secondary">Bearbeiten</button><button wire:click.lazy="deleteVoter('{{$voter->uuid}}')" type="button" class="btn btn-danger">Löschen</button></td>
+                  <td class="border">@if($voter->voted_via_email) <span class="badge badge-success mx-1">Direct</span>@elseif ($voter->voted_via_terminal)<span class="badge badge-success mx-1">Terminal</span>@else<span class="badge badge-secondary mx-1">Freigeschalten</span>@endif @if( $voter->got_email )<span class="badge badge-success mx-1">E-Mail</span>@else<span class="badge badge-secondary mx-1">E-Mail</span>@endif</td>
+                  <td class="border"><button wire:click.lazy="editVoter('{{$voter->uuid}}')" type="button" class="btn btn-secondary mx-1">Bearbeiten</button><button wire:click.lazy="deleteVoter('{{$voter->uuid}}')" type="button" class="btn btn-danger mx-1">Löschen</button></td>
               </tr>
           @endforeach
       </tbody>

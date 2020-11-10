@@ -244,10 +244,30 @@
 
       <div class="tab-pane" id="permissions">
         <br>
-        <i class="fas fa-user-minus"></i>
+        <div class="container">
+        <div class="row justify-content-center">
+        <div class="col-md-12">
+        <div class="card">
+        <div class="card-header">{{ __('Profile-RegisterCard') }}</div>
 
+        <div class="card-body">
+          <h5>Roles:</h5>
 
+          <h5>Permissions:</h5>
 
+          <ul>
+            @foreach($allPermissions as $perms)
+            @if(strlen($perms) != 36)
+            <li>{{$perms->name}}</li>
+            @endif
+            @endforeach
+          </ul>
+
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
 
       </div>
       <!--Ending of Permisson Tab-->

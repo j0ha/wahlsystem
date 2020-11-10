@@ -90,8 +90,9 @@ class backendController extends Controller
       $locations = config('countries');
 
       $user = Auth::user();
+      $allPermissions = $user->getAllPermissions();
 
-      return view('layouts.profile')->withLocations($locations)->withUser($user);
+      return view('layouts.profile', compact('allPermissions'))->withLocations($locations)->withUser($user);
     }
 
     public function updatepData(Request $request){

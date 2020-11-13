@@ -271,6 +271,9 @@
     <!-- morris js -->
     <script src="{{asset('backend/vendor/charts/morris-bundle/raphael.min.js')}}"></script>
     <script src="{{asset('backend/vendor/charts/morris-bundle/morris.js')}}"></script>
+
+    @yield('scripts')
+
     <!-- chart c3 js -->
     <script src="{{asset('backend/vendor/charts/c3charts/c3.min.js')}}"></script>
     <script src="{{asset('backend/vendor/charts/c3charts/d3-5.4.0.min.js')}}"></script>

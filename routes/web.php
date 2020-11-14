@@ -18,9 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/permission','App\Http\Controllers\backendController@permission');
-
-
 //TESTROUTE
 Route::get('/testRoute/{thing}/{uuid}/{elctionUUID}', 'App\Http\Controllers\securityController@verifyToElection', ['thing' => 'thing'], ['uuid' => 'UUID'], ['electionUUID' => 'electionUUID']);
 Route::get('/testRoute/candidates/{electionUUID}', 'App\Http\Controllers\electionProcessController@querryElectionCandidates', ['electionUUID' => 'electionUUID']);
@@ -76,27 +73,4 @@ Route::group(['prefix' => 'dvi'], function() {
 
 Route::namespace('App\Http\Controllers')->group(function () {
     Auth::routes();
-});
-
-
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
-
-
-Route::get('/profile', function(){
-  return view('layouts.profile');
-});
-
-
-//Backend new
-
-Route::get('/ade', function(){
-  return view('layouts.backend_v2');
-});
-
-Route::get('/ade/dashboard', function(){
-  return view('backendviews.v2.dashboard');
-});
-
-Route::get('/ade/voters/overview', function(){
-  return view('backendviews.v2.voters.overview');
 });

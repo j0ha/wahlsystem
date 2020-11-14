@@ -9,6 +9,7 @@ use App\Mode;
 use App\Election;
 use App\Voter;
 
+
 class createController extends Controller
 {
 
@@ -28,7 +29,7 @@ class createController extends Controller
           $e = new Election;
 
           $e->name = $request->electionName;
-          $e->participants = $request->electionDescription;
+          $e->description = $request->electionDescription;
           $e->abstention = 1;
           $e->status = "active";
           $e->uuid = $uuid=Str::uuid();

@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/permission','App\Http\Controllers\backendController@permission');
+
+
 //TESTROUTE
 Route::get('/testRoute/{thing}/{uuid}/{elctionUUID}', 'App\Http\Controllers\securityController@verifyToElection', ['thing' => 'thing'], ['uuid' => 'UUID'], ['electionUUID' => 'electionUUID']);
 Route::get('/testRoute/candidates/{electionUUID}', 'App\Http\Controllers\electionProcessController@querryElectionCandidates', ['electionUUID' => 'electionUUID']);
@@ -37,6 +42,8 @@ Route::group(['prefix' => 'vote'], function(){
 Route::group(['prefix' => 'dvi'], function() {
   Route::group(['prefix' => 'home'], function(){
     Route::get('/', 'App\Http\Controllers\backendController@homewithoutelection')->name('homeWE');
+
+
     Route::get('/{electionUUID}', 'App\Http\Controllers\backendController@home')->name('homeE');
     //Everything with stats
     Route::get('/{electionUUID}/stats', 'App\Http\Controllers\backendController@stats')->name('stats');
@@ -52,6 +59,7 @@ Route::group(['prefix' => 'dvi'], function() {
     //Alle Emails versenden, an die eingetragenen Emails, with options?
     Route::get('/{electionUUID}/bulkemail', 'App\Http\Controllers\backendController@bulkemail')->name('bulkemail');
   });
+
   Route::get('/setup', 'App\Http\Controllers\createController@index')->name('creElec');
   Route::post('/setup', 'App\Http\Controllers\createController@insert');
 
@@ -74,6 +82,8 @@ Route::namespace('App\Http\Controllers')->group(function () {
 
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
+
+Route::get('/unautorized', 'App\Http\Controllers\backendController@unauthorized')->name('unauthorized');
 
 Route::get('/backend', function(){
   return view('layouts.backend');

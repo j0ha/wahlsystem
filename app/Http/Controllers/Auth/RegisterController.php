@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dvi/profil/pdata';
+    protected $redirectTo = '/dvi/profil/data';
     /**
      * Create a new controller instance.
      *

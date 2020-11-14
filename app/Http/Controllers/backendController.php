@@ -56,7 +56,7 @@ class backendController extends Controller
       $electionArray = Self::electionPermission($user);
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.VotersTable', ['electionUUID' => $electionUUID])->with(compact('electionArray'));
+        return view('backendviews.v2.voters.overview', ['electionUUID' => $electionUUID],compact('electionArray', 'user'));
       } else {
         return redirect()->route('unauthorized');
       }
@@ -67,7 +67,7 @@ class backendController extends Controller
       $electionArray = Self::electionPermission($user);
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.AddSingleV', ['electionUUID' => $electionUUID])->with(compact('electionArray'));
+        return view('backendviews.v2.voters.add', ['electionUUID' => $electionUUID], compact('electionArray', 'user'));
       } else {
         return redirect()->route('unauthorized');
       }
@@ -78,7 +78,7 @@ class backendController extends Controller
       $electionArray = Self::electionPermission($user);
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.AddMultipleV', ['electionUUID' => $electionUUID])->with(compact('electionArray'));
+        return view('backendviews.v2.voters.upload', ['electionUUID' => $electionUUID], compact('electionArray', 'user'));
       } else {
         return redirect()->route('unauthorized');
       }

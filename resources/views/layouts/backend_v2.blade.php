@@ -130,17 +130,17 @@
                             </li>
                           <!-- Nutzer Menu -->
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-fw fa-child"></i>Nutzer</a>
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-fw fa-child"></i>Voters</a>
                                 <div id="submenu-2" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Übersicht</a>
+                                            <a class="nav-link" href="{{route('voters.view', ['electionUUID' => $electionUUID])}}">Overview</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Hinzufügen</a>
+                                            <a class="nav-link" href="{{route('voters.add.single', ['electionUUID' => $electionUUID])}}">Add Single</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Hochladen</a>
+                                            <a class="nav-link" href="{{route('voters.add.many', ['electionUUID' => $electionUUID])}}">Upload File</a>
                                         </li>
                                     </ul>
                                 </div>

@@ -24,7 +24,7 @@ class Deleteprofile extends Component
 
     public function submit(){
 
-        return redirect()->route('homeE', ['electionUUID' => $uuid]);
+        return redirect()->route('election.dashboard', ['electionUUID' => $uuid]);
     }
 
     public function render()

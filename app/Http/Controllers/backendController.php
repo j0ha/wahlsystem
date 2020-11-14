@@ -99,7 +99,7 @@ class backendController extends Controller
       $user = Auth::user();
       $allPermissions = $user->getAllPermissions();
 
-      return view('backendviews.profileData', compact('allPermissions'))->withLocations($locations)->withUser($user);
+      return view('layouts.profile', compact('allPermissions'))->withLocations($locations)->withUser($user);
     }
 
     public function updateProfile(Request $request){

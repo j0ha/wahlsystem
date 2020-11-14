@@ -55,6 +55,17 @@ class backendController extends Controller
       }
     }
 
+    public function indexCandidates($electionUUID){
+      $user = Auth::user();
+      $electionArray = Self::electionPermission($user);
+
+      if($user->hasPermissionTo($electionUUID)){
+        return view('backendviews.v2.candidates.overview', ['electionUUID' => $electionUUID],compact('electionArray', 'user'));
+      } else {
+        return redirect()->route('unauthorized');
+      }
+    }
+
     public function indexVoters($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);

@@ -34,13 +34,10 @@
                   <td>{{ $voter->birth_year }}</td>
                   <td>{{ $voter->form_id }}</td>
                   <td>{{ $voter->schoolclass_id }}</td>
-                  <td>@if($voter->voted_via_email) <span class="badge badge-success mx-1">Direct</span>@elseif ($voter->voted_via_terminal)<span class="badge badge-success mx-1">Terminal</span>@else<span class="badge badge-secondary mx-1">Freigeschalten</span>@endif @if( $voter->got_email )<span class="badge badge-success mx-1">E-Mail</span>@else<span class="badge badge-secondary mx-1">E-Mail</span>@endif</td>
-                  <!-- <td><span class="badge badge-pill badge-light mx-1">nicht Abgestimmt</span><span class="badge badge-pill badge-success mx-1">Direkt erzeugt</span><span class="badge badge-pill badge-success mx-1">E-Mail vers.</span></td> -->
+                  <td>@if($voter->voted_via_email)<span class="badge badge-pill badge-success mx-1">direkt abgestimmt</span>@elseif ($voter->voted_via_terminal)<span class="badge badge-pill badge-success mx-1">Terminal abgestimmt</span>@else<span class="badge badge-pill badge-light mx-1">nicht Abgestimmt</span>@endif @if($voter->direct_uuid)<span class="badge badge-pill badge-success mx-1">Direkt erzeugt</span>@else<span class="badge badge-pill badge-light mx-1">Direkt erzeugt</span>@endif @if($voter->got_email == true)<span class="badge badge-pill badge-success mx-1">E-Mail vers.</span>@else<span class="badge badge-pill badge-light mx-1">E-Mail vers.</span>@endif</td>
                   <td>
                     <button wire:click.lazy="editVoter('{{$voter->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Bearbeiten</button>
                     <button wire:click.lazy="viewVoter('{{$voter->uuid}}')" data-toggle="modal" data-target="#viewModal" type="button" class="btn btn-primary mx-1">Ansicht</button>
-                    <!-- <a href="#" class="btn btn-primary btn-sm mx-1" data-toggle="modal" data-target="#editModal">Bearbeiten</a>
-                    <a href="#" class="btn btn-primary btn-sm mx-1" data-toggle="modal" data-target="#viewModal">Ansicht</a> -->
                   </td>
               </tr>
             @endforeach

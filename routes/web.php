@@ -45,8 +45,6 @@ Route::group(['prefix' => 'dvi'], function() {
 
 
     Route::get('/{electionUUID}', 'App\Http\Controllers\backendController@home')->name('homeE');
-    //Everything with stats
-    Route::get('/{electionUUID}/stats', 'App\Http\Controllers\backendController@stats')->name('stats');
     //All Voter to the elecetion
     Route::get('/{electionUUID}/voters', 'App\Http\Controllers\backendController@voter')->name('voters');
     //Ein Datensatz kann hinzugefügt werden
@@ -83,12 +81,22 @@ Route::namespace('App\Http\Controllers')->group(function () {
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
-Route::get('/unautorized', 'App\Http\Controllers\backendController@unauthorized')->name('unauthorized');
-
-Route::get('/backend', function(){
-  return view('layouts.backend');
-});
 
 Route::get('/profile', function(){
   return view('layouts.profile');
+});
+
+
+//Backend new
+
+Route::get('/ade', function(){
+  return view('layouts.backend_v2');
+});
+
+Route::get('/ade/dashboard', function(){
+  return view('backendviews.v2.dashboard');
+});
+
+Route::get('/ade/voters/overview', function(){
+  return view('backendviews.v2.voters.overview');
 });

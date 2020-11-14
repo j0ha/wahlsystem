@@ -41,32 +41,37 @@ Route::group(['prefix' => 'vote'], function(){
 //ROUTES FOR BACKEND
 Route::group(['prefix' => 'dvi'], function() {
   Route::group(['prefix' => 'home'], function(){
-    Route::get('/', 'App\Http\Controllers\backendController@homewithoutelection')->name('homeWE');
-
-
-    Route::get('/{electionUUID}', 'App\Http\Controllers\backendController@home')->name('homeE');
+    //Opens the electionBackend without any election selected
+    Route::get('/', 'App\Http\Controllers\backendController@indexHomeWithoutElection')->name('home.without.election');
+    //Election Dashboard
+    Route::get('/{electionUUID}', 'App\Http\Controllers\backendController@indexDashboard')->name('election.Dashboard');
+    //Opens the electionBackend with an election selected
+    Route::get('/{electionUUID}/Informations', 'App\Http\Controllers\backendController@indexInformations')->name('election.Informations');
+    //Show the stats of the actual electionUUID
+    Route::get('/{electionUUID}/stats', 'App\Http\Controllers\backendController@indexElectionStats')->name('election.Stats');
     //All Voter to the elecetion
-    Route::get('/{electionUUID}/voters', 'App\Http\Controllers\backendController@voter')->name('voters');
+    Route::get('/{electionUUID}/voters', 'App\Http\Controllers\backendController@indexVoters')->name('voters.view');
     //Ein Datensatz kann hinzugefügt werden
-    Route::get('/{electionUUID}/voters/add', 'App\Http\Controllers\backendController@voteradd')->name('addingvoters');
+    Route::get('/{electionUUID}/voters/add', 'App\Http\Controllers\backendController@votersAddSingle')->name('voters.add.single');
     //Großer Datensatz inform von einer Datei
-    Route::get('/{electionUUID}/voters/bulkadd', 'App\Http\Controllers\backendController@bulkaddV')->name('addingbulk');
-    Route::get('/{electionUUID}/candidates', 'App\Http\Controllers\backendController@candidates')->name('candidates');
-    Route::get('/{electionUUID}/candidates/add', 'App\Http\Controllers\backendController@candidateadd')->name('addingcandidates');
-    Route::get('/{electionUUID}/candidates/bulkadd', 'App\Http\Controllers\backendController@candidatebulk')->name('candidatesbulkadding');
+    Route::get('/{electionUUID}/voters/bulkadd', 'App\Http\Controllers\backendController@votersAddMany')->name('voters.add.many');
+    //ROUTES DO NOT WORK AT THE MOMENT
+    Route::get('/{electionUUID}/candidates', 'App\Http\Controllers\backendController@indexCandidates')->name('candidates.views');
+    Route::get('/{electionUUID}/candidates/add', 'App\Http\Controllers\backendController@candidatesAddSingle')->name('candidates.add.single');
+    Route::get('/{electionUUID}/candidates/bulkadd', 'App\Http\Controllers\backendController@candidatesAddMany')->name('candidates.add.many');
     //Alle Emails versenden, an die eingetragenen Emails, with options?
     Route::get('/{electionUUID}/bulkemail', 'App\Http\Controllers\backendController@bulkemail')->name('bulkemail');
   });
-
-  Route::get('/setup', 'App\Http\Controllers\createController@index')->name('creElec');
+  //Routen zum erstellen einer neuen Wahl
+  Route::get('/setup', 'App\Http\Controllers\createController@index')->name('create.new.election');
   Route::post('/setup', 'App\Http\Controllers\createController@insert');
 
 
   Route::group(['prefix' => 'profil'],  function() {
     //Lists up all of the data, some fields maybe changeable?
-    Route::get('/pdata', 'App\Http\Controllers\backendController@pdata')->name('profileData')->middleware('auth');
-    Route::post('/update', 'App\Http\Controllers\backendController@updatepData')->name('updateProfile')->middleware('auth');
-    Route::post('/deleteAccount', 'App\Http\Controllers\backendController@deleteAcc')->name('deleteAccount')->middleware('auth');
+    Route::get('/data', 'App\Http\Controllers\backendController@indexProfile')->name('profile.Data')->middleware('auth');
+    Route::post('/profileUpdate', 'App\Http\Controllers\backendController@updateProfile')->name('profile.Data.Update')->middleware('auth');
+    Route::post('/profileDelete', 'App\Http\Controllers\backendController@deleteProfile')->name('profile.Data.DeleteProfile')->middleware('auth');
     //Open for everything
     Route::get('/', function(){return 'user profil setting site';});
 

@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <h1>Personal Informations</h1>
 <hr>
 <div class="container bootstrap snippet">
@@ -136,3 +140,4 @@
   </div><!--/tab-content-->
   </div><!--/col-9-->
   </div><!--/row-->
+@endsection

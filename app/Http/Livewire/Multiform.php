@@ -72,7 +72,7 @@ class Multiform extends Component
         $e->permission_id = $permission->id;
         $e->save();
 
-      return redirect()->route('homeE', ['electionUUID' => $uuid]);
+      return redirect()->route('election.Dashboard', ['electionUUID' => $uuid]);
   }
 
   public function render(){

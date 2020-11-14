@@ -12,28 +12,35 @@ use App\User;
 class backendController extends Controller
 {
     // !!! ELECTION BACKEND !!!
-    public function homewithoutelection(){
+    public function indexHomeWithoutElection(){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
 
-      return view('backendviews.backendhome', compact('electionArray'));
+      return view('layouts.backend_v2', compact('electionArray', 'user'));
     }
 
-    public function home($electionUUID){
+    public function indexDashboard($electionUUID){
+      $user = Auth::user();
+      $electionArray = Self::electionPermission($user);
+
+      return view('backendviews.v2.dashboard',['electionUUID' => $electionUUID] , compact('electionArray', 'user'));
+    }
+
+    public function indexInformations($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
       $selectedE = Election::where('uuid', $electionUUID)->get();
 
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.BasicInfos', ['electionUUID' => $electionUUID])->with(compact('selectedE', 'electionArray'));
+        return view('backendviews.v2.electionInformations', ['electionUUID' => $electionUUID])->with(compact('selectedE', 'electionArray', 'user'));
 
       } else {
         return redirect()->route('unauthorized');
       }
     }
 
-    public function stats($electionUUID){
+    public function indexElectionStats($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
 
@@ -44,7 +51,7 @@ class backendController extends Controller
       }
     }
 
-    public function voter($electionUUID){
+    public function indexVoters($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
 
@@ -55,7 +62,7 @@ class backendController extends Controller
       }
     }
 
-    public function voteradd($electionUUID){
+    public function votersAddSingle($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
 
@@ -66,7 +73,7 @@ class backendController extends Controller
       }
     }
 
-    public function bulkaddV($electionUUID){
+    public function votersAddMany($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
 
@@ -86,16 +93,16 @@ class backendController extends Controller
 
 
     // !!! Profile BACKEND !!!
-    public function pdata(){
+    public function indexProfile(){
       $locations = config('countries');
 
       $user = Auth::user();
       $allPermissions = $user->getAllPermissions();
 
-      return view('layouts.profile', compact('allPermissions'))->withLocations($locations)->withUser($user);
+      return view('backendviews.profileData', compact('allPermissions'))->withLocations($locations)->withUser($user);
     }
 
-    public function updatepData(Request $request){
+    public function updateProfile(Request $request){
 
       $user = User::find(Auth::user()->id);
 
@@ -119,10 +126,10 @@ class backendController extends Controller
       }
       $user->save();
 
-      return redirect(route('profileData'));
+      return redirect(route('profile.Data'));
     }
 
-    public function deleteAcc(){
+    public function deleteProfile(){
 
       $user = User::find(Auth::user()->id);
 

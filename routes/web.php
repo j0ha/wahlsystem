@@ -87,3 +87,7 @@ Route::get('/ade', function(){
 Route::get('/ade/dashboard', function(){
   return view('backendviews.v2.dashboard');
 });
+
+Route::get('/ade/voters/overview', function(){
+  return view('backendviews.v2.voters.overview');
+});

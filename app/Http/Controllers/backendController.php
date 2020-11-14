@@ -122,6 +122,39 @@ class backendController extends Controller
         return redirect()->route('unauthorized');
       }
     }
+
+    public function indexTerminals($electionUUID){
+      $user = Auth::user();
+      $electionArray = Self::electionPermission($user);
+
+      if($user->hasPermissionTo($electionUUID)){
+        return view('backendviews.v2.terminals', ['electionUUID' => $electionUUID],compact('electionArray', 'user'));
+      } else {
+        return redirect()->route('unauthorized');
+      }
+    }
+
+    public function indexSchoolclass($electionUUID){
+      $user = Auth::user();
+      $electionArray = Self::electionPermission($user);
+
+      if($user->hasPermissionTo($electionUUID)){
+        return view('backendviews.v2.schoolclass', ['electionUUID' => $electionUUID],compact('electionArray', 'user'));
+      } else {
+        return redirect()->route('unauthorized');
+      }
+    }
+
+    public function indexSchoolgrade($electionUUID){
+      $user = Auth::user();
+      $electionArray = Self::electionPermission($user);
+
+      if($user->hasPermissionTo($electionUUID)){
+        return view('backendviews.v2.schoolgrade', ['electionUUID' => $electionUUID],compact('electionArray', 'user'));
+      } else {
+        return redirect()->route('unauthorized');
+      }
+    }
     // !!! End - ELECTION BACKEND !!!
 
 

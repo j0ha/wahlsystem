@@ -90,6 +90,6 @@ class BackendVotersOverview extends Component
     }
 
     public function print() {
-      
+
     }
 }

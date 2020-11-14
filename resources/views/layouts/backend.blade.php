@@ -12,6 +12,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/scripts.js') }}" defer></script>
+    
 
 
     <!-- Fonts -->
@@ -82,8 +83,10 @@
 
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" href="{{ route('creElec') }}" style="color:red; background-color: darkgrey;">Create a new Election</a>
-                @foreach($elections as $e)
-                <a class="dropdown-item" href="{{ route('homeE', ['electionUUID' => $e->uuid]) }}">{{$e->name}}</a>
+                @foreach($electionArray as $e)
+
+                    <a class="dropdown-item" href="{{ route('homeE', ['electionUUID' => $e->uuid]) }}">{{$e->name}}</a>
+
                 @endforeach
               </div>
             </div>

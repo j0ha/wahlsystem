@@ -13,50 +13,86 @@ class backendController extends Controller
 {
     // !!! ELECTION BACKEND !!!
     public function homewithoutelection(){
-      $elections = Election::all();
+      $user = Auth::user();
+      $electionArray = Self::electionPermission($user);
 
-      return view('backendviews.backendhome')->withElections($elections);
+      return view('backendviews.backendhome', compact('electionArray'));
     }
 
     public function home($electionUUID){
-      $elections = Election::all();
+      $user = Auth::user();
+      $electionArray = Self::electionPermission($user);
       $selectedE = Election::where('uuid', $electionUUID)->get();
-      return view('backendviews.BasicInfos', ['electionUUID' => $electionUUID])->withElections($elections)->with(compact('selectedE'));
+
+
+      if($user->hasPermissionTo($electionUUID)){
+        return view('backendviews.BasicInfos', ['electionUUID' => $electionUUID])->with(compact('selectedE', 'electionArray'));
+
+      } else {
+        return redirect()->route('unauthorized');
+      }
     }
 
     public function stats($electionUUID){
-      $elections = Election::all();
+      $user = Auth::user();
+      $electionArray = Self::electionPermission($user);
 
-
-
-      return view('backendviews.Stats',['electionUUID' => $electionUUID])->withElections($elections);
+      if($user->hasPermissionTo($electionUUID)){
+        return view('backendviews.Stats',['electionUUID' => $electionUUID])->with(compact('electionArray'));
+      } else {
+        return redirect()->route('unauthorized');
+      }
     }
 
     public function voter($electionUUID){
-      $elections = Election::all();
-      return view('backendviews.VotersTable', ['electionUUID' => $electionUUID])->withElections($elections);
+      $user = Auth::user();
+      $electionArray = Self::electionPermission($user);
+
+      if($user->hasPermissionTo($electionUUID)){
+        return view('backendviews.VotersTable', ['electionUUID' => $electionUUID])->with(compact('electionArray'));
+      } else {
+        return redirect()->route('unauthorized');
+      }
     }
 
     public function voteradd($electionUUID){
-      $elections = Election::all();
+      $user = Auth::user();
+      $electionArray = Self::electionPermission($user);
 
-      return view('backendviews.AddSingleV', ['electionUUID' => $electionUUID])->withElections($elections);
+      if($user->hasPermissionTo($electionUUID)){
+        return view('backendviews.AddSingleV', ['electionUUID' => $electionUUID])->with(compact('electionArray'));
+      } else {
+        return redirect()->route('unauthorized');
+      }
     }
 
     public function bulkaddV($electionUUID){
-      $elections = Election::all();
+      $user = Auth::user();
+      $electionArray = Self::electionPermission($user);
 
-      return view('backendviews.AddMultipleV', ['electionUUID' => $electionUUID])->withElections($elections);
+      if($user->hasPermissionTo($electionUUID)){
+        return view('backendviews.AddMultipleV', ['electionUUID' => $electionUUID])->with(compact('electionArray'));
+      } else {
+        return redirect()->route('unauthorized');
+      }
     }
     // !!! End - ELECTION BACKEND !!!
+
+
+
+
+
+
+
 
     // !!! Profile BACKEND !!!
     public function pdata(){
       $locations = config('countries');
 
       $user = Auth::user();
+      $allPermissions = $user->getAllPermissions();
 
-      return view('layouts.profile')->withLocations($locations)->withUser($user);
+      return view('layouts.profile', compact('allPermissions'))->withLocations($locations)->withUser($user);
     }
 
     public function updatepData(Request $request){
@@ -94,5 +130,32 @@ class backendController extends Controller
 
       return redirect('home');
     }
+
     // !!! End-Profile BACKEND !!!
+
+
+
+
+    // !!! General Functions !!!
+
+    public function electionPermission($u){
+
+      $elections = Election::all();
+
+      $earray = array();
+      foreach($elections as $e){
+        if($u->hasPermissionTo($e->permission_id)){
+          $earray[] = $e;
+        }
+      }
+      return $earray;
+    }
+    // !!! End - General Functions !!!
+
+
+    // !!! Middleware !!!
+    public function unauthorized(){
+      return view('unauthorized');
+    }
+    // !!! End-Middleware !!!
 }

@@ -37,6 +37,7 @@
       <input type="radio" wire:model.lazy="mode" name="type" value="{{$m['short']}}">
       <br>
      @endforeach
+    @error('mode') <span class="error text-danger"> {{ $message }} </span> @enderror
    <small id="electionnamehelp" class="form-text text-muted">The mode decides wheter the elector can abstain inside of your election or not.</small>
  </div>
 @endif

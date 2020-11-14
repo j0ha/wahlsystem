@@ -1,13 +1,57 @@
 @extends('layouts.backend')
 
 @section('content')
-<h2>Name: <b>"{{$selectedE[0]->name}}"</b></h2>
+<br>
 
-<h2>Description: <b>"{{$selectedE[0]->description}}"</b></h2>
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-md-12">
+<div class="card">
+<div class="card-header">{{ __('Election-Informations') }}</div>
 
-<h2>Abstention-Mode: @if($selectedE[0]->abstention === 0 ) Deaktiviert @else Aktiviert @endif </h2>
+<div class="card-body">
 
-<h2>Status: @if($selectedE[0]->status === "active" ) Active @else Deactivated @endif </h2>
+  <div class="form-group row">
+    <label class="col-md-4 col-form-label text-md-right" for="first_name"><b><h4>{{ __('Election-Name:') }}</h4></b></label>
+    <div class="col-md-6">
+    <label class="form-control bg-profile"><h5>{{$selectedE[0]->name}}<img class="float-right" src="{{asset('img/padlock.png')}}" alt="" style="width:6%"></h5></label>
+  </div>
+  </div>
 
-<h2>Election-Type: <b>"{{$selectedE[0]->type}}"</b></h2>
+<div class="form-group row">
+    <label class="col-md-4 col-form-label text-md-right" for="last_name"><b><h4>{{ __('Election-Description:') }}</h4></b></label>
+    <div class="col-md-6">
+    <label class="form-control bg-profile"><h5>{{$selectedE[0]->description}}<img class="float-right" src="{{asset('img/padlock.png')}}" alt="" style="width:6%"></h5></label>
+  </div>
+</div>
+
+<div class="form-group row">
+     <label class="col-md-4 col-form-label text-md-right" for="email"><h4>{{ __('Election-Status:') }}</h4></label>
+     <div class="col-md-6">
+     <label class="form-control bg-profile"><h5>{{$selectedE[0]->type}}<img class="float-right" src="{{asset('img/padlock.png')}}" alt="" style="width:6%"></h5></label>
+    </div>
+</div>
+
+<div class="form-group row">
+     <label class="col-md-4 col-form-label text-md-right" for="email"><h4>{{ __('Abstention-Mode:') }}</h4></label>
+     <div class="col-md-6">
+     <label class="form-control bg-light"><h5>@if($selectedE[0]->abstention === 0 ) Deaktiviert @else Aktiviert @endif</h5></label>
+    </div>
+</div>
+
+<div class="form-group row">
+     <label class="col-md-4 col-form-label text-md-right" for="email"><h4>{{ __('Election-Status:') }}</h4></label>
+     <div class="col-md-6">
+     <label class="form-control bg-light"><h5>@if($selectedE[0]->status === "active" ) Active @else Deactivated @endif</h5></label>
+    </div>
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
 @endsection

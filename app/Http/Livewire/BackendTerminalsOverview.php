@@ -44,43 +44,43 @@ class BackendTerminalsOverview extends Component
     }
 
     public function edit($terminalUUID) {
-      $voter = Terminal::where('uuid', $terminalUUID)->firstOrFail();
+      $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
       $this->terminalUUID = $terminalUUID;
-      $this->name = $voter->name;
-      $this->description = $voter->description;
-      $this->kind = $voter->kind;
-      $this->position = $voter->position;
-      $this->start_time = $voter->start_time;
-      $this->end_time = $voter->end_time;
-      $this->ip_restriction = $voter->ip_restriction;
+      $this->name = $terminal->name;
+      $this->description = $terminal->description;
+      $this->kind = $terminal->kind;
+      $this->position = $terminal->position;
+      $this->start_time = $terminal->start_time;
+      $this->end_time = $terminal->end_time;
+      $this->ip_restriction = $terminal->ip_restriction;
     }
     public function delete() {
-      $voter = Terminal::where('uuid', $this->terminalUUID)->delete();
+      $terminal = Terminal::where('uuid', $this->terminalUUID)->delete();
     }
 
     public function update() {
-      $voter = Terminal::where('uuid', $this->terminalUUID)->firstOrFail();
-      $voter->name = $this->name;
-      $voter->description = $this->description;
-      $voter->kind = $this->kind;
-      $voter->position = $this->position;
-      $voter->start_time = $this->start_time;
-      $voter->end_time = $this->end_time;
-      $voter->ip_restriction = $this->ip_restriction;
-      $voter->save();
+      $terminal = Terminal::where('uuid', $this->terminalUUID)->firstOrFail();
+      $terminal->name = $this->name;
+      $terminal->description = $this->description;
+      $terminal->kind = $this->kind;
+      $terminal->position = $this->position;
+      $terminal->start_time = $this->start_time;
+      $terminal->end_time = $this->end_time;
+      $terminal->ip_restriction = $this->ip_restriction;
+      $terminal->save();
     }
 
 
     public function view($terminalUUID) {
-      $voter = Terminal::where('uuid', $terminalUUID)->firstOrFail();
+      $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
       $this->terminalUUID = $terminalUUID;
-      $this->name = $voter->name;
-      $this->description = $voter->description;
-      $this->kind = $voter->kind;
-      $this->position = $voter->position;
-      $this->start_time = $voter->start_time;
-      $this->end_time = $voter->end_time;
-      $this->ip_restriction = $voter->ip_restriction;
+      $this->name = $terminal->name;
+      $this->description = $terminal->description;
+      $this->kind = $terminal->kind;
+      $this->position = $terminal->position;
+      $this->start_time = $terminal->start_time;
+      $this->end_time = $terminal->end_time;
+      $this->ip_restriction = $terminal->ip_restriction;
     }
 
     public function create(){
@@ -96,27 +96,27 @@ class BackendTerminalsOverview extends Component
 
     public function createSave(){
       $electionProcess = new electionProcessController;
-      $voter = new Terminal;
-      $voter->name = $this->name;
-      $voter->uuid = Str::uuid();
-      $voter->status = 'deaktiv';
-      $voter->election_id = $electionProcess->getId($this->electionUUID, 'elections');
-      $voter->description = $this->description;
-      $voter->kind = 'browser';
-      $voter->position = $this->position;
+      $terminal = new Terminal;
+      $terminal->name = $this->name;
+      $terminal->uuid = Str::uuid();
+      $terminal->status = 'deaktiv';
+      $terminal->election_id = $electionProcess->getId($this->electionUUID, 'elections');
+      $terminal->description = $this->description;
+      $terminal->kind = 'browser';
+      $terminal->position = $this->position;
       if($this->start_time == ''){
-        $voter->start_time = null;
+        $terminal->start_time = null;
       } else {
-        $voter->start_time = $this->start_time;
+        $terminal->start_time = $this->start_time;
       }
 
       if($this->end_time == '') {
-        $voter->end_time = null;
+        $terminal->end_time = null;
       } else {
-        $voter->end_time = $this->end_time;
+        $terminal->end_time = $this->end_time;
       }
-      $voter->ip_restriction = $this->ip_restriction;
-      $voter->save();
+      $terminal->ip_restriction = $this->ip_restriction;
+      $terminal->save();
     }
 
     public function copyDirect() {

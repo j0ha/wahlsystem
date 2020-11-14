@@ -77,5 +77,5 @@ Route::namespace('App\Http\Controllers')->group(function () {
 
 
 Route::get('/ade', function () {
-    return view('backendviews.v2.voters.upload');
+    return view('backendviews.v2.electioncontrolling');
 });

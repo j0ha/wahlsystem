@@ -54,7 +54,7 @@ Route::group(['prefix' => 'dvi'], function() {
     //Großer Datensatz inform von einer Datei
     Route::get('/{electionUUID}/voters/bulkadd', 'App\Http\Controllers\backendController@votersAddMany')->name('voters.add.many');
     //ROUTES DO NOT WORK AT THE MOMENT
-    Route::get('/{electionUUID}/candidates', 'App\Http\Controllers\backendController@indexCandidates')->name('candidates.views');
+    Route::get('/{electionUUID}/candidates', 'App\Http\Controllers\backendController@indexCandidates')->name('candidates.view');
     Route::get('/{electionUUID}/candidates/add', 'App\Http\Controllers\backendController@candidatesAddSingle')->name('candidates.add.single');
     Route::get('/{electionUUID}/candidates/bulkadd', 'App\Http\Controllers\backendController@candidatesAddMany')->name('candidates.add.many');
     //Alle Emails versenden, an die eingetragenen Emails, with options?

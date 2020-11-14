@@ -11,6 +11,7 @@ class Voter extends Model
         return empty($search) ? static::query()->where('election_id', $electionId)
             : static::query()->where('id', 'like', '%'.$search.'%')->where('election_id', $electionId)
                 ->orWhere('name', 'like', '%'.$search.'%')->where('election_id', $electionId)
+                ->orWhere('surname', 'like', '%'.$search.'%')->where('election_id', $electionId)
                 ->orWhere('email', 'like', '%'.$search.'%')->where('election_id', $electionId);
     }
 }

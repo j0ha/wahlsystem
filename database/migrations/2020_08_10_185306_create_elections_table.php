@@ -21,6 +21,7 @@ class CreateElectionsTable extends Migration
             $table->char('status', 16)->default(0);
             $table->uuid('uuid');
             $table->char('type');
+            $table->integer('permission_id')->nullable();
             $table->datetime('activeby')->nullable();
             $table->datetime('activeto')->nullable();
             $table->timestamps();

@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col-sm-12 col-md-6">
         <div class="dt-buttons">
+          <button wire:click.lazy="create()" data-toggle="modal" data-target="#createModal" class="btn btn-outline-primary buttons-print" tabindex="0" aria-controls="example" type="button"><span>Neues Terminal</span></button>
           <button class="btn btn-outline-light buttons-export buttons-html5" tabindex="0" aria-controls="example" type="button"><span>Export</span></button>
           <button class="btn btn-outline-light buttons-pdf buttons-html5" tabindex="0" aria-controls="example" type="button"><span>PDF</span></button>
           <button class="btn btn-outline-light buttons-print" tabindex="0" aria-controls="example" type="button"><span>Drucken</span></button>
@@ -117,6 +118,55 @@
                     <div class="modal-footer">
                         <a href="#" class="btn btn-secondary" data-dismiss="modal">Schießen</a>
                         <button wire:click="update()" class="btn btn-primary" data-dismiss="modal">Änderung speichern</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="editeModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Neues Terminal erstellen</h5>
+                        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                          <label for="name" class="col-form-label">Name</label>
+                          <input wire:model.defer="name" id="name" name="name" placeholder="z.B. Peter" type="text" class="form-control">
+                      </div>
+                      <div class="form-group">
+                          <label for="description" class="col-form-label">Beschreibung</label>
+                          <input wire:model.defer="description" id="description" name="description" placeholder="Beschreibung" type="text" class="form-control">
+                      </div>
+                      <div class="form-group">
+                          <label for="position" class="col-form-label">Position</label>
+                          <input wire:model.defer="position" id="position" name="position" placeholder="Position" type="text" class="form-control">
+                      </div>
+                      <div class="form-group">
+                          <label for="kind" class="col-form-label">Art</label>
+                          <select wire:model.defer="kind" id="kind" name="kind" class="form-control">
+                            <option value="'browser'">Browser</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="start_time" class="col-form-label">Startzeit</label>
+                          <input wire:model.defer="start_time" id="start_time" name="start_time" placeholder="Startzeit" type="datetime" class="form-control">
+                      </div>
+                      <div class="form-group">
+                          <label for="end_time" class="col-form-label">Endzeit</label>
+                          <input wire:model.defer="end_time" id="end_time" name="end_time" placeholder="Endzeit" type="datetime" class="form-control">
+                      </div>
+                      <div class="form-group">
+                          <label for="ip_restriction" class="col-form-label">IP-Beschränkung</label>
+                          <input wire:model.defer="ip_restriction" id="ip_restriction" name="ip_restriction" placeholder="IP-Beschränkung" type="text" class="form-control">
+                      </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-secondary" data-dismiss="modal">Schießen</a>
+                        <button wire:click="createSave()" class="btn btn-primary" data-dismiss="modal">Erstellen</a>
                     </div>
                 </div>
             </div>

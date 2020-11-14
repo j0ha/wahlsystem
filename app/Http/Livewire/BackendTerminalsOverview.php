@@ -6,6 +6,7 @@ use App\Terminal;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Http\Controllers\electionProcessController;
+use Illuminate\Support\Str;
 
 class BackendTerminalsOverview extends Component
 {
@@ -31,10 +32,10 @@ class BackendTerminalsOverview extends Component
     $this->electionUUID = $electionUUID;
   }
 
+
     public function render()
     {
       $electionProcess = new electionProcessController;
-
         return view('livewire.backend-terminals-overview', [
             'terminals' => Terminal::search($this->search, $electionProcess->getId($this->electionUUID, 'elections'))
                 ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
@@ -82,12 +83,42 @@ class BackendTerminalsOverview extends Component
       $this->ip_restriction = $voter->ip_restriction;
     }
 
-    public function sendposition() {
-
+    public function create(){
+      $this->terminalUUID = '';
+      $this->name = '';
+      $this->description = '';
+      $this->kind = '';
+      $this->position = '';
+      $this->start_time = '';
+      $this->end_time = '';
+      $this->ip_restriction = '';
     }
-    public function downloadSheet() {
 
+    public function createSave(){
+      $electionProcess = new electionProcessController;
+      $voter = new Terminal;
+      $voter->name = $this->name;
+      $voter->uuid = Str::uuid();
+      $voter->status = 'deaktiv';
+      $voter->election_id = $electionProcess->getId($this->electionUUID, 'elections');
+      $voter->description = $this->description;
+      $voter->kind = 'browser';
+      $voter->position = $this->position;
+      if($this->start_time == ''){
+        $voter->start_time = null;
+      } else {
+        $voter->start_time = $this->start_time;
+      }
+
+      if($this->end_time == '') {
+        $voter->end_time = null;
+      } else {
+        $voter->end_time = $this->end_time;
+      }
+      $voter->ip_restriction = $this->ip_restriction;
+      $voter->save();
     }
+
     public function copyDirect() {
 
     }

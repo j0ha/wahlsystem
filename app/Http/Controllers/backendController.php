@@ -9,9 +9,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\User;
+use App\Candidate;
 use App\Voter;
 use App\Form;
 use App\Schoolclass;
+use App\Http\Controllers\electionProcessController;
 
 class backendController extends Controller
 {
@@ -26,8 +28,13 @@ class backendController extends Controller
     public function indexDashboard($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
+      $electionProcess = new electionProcessController;
 
-      return view('backendviews.v2.dashboard',['electionUUID' => $electionUUID] , compact('electionArray', 'user'));
+      $stat_voters = Voter::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->count();
+      $stat_questions = Candidate::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->count();
+      $stat_votes = Voter::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->where('voted_via_email', 1)->Orwhere('voted_via_terminal', 1)->count();
+
+      return view('backendviews.v2.dashboard',['electionUUID' => $electionUUID] , compact('electionArray', 'user', 'stat_voters', 'stat_questions', 'stat_votes'));
     }
 
     public function indexInformations($electionUUID){

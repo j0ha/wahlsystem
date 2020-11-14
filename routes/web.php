@@ -44,6 +44,16 @@ Route::group(['prefix' => 'dvi'], function() {
     Route::get('/{electionUUID}', 'App\Http\Controllers\backendController@indexDashboard')->name('election.Dashboard');
     //Opens the electionBackend with an election selected
     Route::get('/{electionUUID}/Informations', 'App\Http\Controllers\backendController@indexInformations')->name('election.Informations');
+
+
+    Route::get('/{electionUUID}/schoolclass', 'App\Http\Controllers\backendController@indexSchoolclass')->name('election.schoolclass.overview');
+
+
+    Route::get('/{electionUUID}/schoolgrade', 'App\Http\Controllers\backendController@indexSchoolgrade')->name('election.schoolgrade.overview');
+
+
+    Route::get('/{electionUUID}/terminals', 'App\Http\Controllers\backendController@indexTerminals')->name('election.terminals.overview');
+
     //Show the stats of the actual electionUUID
     Route::get('/{electionUUID}/stats', 'App\Http\Controllers\backendController@indexElectionStats')->name('election.Stats');
     //All Voter to the elecetion

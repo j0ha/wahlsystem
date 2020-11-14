@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Form;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Http\Controllers\electionProcessController;
@@ -61,5 +62,20 @@ class BackendSchoolgradesOverview extends Component
 
     public function print() {
 
+    }
+
+    public function create(){
+      $this->schoolgradeUUID = '';
+      $this->name = '';
+
+    }
+
+    public function createSave(){
+      $schoolclass = new Form;
+      $electionProcess = new electionProcessController;
+      $schoolclass->name = $this->name;
+      $schoolclass->uuid = Str::uuid();
+      $schoolclass->election_id = $electionProcess->getId($this->electionUUID, 'elections');
+      $schoolclass->save();
     }
 }

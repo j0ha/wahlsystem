@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col-sm-12 col-md-6">
         <div class="dt-buttons">
+          <button wire:click.lazy="create()" data-toggle="modal" data-target="#createModal" class="btn btn-outline-primary buttons-print" tabindex="0" aria-controls="example" type="button"><span>Neuer Jahrgang</span></button>
           <button class="btn btn-outline-light buttons-export buttons-html5" tabindex="0" aria-controls="example" type="button"><span>Export</span></button>
           <button class="btn btn-outline-light buttons-pdf buttons-html5" tabindex="0" aria-controls="example" type="button"><span>PDF</span></button>
           <button class="btn btn-outline-light buttons-print" tabindex="0" aria-controls="example" type="button"><span>Drucken</span></button>
@@ -78,6 +79,28 @@
                     <div class="modal-footer">
                         <a href="#" class="btn btn-secondary" data-dismiss="modal">Schießen</a>
                         <button wire:click="update()" class="btn btn-primary" data-dismiss="modal">Änderung speichern</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="editeModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Neuen Jahrgang erstellen</h5>
+                        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                    </div>
+                    <div class="modal-body">
+                      <div class="form-group">
+                          <label for="name" class="col-form-label">Name</label>
+                          <input wire:model.defer="name" id="name" name="name" placeholder="z.B. Peter" type="text" class="form-control">
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-secondary" data-dismiss="modal">Schießen</a>
+                        <button wire:click="createSave()" class="btn btn-primary" data-dismiss="modal">Erstellen</a>
                     </div>
                 </div>
             </div>

@@ -70,7 +70,7 @@ class BackendSchoolclassesOverview extends Component
     }
 
     public function create(){
-      $this->terminalUUID = '';
+      $this->schoolclassUUID = '';
       $this->name = '';
       $this->form_id = null;
 

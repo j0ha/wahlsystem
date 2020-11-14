@@ -105,6 +105,15 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="fas fa-fw fa-hands-helping"></i>Wahlhelfer</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('election.terminals.overview', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fas fa-desktop"></i>Terminals</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('election.schoolclass.overview', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-book"></i>Schulklassen</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('election.schoolgrades.overview', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-address-card"></i>Schuljahrgänge</a>
+                            </li>
                             @endif
                           <li class="nav-divider">
                                 Wahlsteuerung

@@ -11,4 +11,11 @@ class Schoolclass extends Model
     public function voters() {
       return $this->hasMany('App\Voters');
     }
+
+    public static function search($search, $electionId)
+      {
+          return empty($search) ? static::query()->where('election_id', $electionId)
+              : static::query()->where('id', 'like', '%'.$search.'%')->where('election_id', $electionId)
+                  ->orWhere('name', 'like', '%'.$search.'%')->where('election_id', $electionId);
+      }
 }

@@ -15,16 +15,17 @@ class AddElectionSeeder extends Seeder
 
         $faker = Faker\Factory::create();
         $ci = 0;
-        for ($a=1; $a < 11; $a++) {
-          DB::table('elections')->insert([
-              'name' => $faker->jobTitle,
-              'id' => $a,
-              'description' => $faker->text($maxNbChars = 200),
-              'abstention' => false,
-              'uuid' => Str::uuid(),
-              'status' => "active",
-              'type' => "spv"
-          ]);
+        $a = 1;
+        // for ($a=1; $a < 2; $a++) {
+        //   DB::table('elections')->insert([
+        //       'name' => $faker->jobTitle,
+        //       'id' => $a,
+        //       'description' => $faker->text($maxNbChars = 200),
+        //       'abstention' => false,
+        //       'uuid' => Str::uuid(),
+        //       'status' => "active",
+        //       'type' => "spv"
+        //   ]);
 
           for ($b=0; $b < 3; $b++) {
             DB::table('candidates')->insert([
@@ -83,7 +84,7 @@ class AddElectionSeeder extends Seeder
           }
 
 
-        }
+        // }
 
       }
 

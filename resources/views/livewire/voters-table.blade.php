@@ -137,8 +137,7 @@
               <tr>
 
                   <td scope="col" class="">{{ $voter->id }}</td>
-                  <td class="">{{ $voter->surname }}</td>
-                  <td class="">{{ $voter->email }}</td>
+
 
 
                   <td class="border">{{ $voter->id }}</td>

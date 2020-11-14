@@ -74,3 +74,8 @@ Route::group(['prefix' => 'dvi'], function() {
 Route::namespace('App\Http\Controllers')->group(function () {
     Auth::routes();
 });
+
+
+Route::get('/ade', function () {
+    return view('backendviews.v2.voters.upload');
+});

@@ -7,7 +7,11 @@ use App\Election;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use App\User;
+use App\Voter;
+use App\Form;
+use App\Schoolclass;
 
 class backendController extends Controller
 {
@@ -65,13 +69,37 @@ class backendController extends Controller
     public function votersAddSingle($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
+      $selectedE = Election::where('uuid', $electionUUID)->firstOrFail()->id;
+      $forms = Form::where('election_id', $selectedE)->get();
+      $classes = Schoolclass::where('election_id', $selectedE)->get();
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.voters.add', ['electionUUID' => $electionUUID], compact('electionArray', 'user'));
+        return view('backendviews.v2.voters.add', ['electionUUID' => $electionUUID], compact('electionArray', 'user', 'forms', 'classes'));
       } else {
         return redirect()->route('unauthorized');
       }
     }
+    public function votersAddSingleInsert(Request $request){
+
+      $voter = new Voter;
+
+      $voter->surname = $request->voterSurname;
+      $voter->name = $request->voterName;
+      $voter->birth_year = $request->voterDate;
+      $voter->uuid = Str::uuid();
+      $voter->direct_uuid = Str::uuid();
+      $voter->email = $request->voterEmail;
+      $voter->election_id = Election::where('uuid', $request->electionUUID)->firstOrFail()->id;
+
+      $voter->schoolclass_id = $request->voterClass;
+      $voter->form_id = $request->voterForm;
+
+      $voter->save();
+
+      return redirect(route('voters.view', ['electionUUID' => $request->electionUUID]));
+
+    }
+
 
     public function votersAddMany($electionUUID){
       $user = Auth::user();

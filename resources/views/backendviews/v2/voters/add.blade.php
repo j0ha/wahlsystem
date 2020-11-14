@@ -10,30 +10,39 @@
         <div class="card">
             <h5 class="card-header">Nutzerdaten</h5>
             <div class="card-body">
-                <form>
+                <form action="{{route('votersAddSingle')}}" method="POST">
+                  @csrf
+                    <input type="hidden" name="electionUUID" value="{{$electionUUID}}">
                     <div class="form-group">
-                        <label for="inputText3" class="col-form-label">Name</label>
-                        <input id="inputText3" type="text" class="form-control">
+                        <label for="voterSurame" class="col-form-label">Surname</label>
+                        <input name="voterSurname" id="voterSurname" type="text" placeholder="Max" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="inputText5" class="col-form-label">Nachname</label>
-                        <input id="inputText5" type="text" class="form-control">
+                        <label for="voterName" class="col-form-label">Name</label>
+                        <input name="voterName" id="voterName" type="text" placeholder="Mustermann" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="inputText6" class="col-form-label">Geburtsdatum</label>
-                        <input id="inputText6" type="date" class="form-control">
+                        <label for="voterDate" class="col-form-label">Geburtsdatum</label>
+                        <input name="voterDate" id="voterDate" type="date" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="inputEmail">E-Mail Adresse</label>
-                        <input id="inputEmail" type="email" placeholder="name@beispiel.de" class="form-control">
+                        <label for="voterEmail">E-Mail Adresse</label>
+                        <input name="voterEmail" id="voterEmail" type="email" placeholder="name@beispiel.de" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="input-select">Klasse</label>
-                        <select class="form-control" id="input-select">
-                            <option>11b</option>
-                            <option>11c</option>
-                            <option>11d</option>
-                            <option>11h</option>
+                        <label for="voterForm">Forms</label>
+                        <select name="voterForm" class="form-control" id="voterForm">
+                            @foreach($forms as $form)
+                              <option value="{{$form->id}}">{{$form->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="voterClass">Classes</label>
+                        <select name="voterClass" class="form-control" id="voterClass">
+                          @foreach($classes as $class)
+                            <option value="{{$class->id}}">{{$class->name}}</option>
+                          @endforeach
                         </select>
                     </div>
                     <div class="form-group">
@@ -42,7 +51,7 @@
                     <div class="form-group">
                         <label class="col-form-label">Nutzer Zugang schicken</label>
                         <div class="switch-button switch-button-success ml-2">
-                          <input type="checkbox" checked="" name="switch16" id="switch16"><span>
+                          <input type="checkbox" checked="" name="sendEmail" id="switch16"><span>
                           <label for="switch16"></label></span>
                           </div>
                     </div>

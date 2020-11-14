@@ -50,6 +50,7 @@ Route::group(['prefix' => 'dvi'], function() {
     Route::get('/{electionUUID}/voters', 'App\Http\Controllers\backendController@indexVoters')->name('voters.view');
     //Ein Datensatz kann hinzugefügt werden
     Route::get('/{electionUUID}/voters/add', 'App\Http\Controllers\backendController@votersAddSingle')->name('voters.add.single');
+    Route::post('/electionVotersAddSingle', 'App\Http\Controllers\backendController@votersAddSingleInsert')->name('votersAddSingle');
     //Großer Datensatz inform von einer Datei
     Route::get('/{electionUUID}/voters/bulkadd', 'App\Http\Controllers\backendController@votersAddMany')->name('voters.add.many');
     //ROUTES DO NOT WORK AT THE MOMENT

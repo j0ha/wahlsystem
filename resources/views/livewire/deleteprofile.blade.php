@@ -6,7 +6,7 @@
 
                 <div class="card-body">
                   <?php // TODO: Route muss noch festgelegt werden ?>
-                    <form method="POST" action="{{route('deleteAccount')}}">
+                    <form method="POST" action="{{route('profile.Data.DeleteProfile')}}">
                         @csrf
 
                         @if($step==0)

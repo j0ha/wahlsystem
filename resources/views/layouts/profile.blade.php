@@ -61,7 +61,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                                  <a class="dropdown-item" href="{{ route('homeWE') }}">{{ __('Election-Backend') }}</a>
+                                  <a class="dropdown-item" href="{{ route('home.without.election') }}">{{ __('Election-Backend') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -134,7 +134,7 @@
       <div class="card-header">{{ __('Profile-RegisterCard') }}</div>
 
       <div class="card-body">
-    <form class="form" action="/dvi/profil/update" method="POST">
+    <form class="form" action="/dvi/profil/profileUpdate" method="POST">
       @csrf
         <div class="form-group row">
           <label class="col-md-4 col-form-label text-md-right" for="first_name"><b><h4>{{ __('Firstname:') }}</h4></b></label>

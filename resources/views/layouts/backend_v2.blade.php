@@ -28,7 +28,7 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="#">{{ config('app.name', 'Laravel')}} Dashboard</a>
+                <a class="navbar-brand text-primary" href="#">{{ config('app.name', 'Laravel')}} Dashboard</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -42,75 +42,24 @@
                                   <div class="notification-title"> Deine Wahlen</div>
                                   <div class="notification-list">
                                       <div class="list-group">
-                                          <a href="#" class="list-group-item list-group-item-action active">
-                                              <div class="notification-info">
+                                          @foreach($electionArray as $e)
 
+                                            <a class="list-group-item list-group-item-action active" href="{{ route('election.Dashboard', ['electionUUID' => $e->uuid]) }}">
+                                              <div class="notification-info">
                                                   <div class="notification-list-user-block">
-                                                    Name der Wahl
+                                                    {{$e->name}}
                                                   </div>
                                               </div>
-                                          </a>
-                                          <a href="#" class="list-group-item list-group-item-action active">
-                                              <div class="notification-info">
 
-                                                  <div class="notification-list-user-block">
-                                                    Name der Wahl
-                                                  </div>
-                                              </div>
-                                          </a>
-                                          <a href="#" class="list-group-item list-group-item-action active">
-                                              <div class="notification-info">
+                                            </a>
 
-                                                  <div class="notification-list-user-block">
-                                                    Name der Wahl
-                                                  </div>
-                                              </div>
-                                          </a>
-                                          <a href="#" class="list-group-item list-group-item-action active">
-                                              <div class="notification-info">
+                                            @endforeach
 
-                                                  <div class="notification-list-user-block">
-                                                    Name der Wahl
-                                                  </div>
-                                              </div>
-                                          </a>
-                                          <a href="#" class="list-group-item list-group-item-action active">
-                                              <div class="notification-info">
-
-                                                  <div class="notification-list-user-block">
-                                                    Name der Wahl
-                                                  </div>
-                                              </div>
-                                          </a>
-                                          <a href="#" class="list-group-item list-group-item-action active">
-                                              <div class="notification-info">
-
-                                                  <div class="notification-list-user-block">
-                                                    Name der Wahl
-                                                  </div>
-                                              </div>
-                                          </a>
-                                          <a href="#" class="list-group-item list-group-item-action active">
-                                              <div class="notification-info">
-
-                                                  <div class="notification-list-user-block">
-                                                    Name der Wahl
-                                                  </div>
-                                              </div>
-                                          </a>
-                                          <a href="#" class="list-group-item list-group-item-action active">
-                                              <div class="notification-info">
-
-                                                  <div class="notification-list-user-block">
-                                                    Name der Wahl
-                                                  </div>
-                                              </div>
-                                          </a>
                                       </div>
                                   </div>
                               </li>
                               <li>
-                                  <div class="list-footer"> <a href="#">Neue Wahl erstellen</a></div>
+                                  <div class="list-footer"> <a href="{{route('create.new.election')}}">Neue Wahl erstellen</a></div>
                               </li>
                           </ul>
                       </li>
@@ -118,10 +67,14 @@
                             <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('backend/images/avatar-1.jpg')}}" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
-                                    <h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
+                                    <h5 class="mb-0 text-white nav-user-name">{{$user->name.', '.$user->surname}} </h5>
                                 </div>
-                                <a class="dropdown-item" href="#"><i class="fas fa-user mr-2"></i>Account</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                                <a class="dropdown-item" href="{{route('profile.Data')}}"><i class="fas fa-user mr-2"></i>Account</a>
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+
                             </div>
                         </li>
                     </ul>
@@ -139,18 +92,20 @@
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav flex-column">
+                          @if(!empty($electionUUID))
                           <li class="nav-divider">
                                 Allgemeines
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fas fa-fw fa-chart-pie"></i>Dashboard</a>
+                                <a class="nav-link" href="{{route('election.Dashboard', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-chart-pie"></i>Dashboard</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fas fa-fw fa-info"></i>Grunddaten</a>
+                                <a class="nav-link" href="{{route('election.Informations', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-info"></i>Grunddaten</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="fas fa-fw fa-hands-helping"></i>Wahlhelfer</a>
                             </li>
+                            @endif
                           <li class="nav-divider">
                                 Wahlsteuerung
                             </li>

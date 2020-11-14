@@ -859,6 +859,9 @@ Background Color / Color
     background-color: #5969ff !important;
     color: #fff !important;
 }
+.bg-profile {
+  background-color: #D8D8D8 !important;
+}
 
 .bg-brand {
     background-color: #ffc750 !important;

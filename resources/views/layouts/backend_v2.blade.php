@@ -36,7 +36,7 @@
                     <ul class="navbar-nav ml-auto navbar-right-top">
 
                       <li class="nav-item dropdown notification">
-                          <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"><i class="fas fa-fw fa-bell"></i></a>
+                          <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"><i class="fas fa-fw fa-bars"></i></a>
                           <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
                               <li>
                                   <div class="notification-title"> Deine Wahlen</div>

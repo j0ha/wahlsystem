@@ -139,7 +139,7 @@ class backendController extends Controller
       $electionArray = Self::electionPermission($user);
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.schoolclass', ['electionUUID' => $electionUUID],compact('electionArray', 'user'));
+        return view('backendviews.v2.schoolclasses', ['electionUUID' => $electionUUID],compact('electionArray', 'user'));
       } else {
         return redirect()->route('unauthorized');
       }
@@ -150,7 +150,7 @@ class backendController extends Controller
       $electionArray = Self::electionPermission($user);
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.schoolgrade', ['electionUUID' => $electionUUID],compact('electionArray', 'user'));
+        return view('backendviews.v2.schoolgrades', ['electionUUID' => $electionUUID],compact('electionArray', 'user'));
       } else {
         return redirect()->route('unauthorized');
       }

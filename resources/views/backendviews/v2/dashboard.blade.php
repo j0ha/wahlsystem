@@ -9,7 +9,7 @@
           <div class="card-body">
               <h5 class="text-muted">Nutzer*innen</h5>
               <div class="metric-value d-inline-block">
-                  <h1 class="mb-1">21322</h1>
+                  <h1 class="mb-1">{{$stat_voters}}</h1>
               </div>
           </div>
       </div>
@@ -19,7 +19,7 @@
           <div class="card-body">
               <h5 class="text-muted">Fragen</h5>
               <div class="metric-value d-inline-block">
-                  <h1 class="mb-1">12</h1>
+                  <h1 class="mb-1">{{$stat_questions}}</h1>
               </div>
           </div>
       </div>
@@ -29,7 +29,7 @@
           <div class="card-body">
               <h5 class="text-muted">Gezählte Stimmen</h5>
               <div class="metric-value d-inline-block">
-                  <h1 class="mb-1">213442</h1>
+                  <h1 class="mb-1">{{$stat_votes}}</h1>
               </div>
           </div>
       </div>
@@ -39,7 +39,7 @@
           <div class="card-body">
               <h5 class="text-muted">Wahlbeteiligung</h5>
               <div class="metric-value d-inline-block">
-                  <h1 class="mb-1">23%</h1>
+                  <h1 class="mb-1">{{round($stat_votes/$stat_voters*100,3)}}%</h1>
               </div>
           </div>
       </div>

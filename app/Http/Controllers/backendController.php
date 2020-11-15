@@ -14,6 +14,7 @@ use App\Voter;
 use App\Form;
 use App\Schoolclass;
 use App\Candidate;
+use App\Http\Controllers\electionProcessController;
 
 class backendController extends Controller
 {

@@ -3,9 +3,11 @@
 namespace App\Http\Livewire;
 
 use App\Schoolclass;
+use App\Form;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Http\Controllers\electionProcessController;
+use Illuminate\Support\Str;
 
 class BackendSchoolclassesOverview extends Component
 {
@@ -18,11 +20,15 @@ class BackendSchoolclassesOverview extends Component
 
   public $schoolclassUUID;
   public $name;
+  public $form_id;
+  public $forms;
 
   public $electionUUID;
 
   public function mount($electionUUID) {
     $this->electionUUID = $electionUUID;
+    $electionProcess = new electionProcessController;
+    $this->forms = Form::where('election_id', $electionProcess->getId($electionUUID, 'elections'))->get();
   }
 
     public function render()
@@ -61,5 +67,22 @@ class BackendSchoolclassesOverview extends Component
 
     public function print() {
 
+    }
+
+    public function create(){
+      $this->schoolclassUUID = '';
+      $this->name = '';
+      $this->form_id = null;
+
+    }
+
+    public function createSave(){
+      $schoolclass = new Schoolclass;
+      $electionProcess = new electionProcessController;
+      $schoolclass->name = $this->name;
+      $schoolclass->uuid = Str::uuid();
+      $schoolclass->form_id = $this->form_id;
+      $schoolclass->election_id = $electionProcess->getId($this->electionUUID, 'elections');
+      $schoolclass->save();
     }
 }

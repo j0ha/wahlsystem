@@ -37,7 +37,7 @@
                   <td>{{$terminal->position}}</td>
                   <td>@if($terminal->start_time){{$terminal->start_time}}@else unendlich @endif bis @if($terminal->end_time){{$terminal->end_time}}@else unendlich @endif</td>
                   <td>@if($terminal->ip_restriction){{$terminal->ip_restriction}}@else<span class="badge badge-pill badge-light mx-1">Deaktiv</span>@endif</td>
-                  <td>@if($terminal->status == 'active')<span class="badge badge-pill badge-success mx-1">Aktiv</span>@else<span class="badge badge-pill badge-danger mx-1">Deaktiv</span>@endif</td>
+                  <td>@if($terminal->status == 1)<span class="badge badge-pill badge-success mx-1">Aktiv</span>@else<span class="badge badge-pill badge-danger mx-1">Deaktiv</span>@endif</td>
                   <td>
                     <button wire:click.lazy="edit('{{$terminal->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Bearbeiten</button>
                     <button wire:click.lazy="view('{{$terminal->uuid}}')" data-toggle="modal" data-target="#viewModal" type="button" class="btn btn-primary mx-1">Ansicht</button>
@@ -112,6 +112,15 @@
                       <div class="form-group">
                           <label for="ip_restriction" class="col-form-label">IP-Beschränkung</label>
                           <input wire:model.defer="ip_restriction" id="ip_restriction" name="ip_restriction" placeholder="IP-Beschränkung" type="text" class="form-control">
+                      </div>
+                      <div class="form-group">
+                          <label class="col-form-label">Status</label>
+                          <div class="pt-1">
+                              <div class="switch-button switch-button-success">
+                                  <input wire:model.defer="status" type="checkbox" name="status" id="status"><span>
+                              <label for="status"></label></span>
+                              </div>
+                          </div>
                       </div>
 
                     </div>

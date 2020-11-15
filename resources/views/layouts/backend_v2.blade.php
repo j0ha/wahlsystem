@@ -36,7 +36,7 @@
                     <ul class="navbar-nav ml-auto navbar-right-top">
 
                       <li class="nav-item dropdown notification">
-                          <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false"><i class="fas fa-fw fa-bars"></i></a>
+                          <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">Elections <i class="fas fa-fw fa-bars"></i></a>
                           <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
                               <li>
                                   <div class="notification-title"> Deine Wahlen</div>
@@ -137,7 +137,10 @@
                           <li class="nav-divider">
                                 Inhaltsverwaltung
                             </li>
-                          <!-- Nutzer Menu -->
+                            <!-- ============================================================== -->
+                            <!-- VOTER MENUE -->
+                            <!-- ============================================================== -->
+                          @if(!empty($electionUUID))
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-fw fa-child"></i>Voters</a>
                                 <div id="submenu-2" class="collapse submenu" style="">
@@ -154,23 +157,30 @@
                                     </ul>
                                 </div>
                             </li>
-                            <!-- Fragen Menu -->
+
+                            <!-- ============================================================== -->
+                            <!-- CANDIDATE MENUE FOR SSPW -->
+                            <!-- ============================================================== -->
+                            <?php // TODO: HIER MÜSSEN WIR NOCH DIE VARIABLE ÜBERGEBEN WELCHE ART VON ELECTION ES IST UM RICHTIG ZUZUORDNEN ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-question"></i>Fragen</a>
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-question"></i>Candidates</a>
                                 <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="{{route('candidates.view', ['electionUUID' => $electionUUID])}}">Übersicht</a>
+                                            <a class="nav-link" href="{{route('candidates.view', ['electionUUID' => $electionUUID])}}">Overview</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Hinzufügen</a>
+                                            <a class="nav-link" href="{{route('candidates.add.single', ['electionUUID' => $electionUUID])}}">Add Single</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Hochladen</a>
+                                            <a class="nav-link" href="{{route('candidates.add.many', ['electionUUID' => $electionUUID])}}">Upload File</a>
                                         </li>
                                     </ul>
                                 </div>
                             </li>
+                            @endif
+
+
 
 
 

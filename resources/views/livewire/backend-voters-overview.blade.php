@@ -5,11 +5,11 @@
         <div class="dt-buttons">
           <button wire:click.lazy="downloadList()" class="btn btn-outline-light buttons-export buttons-html5" tabindex="0" aria-controls="example" type="button"><span>Export</span></button>
           <button wire:click.lazy="downloadPDF()"class="btn btn-outline-light buttons-pdf buttons-html5" tabindex="0" aria-controls="example" type="button"><span>PDF</span></button>
-          <button wire:click.lazy="print()"class="btn btn-outline-light buttons-print" tabindex="0" aria-controls="example" type="button"><span>Drucken</span></button>
+          <button wire:click.lazy="print()"class="btn btn-outline-light buttons-print" tabindex="0" aria-controls="example" type="button"><span>Print</span></button>
         </div>
       </div>
       <div class="col-sm-12 col-md-6">
-        <div id="example_filter" class="dataTables_filter"><label>Suche:<input wire:model.debounce.300ms="search" type="search" class="form-control form-control-sm" placeholder="" aria-controls="example"></label>
+        <div id="example_filter" class="dataTables_filter"><label>Search:<input wire:model.debounce.300ms="search" type="search" class="form-control form-control-sm" placeholder="" aria-controls="example"></label>
         </div>
       </div>
     </div>
@@ -18,12 +18,12 @@
           <thead>
               <tr>
                   <th>Name</th>
-                  <th>Nachname</th>
-                  <th>Geburtsdatum</th>
-                  <th>Jahrgang</th>
-                  <th>Klasse</th>
+                  <th>Surname</th>
+                  <th>Birthdate</th>
+                  <th>Form</th>
+                  <th>Class</th>
                   <th>Status</th>
-                  <th>Aktionen</th>
+                  <th>Action</th>
               </tr>
           </thead>
           <tbody>
@@ -34,10 +34,10 @@
                   <td>{{ $voter->birth_year }}</td>
                   <td>{{ $voter->form_id }}</td>
                   <td>{{ $voter->schoolclass_id }}</td>
-                  <td>@if($voter->voted_via_email)<span class="badge badge-pill badge-success mx-1">direkt abgestimmt</span>@elseif ($voter->voted_via_terminal)<span class="badge badge-pill badge-success mx-1">Terminal abgestimmt</span>@else<span class="badge badge-pill badge-light mx-1">nicht Abgestimmt</span>@endif @if($voter->direct_uuid)<span class="badge badge-pill badge-success mx-1">Direkt erzeugt</span>@else<span class="badge badge-pill badge-light mx-1">Direkt erzeugt</span>@endif @if($voter->got_email == true)<span class="badge badge-pill badge-success mx-1">E-Mail vers.</span>@else<span class="badge badge-pill badge-light mx-1">E-Mail vers.</span>@endif</td>
+                  <td>@if($voter->voted_via_email)<span class="badge badge-pill badge-success mx-1">voted directly</span>@elseif ($voter->voted_via_terminal)<span class="badge badge-pill badge-success mx-1">voted via terminal</span>@else<span class="badge badge-pill badge-light mx-1">not voted</span>@endif @if($voter->direct_uuid)<span class="badge badge-pill badge-success mx-1">created directly</span>@else<span class="badge badge-pill badge-light mx-1">created directly</span>@endif @if($voter->got_email == true)<span class="badge badge-pill badge-success mx-1">E-Mail sent</span>@else<span class="badge badge-pill badge-light mx-1">E-Mail sent</span>@endif</td>
                   <td>
-                    <button wire:click.lazy="editVoter('{{$voter->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Bearbeiten</button>
-                    <button wire:click.lazy="viewVoter('{{$voter->uuid}}')" data-toggle="modal" data-target="#viewModal" type="button" class="btn btn-primary mx-1">Ansicht</button>
+                    <button wire:click.lazy="editVoter('{{$voter->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Edit</button>
+                    <button wire:click.lazy="viewVoter('{{$voter->uuid}}')" data-toggle="modal" data-target="#viewModal" type="button" class="btn btn-primary mx-1">View</button>
                   </td>
               </tr>
             @endforeach
@@ -45,12 +45,12 @@
           <tfoot>
               <tr>
                 <th>Name</th>
-                <th>Nachname</th>
-                <th>Geburtsdatum</th>
-                <th>Jahrgang</th>
-                <th>Klasse</th>
+                <th>Surname</th>
+                <th>Birthdate</th>
+                <th>Form</th>
+                <th>Class</th>
                 <th>Status</th>
-                <th>Aktionen</th>
+                <th>Action</th>
               </tr>
           </tfoot>
       </table>
@@ -79,18 +79,18 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">{{$name}} bearbeiten</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{$name}} edit</h5>
                         <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </a>
                     </div>
                     <div class="modal-body">
                       <div class="form-group">
-                          <label for="surname" class="col-form-label">Nachname</label>
+                          <label for="surname" class="col-form-label">Surname</label>
                           <input wire:model.defer="surname" id="surname" name="surname" placeholder="z.B. Schmidt" type="text" class="form-control">
                       </div>
                       <div class="form-group">
-                          <label for="name" class="col-form-label">Vorname</label>
+                          <label for="name" class="col-form-label">Name</label>
                           <input wire:model.defer="name" id="name" name="name" placeholder="z.B. Peter" type="text" class="form-control">
                       </div>
                       <div class="form-group">
@@ -98,13 +98,13 @@
                           <input wire:model.defer="email" id="email" name="email" placeholder="E-Mail" type="email" class="form-control">
                       </div>
                       <div class="form-group">
-                          <label for="birthday" class="col-form-label">Geburtsdatum</label>
+                          <label for="birthday" class="col-form-label">Birthdate</label>
                           <input wire:model.defer="birth_year" id="birthday" name="birthday" placeholder="Geburtstag" type="date" class="form-control">
                       </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-secondary" data-dismiss="modal">Schießen</a>
-                        <button wire:click="update()" class="btn btn-primary" data-dismiss="modal">Änderung speichern</a>
+                        <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                        <button wire:click="update()" class="btn btn-primary" data-dismiss="modal">Save changes</a>
                     </div>
                 </div>
             </div>
@@ -113,19 +113,19 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ansicht für {{$name}}</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">View for {{$name}}</h5>
                         <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </a>
                     </div>
                     <div class="modal-body">
-                      <button wire:click.lazy="sendEmail()" class="btn btn-light mx-2 my-2" data-dismiss="modal">E-Mail versenden</a>
-                      <button wire:click.lazy="downloadSheet()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Zugangsblatt downloaden</a>
-                      <button wire:click.lazy="copyDirect()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Direkt-Link kopieren</a>
-                      <button wire:click.lazy="deleteVoter()" class="btn btn-danger mx-2 my-2" data-dismiss="modal">Löschen</a>
+                      <button wire:click.lazy="sendEmail()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Send E-Mail</a>
+                      <button wire:click.lazy="downloadSheet()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Download the Page</a>
+                      <button wire:click.lazy="copyDirect()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Copy Direkt-Link</a>
+                      <button wire:click.lazy="deleteVoter()" class="btn btn-danger mx-2 my-2" data-dismiss="modal">Delete</a>
                     </div>
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-secondary" data-dismiss="modal">Schießen</a>
+                        <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
                     </div>
                 </div>
             </div>

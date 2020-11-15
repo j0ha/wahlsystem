@@ -11,15 +11,30 @@
             <h5 class="card-header">Upload</h5>
 
             <div class="card-body">
-                <form>
+                <form action="{{route('votersAddMany')}}" method="POST">
                   <div class="custom-file mb-3">
-                      <input type="file" class="custom-file-input" id="customFile">
-                      <label class="custom-file-label" for="customFile">Datei</label>
+                      <input type="file" name="votersFile" class="custom-file-input" id="customFile">
+                      @if ($errors->has('votersFile'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('votersFile') }}</strong>
+                          </span>
+                      @endif
+                      <label class="custom-file-label" for="customFile">File</label>
+
                       <p>CSV-Format: Name; Nachname; E-Mail; Klasse; Jahrgang; Geburtsdatum;</p>
                   </div>
-                    <div class="form-group">
-                      <input type="submit" name="submit" value="Speichern" class="btn btn-primary">
-                    </div>
+
+                  <div class="form-group">
+                      <label class="col-form-label">Does the File have an header?</label>
+                      <div class="switch-button switch-button-success ml-2">
+                        <input type="checkbox" checked="" name="header" id="switch16"><span>
+                        <label for="switch16"></label></span>
+                        </div>
+                  </div>
+
+                  <div class="form-group">
+                      <input type="submit" name="submit" value="Upload" class="btn btn-primary">
+                  </div>
 
                 </form>
             </div>

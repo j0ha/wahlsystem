@@ -12,14 +12,14 @@
             <div class="card-body">
                 <form action="{{route('votersAddSingle')}}" method="POST">
                   @csrf
-                    <input type="hidden" name="electionUUID" value="{{$electionUUID}}">
-                    <div class="form-group">
-                        <label for="voterSurame" class="col-form-label">Surname</label>
-                        <input name="voterSurname" id="voterSurname" type="text" placeholder="Max" class="form-control">
-                    </div>
+                  <input type="hidden" name="electionUUID" value="{{$electionUUID}}">
                     <div class="form-group">
                         <label for="voterName" class="col-form-label">Name</label>
                         <input name="voterName" id="voterName" type="text" placeholder="Mustermann" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="voterSurame" class="col-form-label">Surname</label>
+                        <input name="voterSurname" id="voterSurname" type="text" placeholder="Max" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="voterDate" class="col-form-label">Geburtsdatum</label>

@@ -21,6 +21,14 @@ Route::get('/', function () {
 //TESTROUTE
 Route::get('/testRoute/{thing}/{uuid}/{elctionUUID}', 'App\Http\Controllers\securityController@verifyToElection', ['thing' => 'thing'], ['uuid' => 'UUID'], ['electionUUID' => 'electionUUID']);
 Route::get('/testRoute/candidates/{electionUUID}', 'App\Http\Controllers\electionProcessController@querryElectionCandidates', ['electionUUID' => 'electionUUID']);
+Route::get('/test/pdf', function(){
+  return view('pdf.invitation');
+});
+
+Route::get('/test/pdff', function(){
+  $pdf = PDF::loadView('pdf.invitation');
+  return $pdf->download('dkslf.pdf');
+});
 
 //ROUTES FOR TERMINAL
 Route::group(['prefix' => 'vote'], function(){

@@ -46,7 +46,9 @@ Route::group(['prefix' => 'vote'], function(){
 //ROUTES FOR BACKEND
 Route::group(['prefix' => 'dvi'], function() {
   Route::group(['prefix' => 'home'], function(){
-    //Opens the electionBackend without any election selected
+    /*==============================================================
+                           BEGIN INDEXPAGES
+    ==============================================================*/
     Route::get('/', 'App\Http\Controllers\backendController@indexHomeWithoutElection')->name('home.without.election');
     //Election Dashboard
     Route::get('/{electionUUID}', 'App\Http\Controllers\backendController@indexDashboard')->name('election.Dashboard');
@@ -64,25 +66,40 @@ Route::group(['prefix' => 'dvi'], function() {
 
     //Show the stats of the actual electionUUID
     Route::get('/{electionUUID}/stats', 'App\Http\Controllers\backendController@indexElectionStats')->name('election.Stats');
-    //All Voter to the elecetion
+    /*==============================================================
+                           BEGIN VOTERS ROUTES
+    ==============================================================*/
     Route::get('/{electionUUID}/voters', 'App\Http\Controllers\backendController@indexVoters')->name('voters.view');
     //Ein Datensatz kann hinzugefügt werden
-    Route::get('/{electionUUID}/voters/add', 'App\Http\Controllers\backendController@votersAddSingle')->name('voters.add.single');
+    Route::get('/{electionUUID}/voters/add', 'App\Http\Controllers\backendController@indexVotersAddSingle')->name('voters.add.single');
     Route::post('/electionVotersAddSingle', 'App\Http\Controllers\backendController@votersAddSingleInsert')->name('votersAddSingle');
     //Großer Datensatz inform von einer Datei
-    Route::get('/{electionUUID}/voters/bulkadd', 'App\Http\Controllers\backendController@votersAddMany')->name('voters.add.many');
-    //ROUTES DO NOT WORK AT THE MOMENT
+    Route::get('/{electionUUID}/voters/bulkadd', 'App\Http\Controllers\backendController@indexVotersAddMany')->name('voters.add.many');
+    Route::post('/electionVotersAddMany', 'App\Http\Controllers\backendController@votersAddMany')->name('votersAddMany');
+    /*==============================================================
+                           BEGIN CANDIDATES ROUTES
+    ==============================================================*/
     Route::get('/{electionUUID}/candidates', 'App\Http\Controllers\backendController@indexCandidates')->name('candidates.view');
-    Route::get('/{electionUUID}/candidates/add', 'App\Http\Controllers\backendController@candidatesAddSingle')->name('candidates.add.single');
-    Route::get('/{electionUUID}/candidates/bulkadd', 'App\Http\Controllers\backendController@candidatesAddMany')->name('candidates.add.many');
-    //Alle Emails versenden, an die eingetragenen Emails, with options?
+
+    Route::get('/{electionUUID}/candidates/add', 'App\Http\Controllers\backendController@indexCandidatesAddSingle')->name('candidates.add.single');
+    Route::post('/electionCandidatesAddSingle', 'App\Http\Controllers\backendController@candidatesAddSingleInsert')->name('candidatesAddSingle');
+
+    Route::get('/{electionUUID}/candidates/bulkadd', 'App\Http\Controllers\backendController@indexCandidatesAddMany')->name('candidates.add.many');
+    Route::post('/electionCandidatesAddMany', 'App\Http\Controllers\backendController@candidatesAddMany')->name('candidatesAddMany');
+    /*==============================================================
+                           EMAIL ROUTES
+    ==============================================================*/
     Route::get('/{electionUUID}/bulkemail', 'App\Http\Controllers\backendController@bulkemail')->name('bulkemail');
   });
-  //Routen zum erstellen einer neuen Wahl
+  /*==============================================================
+                         BEGIN ELECTION CREATION ROUTES
+  ==============================================================*/
   Route::get('/setup', 'App\Http\Controllers\createController@index')->name('create.new.election');
   Route::post('/setup', 'App\Http\Controllers\createController@insert');
 
-
+  /*==============================================================
+                         BEGIN PROFILE ROUTES
+  ==============================================================*/
   Route::group(['prefix' => 'profil'],  function() {
     //Lists up all of the data, some fields maybe changeable?
     Route::get('/data', 'App\Http\Controllers\backendController@indexProfile')->name('profile.Data')->middleware('auth');

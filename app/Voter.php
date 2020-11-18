@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Voter extends Model
 {
+  public $fillable = ['surname', 'name', 'birth_year','email'];
+
   public static function search($search, $electionId)
     {
         return empty($search) ? static::query()->where('election_id', $electionId)

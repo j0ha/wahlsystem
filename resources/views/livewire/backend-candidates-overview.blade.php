@@ -18,11 +18,11 @@
           <thead>
               <tr>
                   <th>Name</th>
-                  <th>Beschreibung</th>
-                  <th>Typ</th>
+                  <th>Description</th>
+                  <th>Type</th>
                   <th>Level</th>
-                  <th>Bild</th>
-                  <th>Aktion</th>
+                  <th>Image</th>
+                  <th>Action</th>
               </tr>
           </thead>
           <tbody>
@@ -34,8 +34,8 @@
                   <td>{{$candidate->level}}</td>
                   <td>{{$candidate->image}}</td>
                   <td>
-                    <button wire:click.lazy="editCandidate('{{$candidate->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Bearbeiten</button>
-                    <button wire:click.lazy="deleteCandidate('{{$candidate->uuid}}')" type="button" class="btn btn-danger mx-1">Löschen</button>
+                    <button wire:click.lazy="editCandidate('{{$candidate->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Edit</button>
+                    <button wire:click.lazy="deleteCandidate('{{$candidate->uuid}}')" type="button" class="btn btn-danger mx-1">Delete</button>
                   </td>
               </tr>
             @endforeach
@@ -43,11 +43,11 @@
           <tfoot>
               <tr>
                 <th>Name</th>
-                <th>Beschreibung</th>
-                <th>Typ</th>
+                <th>Description</th>
+                <th>Type</th>
                 <th>Level</th>
-                <th>Bild</th>
-                <th>Aktion</th>
+                <th>Image</th>
+                <th>Action</th>
               </tr>
           </tfoot>
       </table>
@@ -76,7 +76,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">{{$name}} bearbeiten</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">{{$name}} Edit</h5>
                         <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </a>
@@ -87,7 +87,7 @@
                           <input wire:model.defer="name" id="name" name="name" placeholder="z.B. Peter" type="text" class="form-control">
                       </div>
                       <div class="form-group">
-                          <label for="description" class="col-form-label">Beschreibung</label>
+                          <label for="description" class="col-form-label">Description</label>
                           <input wire:model.defer="description" id="description" name="description" placeholder="Beschreibung" type="email" class="form-control">
                       </div>
                       <div class="form-group">
@@ -96,8 +96,8 @@
                       </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-secondary" data-dismiss="modal">Schießen</a>
-                        <button wire:click="update()" class="btn btn-primary" data-dismiss="modal">Änderung speichern</a>
+                        <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                        <button wire:click="update()" class="btn btn-primary" data-dismiss="modal">Save changes</a>
                     </div>
                 </div>
             </div>

@@ -8,34 +8,34 @@
   </head>
   <body>
     <div class="container" style="width: 21cm; height: 29.7cm;">
-      <h1 class="mb-4">Schulsprecherwahl 2020</h1>
+      <h1 class="mb-4">{{$election->name}}</h1>
       <div class="card">
         <div class="card-header">
-          <h3>Wahlbogen für Johannes Schur</h3>
+          <h3>Wahlbogen für {{$voter->name}} {{$voter->surname}}</h3>
         </div>
         <div class="card-body">
           <div class="row">
             <div class="col">
               <h4>Wahldaten</h4>
               <div class="">
-                <strong>Wahlname</strong>Schulsprecherwahl 2020
+                <strong>Wahlname</strong> {{$election->name}}
               </div>
               <div class="">
-                <strong>Wahlzeitraum</strong> 11:11 20.11.2020 bis 17:00 20.11.2020
+                <strong>Wahlzeitraum</strong> @if($election->activeby == null)Steinzeit @else {{$election->activeby}}@endif bis @if($election->activeto == null)Trumpszweitepräsidentschaft @else {{$election->activeto}}@endif
               </div>
               <div class="">
-                <strong>Wahlbeaufsichtigung:</strong> Andreas Dressel
+                <strong>Wahlbeaufsichtigung:</strong> {{$election->permission_id}}
               </div>
               <hr>
               <h4>Wähler</h4>
               <div class="">
-                <strong>Name:</strong> Johannes Schur
+                <strong>Name:</strong> {{$voter->name}} {{$voter->surname}}
               </div>
               <div class="">
-                <strong>Klasse:</strong> 11b
+                <strong>Klasse:</strong> {{$voter->schoolclass_id}}
               </div>
               <div class="">
-                <strong>Jahrgang:</strong>11
+                <strong>Jahrgang:</strong> {{$voter->form_id}}
               </div>
               <div class="">
                 <strong>Teilname via:</strong>Email, Dierekt, Terminal
@@ -45,7 +45,7 @@
                 <h2 class="mb-3">Direktzugang via QR-Code</h2>
 
               <div class="mx-auto d-block">
-                {!! QrCode::size(200)->generate('moinsenkljsrhflashjrfglkaejhgiaeurgeuiahglawirhugaeirhglaeruhgilaeuhgl'); !!}
+                {{ QrCode::size(200)->generate($route) }}
               </div>
 
             </div>
@@ -65,7 +65,7 @@
 
         </div>
         <div class="card-footer text-muted">
-          Erstellt am 20.11.2020 um 07:56 Uhr für Johannes Schur
+          Erstellt am {{date('d.m.Y')}} um {{date('H:i:s')}} Uhr für {{$voter->name}} {{$voter->surname}}
         </div>
 
       </div>

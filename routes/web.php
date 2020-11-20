@@ -25,10 +25,7 @@ Route::get('/test/pdf', function(){
   return view('pdf.invitation');
 });
 
-Route::get('/test/pdff', function(){
-  $pdf = PDF::loadView('pdf.invitation');
-  return $pdf->download('dkslf.pdf');
-});
+Route::get('/test/{userUUID}', 'App\Http\Controllers\paperController@downloadSingelInvitation', ['userUUID' => 'userUUID']);
 
 //ROUTES FOR TERMINAL
 Route::group(['prefix' => 'vote'], function(){

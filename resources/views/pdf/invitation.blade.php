@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
   </head>
   <body>
-    <div class="container-fluid">
-      <h1>Schulsprecherwahl 2020</h1>
+    <div class="container" style="width: 21cm; height: 29.7cm;">
+      <h1 class="mb-4">Schulsprecherwahl 2020</h1>
       <div class="card">
         <div class="card-header">
           <h3>Wahlbogen für Johannes Schur</h3>
@@ -40,14 +40,15 @@
               <div class="">
                 <strong>Teilname via:</strong>Email, Dierekt, Terminal
               </div>
+              <hr>
+              <div class="text-center my-4">
+                <h2 class="mb-3">Direktzugang via QR-Code</h2>
 
-            </div>
-
-            <div class="col">
-              <h4>Direktzugang via QR-Code</h4>
               <div class="mx-auto d-block">
                 {!! QrCode::size(200)->generate('moinsenkljsrhflashjrfglkaejhgiaeurgeuiahglawirhugaeirhglaeruhgilaeuhgl'); !!}
               </div>
+
+            </div>
             </div>
           </div>
           <div class="card-body border-top mt-3">

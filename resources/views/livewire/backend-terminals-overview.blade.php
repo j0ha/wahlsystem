@@ -8,12 +8,19 @@
           <button class="btn btn-outline-light buttons-pdf buttons-html5" tabindex="0" aria-controls="example" type="button"><span>PDF</span></button>
           <button class="btn btn-outline-light buttons-print" tabindex="0" aria-controls="example" type="button"><span>Drucken</span></button>
         </div>
+
       </div>
       <div class="col-sm-12 col-md-6">
         <div id="example_filter" class="dataTables_filter"><label>Suche:<input wire:model.debounce.300ms="search" type="search" class="form-control form-control-sm" placeholder="" aria-controls="example"></label>
         </div>
       </div>
     </div>
+    @error('name') <div class="alert alert-danger" role="alert">{{$message}}</div></span> @enderror
+    @error('description') <div class="alert alert-danger" role="alert">{{$message}}</div></span> @enderror
+    @error('position') <div class="alert alert-danger" role="alert">{{$message}}</div></span> @enderror
+    @error('start_time') <div class="alert alert-danger" role="alert">{{$message}}</div></span> @enderror
+    @error('end_time') <div class="alert alert-danger" role="alert">{{$message}}</div></span> @enderror
+    @error('ip_restriction') <div class="alert alert-danger" role="alert">{{$message}}</div></span> @enderror
 
       <table id="example" class="table table-striped table-bordered second" style="width:100%">
           <thead>

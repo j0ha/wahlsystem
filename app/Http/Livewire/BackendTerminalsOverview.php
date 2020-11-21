@@ -33,6 +33,15 @@ class BackendTerminalsOverview extends Component
     $this->electionUUID = $electionUUID;
   }
 
+  protected $rules = [
+        'name' => 'required|max:255',
+        'description' => 'required|max:255',
+        'position' => 'required|max:255',
+        'start_time' => '',
+        'end_time' => '',
+        'ip_restriction' => 'ipv4',
+    ];
+
 
     public function render()
     {
@@ -55,12 +64,15 @@ class BackendTerminalsOverview extends Component
       $this->start_time = $terminal->start_time;
       $this->end_time = $terminal->end_time;
       $this->ip_restriction = $terminal->ip_restriction;
+
+
     }
     public function delete() {
       $terminal = Terminal::where('uuid', $this->terminalUUID)->delete();
     }
 
     public function update() {
+      $this->validate();
       $terminal = Terminal::where('uuid', $this->terminalUUID)->firstOrFail();
       $terminal->name = $this->name;
       $terminal->description = $this->description;
@@ -99,11 +111,12 @@ class BackendTerminalsOverview extends Component
     }
 
     public function createSave(){
+      $this->validate();
       $electionProcess = new electionProcessController;
       $terminal = new Terminal;
       $terminal->name = $this->name;
       $terminal->uuid = Str::uuid();
-      $terminal->status = 'deaktiv';
+      $terminal->status = false;
       $terminal->election_id = $electionProcess->getId($this->electionUUID, 'elections');
       $terminal->description = $this->description;
       $terminal->kind = 'browser';

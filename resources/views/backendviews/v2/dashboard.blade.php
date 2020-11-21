@@ -60,41 +60,21 @@
                               <th class="border-0">Start Zeit</th>
                               <th class="border-0">End Zeit</th>
                               <th class="border-0">IP-Beschränkung</th>
-                              <th class="border-0">URL</th>
                               <th class="border-0">Status</th>
                           </tr>
                       </thead>
                       <tbody>
+                        @foreach($stat_terminals as $terminal)
                           <tr>
                               <td>1</td>
-                              <td>Peter</td>
-                              <td>Weltraum </td>
-                              <td>20.11.2020 11:11:11</td>
-                              <td>20.11.2020 11:12:11</td>
-                              <td>123.32.134.234</td>
-                              <td>https://einfachabstimmen.online/lajshefgoiwuhfjlaegbhlaheglerghuklaehrg</td>
-                              <td><span class="badge-dot badge-success mr-1"></span>Aktiv</td>
+                              <td>{{$terminal->name}}</td>
+                              <td>{{$terminal->position}} </td>
+                              <td>@if($terminal->start_time){{$terminal->start_time}}@else <span class="badge badge-pill badge-light mx-1">nicht festgelegt</span> @endif</td>
+                              <td>@if($terminal->end_time){{$terminal->end_time}}@else <span class="badge badge-pill badge-light mx-1">nicht festgelegt</span> @endif</td>
+                              <td>@if($terminal->ip_restriction){{$terminal->ip_restriction}}@else<span class="badge badge-pill badge-light mx-1">Deaktiv</span>@endif</td>
+                              <td>@if($terminal->status == 1)<span class="badge badge-pill badge-success mx-1">Aktiv</span>@else<span class="badge badge-pill badge-danger mx-1">Deaktiv</span>@endif</td>
                           </tr>
-                          <tr>
-                              <td>1</td>
-                              <td>Peter</td>
-                              <td>Weltraum </td>
-                              <td>20.11.2020 11:11:11</td>
-                              <td>20.11.2020 11:12:11</td>
-                              <td>123.32.134.234</td>
-                              <td>https://einfachabstimmen.online/lajshefgoiwuhfjlaegbhlaheglerghuklaehrg</td>
-                              <td><span class="badge-dot badge-success mr-1"></span>Aktiv</td>
-                          </tr>
-                          <tr>
-                              <td>1</td>
-                              <td>Peter</td>
-                              <td>Weltraum </td>
-                              <td>20.11.2020 11:11:11</td>
-                              <td>20.11.2020 11:12:11</td>
-                              <td>123.32.134.234</td>
-                              <td>https://einfachabstimmen.online/lajshefgoiwuhfjlaegbhlaheglerghuklaehrg</td>
-                              <td><span class="badge-dot badge-success mr-1"></span>Aktiv</td>
-                          </tr>
+                          @endforeach
                       </tbody>
                   </table>
               </div>
@@ -144,6 +124,7 @@
 
 
 
+
 @endsection
 
 @section('scripts')
@@ -174,9 +155,10 @@
     new Morris.Donut({
         element: 'terminal_usage_dounut',
         data: [
-            { value: 40, label: 'Peter 1' },
-            { value: 20, label: 'Peter 2' },
-            { value: 40, label: 'Peter 3' }
+          @foreach($stat_terminalUsage as $t_stat)
+            { value: {{$t_stat[0]}}, label: '{{$t_stat[1]}}' },
+          @endforeach
+
         ],
 
         labelColor: '#2e2f39',

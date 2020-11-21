@@ -44,14 +44,17 @@ class backendController extends Controller
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
       $electionProcess = new electionProcessController;
+      $statsController = new statsController;
 
 
       $stat_voters = Voter::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->count();
       $stat_questions = Candidate::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->count();
       $stat_votes = Voter::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->where('voted_via_email', 1)->Orwhere('voted_via_terminal', 1)->count();
+      $stat_terminalUsage = $statsController->terminalUsage($electionUUID);
+      $stat_terminals = $statsController->terminals($electionUUID);
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.dashboard',['electionUUID' => $electionUUID] , compact('electionArray', 'user', 'stat_voters', 'stat_questions', 'stat_votes'));
+        return view('backendviews.v2.dashboard',['electionUUID' => $electionUUID] , compact('electionArray', 'user', 'stat_voters', 'stat_questions', 'stat_votes', 'stat_terminalUsage', 'stat_terminals'));
 
       } else {
         return redirect()->route('unauthorized');

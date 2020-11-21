@@ -48,6 +48,7 @@ class AddElectionSeeder extends Seeder
                 'uuid' => Str::uuid(),
                 'election_id' => $a,
                 'status' => "active",
+                'hits' => 234,
             ]);
           }
 

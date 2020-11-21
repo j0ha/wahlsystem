@@ -52,9 +52,11 @@ class backendController extends Controller
       $stat_votes = Voter::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->where('voted_via_email', 1)->Orwhere('voted_via_terminal', 1)->count();
       $stat_terminalUsage = $statsController->terminalUsage($electionUUID);
       $stat_terminals = $statsController->terminals($electionUUID);
+      $stat_schoolclassesSpread = $statsController->schoolclassesSpread($electionUUID);
+      $stat_formVoterSpread = $statsController->formVoterSpread($electionUUID);
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.dashboard',['electionUUID' => $electionUUID] , compact('electionArray', 'user', 'stat_voters', 'stat_questions', 'stat_votes', 'stat_terminalUsage', 'stat_terminals'));
+        return view('backendviews.v2.dashboard',['electionUUID' => $electionUUID] , compact('electionArray', 'user', 'stat_voters', 'stat_questions', 'stat_votes', 'stat_terminalUsage', 'stat_terminals', 'stat_schoolclassesSpread', 'stat_formVoterSpread'));
 
       } else {
         return redirect()->route('unauthorized');

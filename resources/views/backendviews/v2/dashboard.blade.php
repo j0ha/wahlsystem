@@ -132,10 +132,9 @@
     new Morris.Donut({
         element: 'jahrgang_dounut',
         data: [
-            { value: 12, label: 'Jahrgang 1' },
-            { value: 31, label: 'Jahrgang 2' },
-            { value: 31, label: 'Jahrgang 23' },
-            { value: 23, label: 'Jahrgang 123' }
+          @foreach($stat_formVoterSpread as $f_stat)
+            { value: {{$f_stat[1]}}, label: '{{$f_stat[0]}}' },
+          @endforeach
         ],
 
         labelColor: '#2e2f39',
@@ -178,37 +177,9 @@
     new Morris.Bar({
         element: 'klassenverteilung_bar',
         data: [
-            { x: '11b', y: 10 },
-            { x: '11b', y: 10 },
-            { x: '11b', y: 11 },
-            { x: '11b', y: 2 },
-            { x: '11b', y: 32 },
-            { x: '11b', y: 14 },
-            { x: '11b', y: 15 },
-            { x: '11b', y: 26 },
-            { x: '11b', y: 37 },
-            { x: '11b', y: 10 },
-            { x: '11b', y: 11 },
-            { x: '11b', y: 2 },
-            { x: '11b', y: 32 },
-            { x: '11b', y: 14 },
-            { x: '11b', y: 15 },
-            { x: '11b', y: 26 },
-            { x: '11b', y: 37 },
-            { x: '11b', y: 11 },
-            { x: '11b', y: 37 },
-            { x: '11b', y: 11 },
-            { x: '11b', y: 2 },
-            { x: '11b', y: 32 },
-            { x: '11b', y: 14 },
-            { x: '11b', y: 15 },
-            { x: '11b', y: 2 },
-            { x: '11b', y: 32 },
-            { x: '11b', y: 14 },
-            { x: '11b', y: 15 },
-            { x: '11b', y: 26 },
-            { x: '11b', y: 37 },
-            { x: '11b', y: 8 }
+          @foreach($stat_schoolclassesSpread as $s_stat)
+            { y: {{$s_stat[1]}}, x: '{{$s_stat[0]}}' },
+          @endforeach
         ],
         xkey: 'x',
         ykeys: ['y'],

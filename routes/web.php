@@ -21,7 +21,7 @@ Route::get('/', function () {
 //TESTROUTE
 Route::get('/testRoute/{thing}/{uuid}/{elctionUUID}', 'App\Http\Controllers\securityController@verifyToElection', ['thing' => 'thing'], ['uuid' => 'UUID'], ['electionUUID' => 'electionUUID']);
 Route::get('/testRoute/candidates/{electionUUID}', 'App\Http\Controllers\electionProcessController@querryElectionCandidates', ['electionUUID' => 'electionUUID']);
-Route::get('/testRoute/stat/{electionUUID}', 'App\Http\Controllers\statsController@terminalUsage', ['electionUUID' => 'electionUUID']);
+Route::get('/testRoute/stat/{electionUUID}', 'App\Http\Controllers\statsController@formVoterSpread', ['electionUUID' => 'electionUUID']);
 Route::get('/test/pdf', function(){
   return view('pdf.invitation');
 });

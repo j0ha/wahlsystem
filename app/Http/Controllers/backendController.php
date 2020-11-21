@@ -54,9 +54,10 @@ class backendController extends Controller
       $stat_terminals = $statsController->terminals($electionUUID);
       $stat_schoolclassesSpread = $statsController->schoolclassesSpread($electionUUID);
       $stat_formVoterSpread = $statsController->formVoterSpread($electionUUID);
+      $stat_schoolclassesVoteTurnout = $statsController->schoolclassesVoteTurnout($electionUUID);
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.dashboard',['electionUUID' => $electionUUID] , compact('electionArray', 'user', 'stat_voters', 'stat_questions', 'stat_votes', 'stat_terminalUsage', 'stat_terminals', 'stat_schoolclassesSpread', 'stat_formVoterSpread'));
+        return view('backendviews.v2.dashboard',['electionUUID' => $electionUUID] , compact('electionArray', 'user', 'stat_voters', 'stat_questions', 'stat_votes', 'stat_terminalUsage', 'stat_terminals', 'stat_schoolclassesSpread', 'stat_formVoterSpread', 'stat_schoolclassesVoteTurnout'));
 
       } else {
         return redirect()->route('unauthorized');

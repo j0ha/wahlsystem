@@ -63,4 +63,26 @@ class statsController extends Controller
       }
       return $formspreadStat;
     }
+
+    public function schoolclassesVoteTurnout($electionUUID) {
+      $spv = new spv;
+      $schoolclasses = Schoolclass::where('election_id', $spv->getId($electionUUID, 'elections'))->get();
+      $schoolclassTurnoutStat = array();
+
+      foreach ($schoolclasses as $schoolclass) {
+
+        $voterVotedCount = 0;
+        $voterCount = 0;
+        $voterCount = Voter::where('schoolclass_id', $schoolclass->id)->count();
+        $voterVotedCount = Voter::where('schoolclass_id', $schoolclass->id)->where('voted_via_email', true)->count() + Voter::where('schoolclass_id', $schoolclass->id)->Where('voted_via_terminal', true)->count();
+
+        if($voterVotedCount > 0 and $voterCount > 0) {
+          $schoolclassTurnoutStat[] = array($schoolclass->name, round($voterVotedCount/$voterCount*100, 2));
+        } else {
+          $schoolclassTurnoutStat[] = array($schoolclass->name, 0);
+        }
+
+      }
+      return $schoolclassTurnoutStat;
+    }
 }

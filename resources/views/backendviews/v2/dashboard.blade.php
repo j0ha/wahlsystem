@@ -93,7 +93,7 @@
   </div>
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
       <div class="card">
-          <h5 class="card-header">Wahlbeteiligung Klassen</h5>
+          <h5 class="card-header">Wahlbeteiligung Klassen in %</h5>
           <div class="card-body">
               <div id="klassenwahlbeteiligung_bar"></div>
           </div>
@@ -112,7 +112,7 @@
 
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
       <div class="card">
-          <h5 class="card-header">Klassenverteilung</h5>
+          <h5 class="card-header">Schülerverteilung auf Klassen</h5>
           <div class="card-body">
               <div id="klassenverteilung_bar"></div>
           </div>
@@ -193,37 +193,9 @@
     new Morris.Bar({
         element: 'klassenwahlbeteiligung_bar',
         data: [
-            { x: '11b', y: 10 },
-            { x: '11b', y: 10 },
-            { x: '11b', y: 11 },
-            { x: '11b', y: 2 },
-            { x: '11b', y: 32 },
-            { x: '11b', y: 14 },
-            { x: '11b', y: 15 },
-            { x: '11b', y: 26 },
-            { x: '11b', y: 37 },
-            { x: '11b', y: 10 },
-            { x: '11b', y: 11 },
-            { x: '11b', y: 2 },
-            { x: '11b', y: 32 },
-            { x: '11b', y: 14 },
-            { x: '11b', y: 15 },
-            { x: '11b', y: 26 },
-            { x: '11b', y: 37 },
-            { x: '11b', y: 11 },
-            { x: '11b', y: 37 },
-            { x: '11b', y: 11 },
-            { x: '11b', y: 2 },
-            { x: '11b', y: 32 },
-            { x: '11b', y: 14 },
-            { x: '11b', y: 15 },
-            { x: '11b', y: 2 },
-            { x: '11b', y: 32 },
-            { x: '11b', y: 14 },
-            { x: '11b', y: 15 },
-            { x: '11b', y: 26 },
-            { x: '11b', y: 37 },
-            { x: '11b', y: 8 }
+          @foreach($stat_schoolclassesVoteTurnout as $sv_stat)
+            { y: {{$sv_stat[1]}}, x: '{{$sv_stat[0]}}' },
+          @endforeach
         ],
         xkey: 'x',
         ykeys: ['y'],

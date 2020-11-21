@@ -6,6 +6,7 @@ use App\Voter;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Http\Controllers\electionProcessController;
+use App\Http\Controllers\paperController;
 
 class BackendVotersOverview extends Component
 {
@@ -75,7 +76,7 @@ class BackendVotersOverview extends Component
 
     }
     public function downloadSheet() {
-
+      redirect()->route('download.singelInvitation', ['voterUUID' => $this->voterUUID]);
     }
     public function copyDirect() {
 

@@ -33,7 +33,7 @@ Route::group(['prefix' => 'vote'], function(){
   Route::get('/{electionUUID}/{terminalUUID}', 'App\Http\Controllers\terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID'])->name('vote');
 
   //DIRECT ROUTE
-  Route::get('/{electionUUID}/{terminalUUID}/d/{dircetUUID}', 'App\Http\Controllers\terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID'], ['directUUID' => 'directUUID'])->name('vote.direct');
+  Route::get('/{electionUUID}/{terminalUUID}/d/{directUUID}', 'App\Http\Controllers\terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID'], ['directUUID' => 'directUUID'])->name('vote.direct');
 
   //TOKEN
   Route::get('/token', 'App\Http\Controllers\terminalController@verifyTerminalAcces')->name('vote.token');
@@ -87,6 +87,13 @@ Route::group(['prefix' => 'dvi'], function() {
                            EMAIL ROUTES
     ==============================================================*/
     Route::get('/{electionUUID}/bulkemail', 'App\Http\Controllers\backendController@bulkemail')->name('bulkemail');
+
+    /*==============================================================
+                           BEGIN DOWNLOAD ROUTES
+    ==============================================================*/
+    Route::group(['prefix' => 'downloads'], function(){
+      Route::get('/singelInvitation/{voterUUID}', 'App\Http\Controllers\paperController@downloadSingelInvitation', ['voterUUID' => 'voterUUID'])->name('download.singelInvitation');
+    });
   });
   /*==============================================================
                          BEGIN ELECTION CREATION ROUTES

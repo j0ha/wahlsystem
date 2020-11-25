@@ -7,6 +7,8 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Http\Controllers\electionProcessController;
 use App\Http\Controllers\paperController;
+use App\Mail\electionInvitation;
+use Illuminate\Support\Facades\Mail;
 
 class BackendVotersOverview extends Component
 {
@@ -73,7 +75,10 @@ class BackendVotersOverview extends Component
     }
 
     public function sendEmail() {
-
+      $voter = Voter::where('uuid', $this->voterUUID)->firstOrFail();
+      $voter->got_email = true;
+      $voter->save();
+      Mail::to($voter->email)->send(new electionInvitation($voter->uuid));
     }
     public function downloadSheet() {
       redirect()->route('download.singelInvitation', ['voterUUID' => $this->voterUUID]);

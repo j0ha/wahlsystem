@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Mail\electionInvitation;
+use Illuminate\Support\Facades\Mail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,8 +24,11 @@ Route::get('/', function () {
 Route::get('/testRoute/{thing}/{uuid}/{elctionUUID}', 'App\Http\Controllers\securityController@verifyToElection', ['thing' => 'thing'], ['uuid' => 'UUID'], ['electionUUID' => 'electionUUID']);
 Route::get('/testRoute/candidates/{electionUUID}', 'App\Http\Controllers\electionProcessController@querryElectionCandidates', ['electionUUID' => 'electionUUID']);
 Route::get('/testRoute/stat/{electionUUID}', 'App\Http\Controllers\statsController@schoolclassesVoteTurnout', ['electionUUID' => 'electionUUID']);
-Route::get('/test/pdf', function(){
-  return view('pdf.invitation');
+Route::get('/test/email/send', function(){
+  Mail::to('taylor@example.com')->send(new electionInvitation('71c34c0b-1c7b-4396-a601-c0d1fa6b74eb'));
+});
+Route::get('/test/email', function(){
+ return new electionInvitation('71c34c0b-1c7b-4396-a601-c0d1fa6b74eb');
 });
 
 Route::get('/test/{userUUID}', 'App\Http\Controllers\paperController@downloadSingelInvitation', ['userUUID' => 'userUUID']);

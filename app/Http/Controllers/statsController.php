@@ -12,6 +12,7 @@ use App\Http\Controllers\electiontypes\spv;
 
 class statsController extends Controller
 {
+  
     public function terminalUsage($electionUUID) {
       $electionProcessController = new electionProcessController;
       $terminals = Terminal::where('election_id', $electionProcessController->getId($electionUUID, 'elections'))->get();

@@ -32,11 +32,7 @@ class backendController extends Controller
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
 
-      if($user->hasPermissionTo($electionUUID)){
-        return view('layouts.backend_v2', compact('electionArray', 'user'));
-      } else {
-        return redirect()->route('unauthorized');
-      }
+      
 
     }
 

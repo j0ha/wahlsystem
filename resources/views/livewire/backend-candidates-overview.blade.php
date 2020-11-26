@@ -32,8 +32,9 @@
                   <td>{{$candidate->description}}</td>
                   <td>{{$candidate->type}}</td>
                   <td>{{$candidate->level}}</td>
-                  <td>{{$candidate->image}}</td>
+                  <td><img src="{{$candidate->image}}" alt="" style="height:7%;"></td>
                   <td>
+
                     <button wire:click.lazy="editCandidate('{{$candidate->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Edit</button>
                     <button wire:click.lazy="deleteCandidate('{{$candidate->uuid}}')" type="button" class="btn btn-danger mx-1">Delete</button>
                   </td>

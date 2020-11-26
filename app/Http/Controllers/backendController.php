@@ -32,7 +32,13 @@ class backendController extends Controller
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
 
+<<<<<<< Updated upstream
       
+=======
+
+        return view('layouts.backend_v2', compact('electionArray', 'user'));
+
+>>>>>>> Stashed changes
 
     }
 
@@ -157,16 +163,23 @@ class backendController extends Controller
         'candidateName' => 'required|max:255',
         'candidateDescription' => 'required|max:255',
         'candidateLevel' => 'required|numeric',
-        'candidateImage' => 'image',
+        'candidateImage' => '',
 
       ]);
+
+      if ($request->file('candidateImage')) {
+         $imagePath = $request->file('candidateImage');
+         $imageName = Str::uuid();
+
+         $path = $request->file('candidateImage')->storeAs('uploads', $imageName, 'public');
+       }
 
       $candidate = new Candidate;
 
       $candidate->name = $request->candidateName;
       $candidate->description = $request->candidateDescription;
       if(!empty($request->candidateImage)){
-      $candidate->image = $request->candidateImage;
+      $candidate->image = '/storage/'.$path;
       }
       $candidate->level = $request->candidateLevel;
       $candidate->uuid = Str::uuid();

@@ -8347,6 +8347,9 @@ button.bg-dark:focus {
 .w-auto {
   width: auto !important;
 }
+.h-10 {
+  height: 10% !important;
+}
 
 .h-25 {
   height: 25% !important;
@@ -8358,6 +8361,10 @@ button.bg-dark:focus {
 
 .h-75 {
   height: 75% !important;
+}
+
+.h-90 {
+  height: 90% !important;
 }
 
 .h-100 {
@@ -10917,4 +10924,24 @@ a.text-dark:focus {
   }
 
 
+}
+
+.img-cover {
+ background-size: cover;
+ background-position: center;
+ background-repeat: no-repeat;
+ display: flex;
+}
+
+.form-less {
+  padding: 0.375rem 0.75rem;
+  margin: 0.1rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }

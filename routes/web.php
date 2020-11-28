@@ -30,6 +30,9 @@ Route::get('/test/email/send', function(){
 Route::get('/test/email', function(){
  return new electionInvitation('71c34c0b-1c7b-4396-a601-c0d1fa6b74eb');
 });
+Route::get('/test/view', function(){
+ return view('vote.spv.schoolforms');
+});
 
 Route::get('/test/{userUUID}', 'App\Http\Controllers\paperController@downloadSingelInvitation', ['userUUID' => 'userUUID']);
 

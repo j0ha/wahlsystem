@@ -10,7 +10,7 @@
         <div class="card">
             <h5 class="card-header">Candidate</h5>
             <div class="card-body">
-                <form action="{{route('candidatesAddSingle')}}" method="POST">
+                <form action="{{route('candidatesAddSingle')}}" method="POST" enctype="multipart/form-data">
                   @csrf
                     <div class="form-group">
                         <label for="candidateName" class="col-form-label">Name</label>

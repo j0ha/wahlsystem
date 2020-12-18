@@ -11,9 +11,12 @@
             <h5 class="card-header">Upload</h5>
 
             <div class="card-body">
-                <form action="{{route('votersAddMany')}}" method="POST">
+                <form action="{{route('votersAddMany')}}" method="POST" enctype="multipart/form-data">
+                  @csrf
+
                   <div class="custom-file mb-3">
                       <input type="file" name="votersFile" class="custom-file-input" id="customFile">
+                      <input type="hidden" name="electionUUID" value="{{$electionUUID}}">
                       @if ($errors->has('votersFile'))
                           <span class="help-block">
                               <strong>{{ $errors->first('votersFile') }}</strong>
@@ -33,7 +36,7 @@
                   </div>
 
                   <div class="form-group">
-                      <input type="submit" name="submit" value="Upload" class="btn btn-primary">
+                      <input type="submit" name="submit" placeholder="Upload" class="btn btn-primary">
                   </div>
 
                 </form>

@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Dotenv\Result\Success;
 use Illuminate\Http\Request;
 use App\Election;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use App\User;
 use App\Voter;
 use App\Form;
 use App\Schoolclass;
 use App\Candidate;
+use Session;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\electionProcessController;
+
 
 class backendController extends Controller
 {
@@ -32,12 +35,7 @@ class backendController extends Controller
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
 
-
-
         return view('layouts.backend_v2', compact('electionArray', 'user'));
-
-
-
     }
 
     public function indexDashboard($electionUUID){
@@ -294,8 +292,109 @@ class backendController extends Controller
       }
     }
 
-    public function votersAddMany(CsvImportRequest $request){
-      $path = $request->file('votersFile')->getRealPath();
+    public function votersAddMany(Request $request){
+
+        $electionID = Election::where('uuid', $request->electionUUID)->firstOrFail()->id;
+
+
+        if ($request->input('submit') != null ){
+
+            $file = $request->file('file');
+
+            // File Details
+            $filename = $request->votersFile->getClientOriginalName();
+            $tempPath = $request->votersFile->getRealPath();
+                    // Reading file
+                    $file = fopen($tempPath,"r");
+
+                    $importData_arr = array();
+                    $i = 0;
+
+                    while (($filedata = fgetcsv($file, 5000, ";")) !== FALSE) {
+                        $num = count($filedata );
+
+                        // Skip first row (Remove below comment if you want to skip the first row)
+                        if($i == 0){
+                           $i++;
+                           continue;
+                        }
+                        for ($c=0; $c < $num; $c++) {
+                            $importData_arr[$i][] = $filedata [$c];
+                        }
+                        $i++;
+                    }
+                    fclose($file);
+
+                    // Insert to MySQL database
+                    foreach($importData_arr as $importData){
+
+                        //Query holt sich den Jahrgang
+                        $jahrgang  = Form::where('election_id', $electionID)->where('name', $importData[4])->first();
+                        
+                        //Abfrage ob es einen Jahrgang gibt wenn nein wird ein neuer erstellt + der Voter wird diesem Jahrgang zugeordnet
+
+                            if(empty($jahrgang)){
+
+                                $formUUID=Str::uuid();
+                                $form = new Form();
+                                $form->name = $importData[4];
+                                $form->election_id = $electionID;
+                                $form->uuid = $formUUID;
+                                $form->save();
+
+                                $form_id = Form::where('uuid', $formUUID)->first()->id;
+
+                            }
+
+
+                        //Query holt sich die Klasse
+                        $schoolclass  = Schoolclass::where('election_id', $electionID)->where('name', $importData[5])->first();
+
+                        //Abfrage ob es einen Jahrgang gibt wenn nein wird ein neuer erstellt + der Voter wird diesem Jahrgang zugeordnet
+
+                            if(empty($schoolclass)){
+
+
+                                $class = new Schoolclass();
+                                $class->name = $importData[5];
+                                $class->election_id = $electionID;
+                                $class->form_id = Form::where('uuid', $formUUID)->firstOrFail()->id;
+                                $class->uuid = $schoolclassUUID=Str::uuid();
+                                $class->save();
+
+
+                            }
+
+                        $v = new Voter();
+                        $v->name = $importData[0];
+                        $v->surname = $importData[1];
+                        $v->birth_year = $importData[2];
+                        $v->uuid = Str::uuid();
+                        $v->direct_uuid = Str::uuid();
+                        $v->email = $importData[3];
+                        $v->election_id = $electionID;
+
+                        if(!(empty($jahrgang))){
+                            $v->form_id = $jahrgang->id;
+                        } else {
+                            $v->form_id = $form_id;
+                        }
+
+                        if(!(empty($schoolclass))){
+                            $v->schoolclass_id = $schoolclass->id;
+                        } else {
+                            $v->schoolclass_id = $schoolclass_id = Schoolclass::where('uuid', $schoolclassUUID)->first()->id;
+                        }
+
+
+
+                        $v->save();
+                    }
+
+
+        }
+        // Redirect to index
+        return "Success";
     }
 
       /*==============================================================

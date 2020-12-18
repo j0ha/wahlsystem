@@ -114,7 +114,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('election.schoolgrades.overview', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-address-card"></i>Schuljahrgänge</a>
                             </li>
-                            @endif
+
                           <li class="nav-divider">
                                 Wahlsteuerung
                             </li>
@@ -137,10 +137,12 @@
                           <li class="nav-divider">
                                 Inhaltsverwaltung
                             </li>
+
+
                             <!-- ============================================================== -->
                             <!-- VOTER MENUE -->
                             <!-- ============================================================== -->
-                          @if(!empty($electionUUID))
+
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fas fa-fw fa-child"></i>Voters</a>
                                 <div id="submenu-2" class="collapse submenu" style="">
@@ -201,6 +203,12 @@
                   @yield('backendcontent')
                 </div>
             </div>
+
+            @if(empty($electionUUID))
+            <div class="alert alert-danger" role="alert">
+                  You do not have selected an election at the moment. Firstly select your election or create a new one to have access to the dashboard.
+            </div>
+            @endif
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->

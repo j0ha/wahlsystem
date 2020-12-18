@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Voter extends Model
 {
-  public $fillable = ['surname', 'name', 'birth_year','email'];
+  public $fillable = ['surname', 'name', 'birth_year', 'email', 'election_id', 'schoolclass_id', 'schoolclass_id'];
 
   public static function search($search, $electionId)
     {

@@ -330,7 +330,7 @@ class backendController extends Controller
 
                         //Query holt sich den Jahrgang
                         $jahrgang  = Form::where('election_id', $electionID)->where('name', $importData[4])->first();
-                        
+
                         //Abfrage ob es einen Jahrgang gibt wenn nein wird ein neuer erstellt + der Voter wird diesem Jahrgang zugeordnet
 
                             if(empty($jahrgang)){

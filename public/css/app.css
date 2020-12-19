@@ -8347,6 +8347,14 @@ button.bg-dark:focus {
 .w-auto {
   width: auto !important;
 }
+.h-3 {
+  height: 3% !important;
+}
+
+.h-7 {
+  height: 7% !important;
+}
+
 .h-10 {
   height: 10% !important;
 }
@@ -10944,4 +10952,56 @@ a.text-dark:focus {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.eao-vote-btn-list {
+  height: 90%;
+  overflow-y: scroll;
+}
+
+.eao-vote-btn-list-item {
+  min-height: 7%;
+  max-height: 14%;
+  background-color: #E6E3DB;
+  border: none;
+  border-radius: 0;
+  color: black;
+  font-size: 1.2em;
+}
+
+.eao-vote-btn-list-item:nth-child(2n) {
+  background-color: #DEDACF;
+}
+
+.eao-vote-btn-list-item:hover {
+  background-color: #E6F4CD;
+  color: black;
+  font-size: 1.6em;
+  transition: font-size 0.35s ease-in-out
+}
+
+.eao-vote-btn-list-item:not(:disabled):not(.disabled):active,
+.eao-vote-btn-list-item:not(:disabled):not(.disabled).active,
+.show > .eao-vote-btn-list-item.dropdown-toggle {
+  background-color: #CCE99B;
+  color: white;
+}
+
+.eao-vote-footer {
+  width: 100%;
+  height: 3%;
+  justify-content: center;
+  align-items: center;
+}
+
+.eao-vote-header {
+  width: 100%;
+  height: 7%;
+  justify-content: center;
+  align-items: center;
+}
+
+.eao-vote-body {
+  width: 100vw;
+  height: 100vh;
 }

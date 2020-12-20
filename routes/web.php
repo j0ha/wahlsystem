@@ -51,6 +51,7 @@ Route::group(['prefix' => 'vote'], function(){
 });
 
 //ROUTES FOR BACKEND
+Route::group(['middleware' => 'auth'], function (){
 Route::group(['prefix' => 'dvi'], function() {
   Route::group(['prefix' => 'home'], function(){
     /*==============================================================
@@ -105,6 +106,7 @@ Route::group(['prefix' => 'dvi'], function() {
       Route::get('/singelInvitation/{voterUUID}', 'App\Http\Controllers\paperController@downloadSingelInvitation', ['voterUUID' => 'voterUUID'])->name('download.singelInvitation');
     });
   });
+});
   /*==============================================================
                          BEGIN ELECTION CREATION ROUTES
   ==============================================================*/

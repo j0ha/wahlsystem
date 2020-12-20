@@ -10958,6 +10958,10 @@ a.text-dark:focus {
   height: 90%;
   overflow-y: scroll;
 }
+.eao-vote-content {
+  height: 90% !important;
+  width: 100%;
+}
 
 .eao-vote-btn-list-item {
   min-height: 7%;

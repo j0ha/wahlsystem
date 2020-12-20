@@ -8331,6 +8331,9 @@ button.bg-dark:focus {
 .w-25 {
   width: 25% !important;
 }
+.w-30 {
+  width: 30% !important;
+}
 
 .w-50 {
   width: 50% !important;
@@ -8362,6 +8365,9 @@ button.bg-dark:focus {
 .h-25 {
   height: 25% !important;
 }
+.h-30 {
+  height: 30% !important;
+}
 
 .h-50 {
   height: 50% !important;
@@ -8373,6 +8379,10 @@ button.bg-dark:focus {
 
 .h-90 {
   height: 90% !important;
+}
+
+.h-97 {
+  height: 97% !important;
 }
 
 .h-100 {

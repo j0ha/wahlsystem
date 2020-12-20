@@ -5,6 +5,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use App\Mail\electionInvitation;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\securityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,14 @@ Route::get('/', function () {
 
 //TESTROUTE
 Route::get('/testRoute/{thing}/{uuid}/{elctionUUID}', 'App\Http\Controllers\securityController@verifyToElection', ['thing' => 'thing'], ['uuid' => 'UUID'], ['electionUUID' => 'electionUUID']);
+
+Route::get('/testRoute/d', function(){
+  $securityController = new securityController;
+  $re = $securityController->verifyToElection('form', 'bbab8a77-1494-48b8-a78b-12b1ee177434', '28deb7de-b978-4a51-a960-e34553729abd');
+  return $re;
+});
+
+
 Route::get('/testRoute/candidates/{electionUUID}', 'App\Http\Controllers\electionProcessController@querryElectionCandidates', ['electionUUID' => 'electionUUID']);
 Route::get('/testRoute/stat/{electionUUID}', 'App\Http\Controllers\statsController@schoolclassesVoteTurnout', ['electionUUID' => 'electionUUID']);
 Route::get('/test/email/send', function(){
@@ -32,7 +41,7 @@ Route::get('/test/email', function(){
  return new electionInvitation('71c34c0b-1c7b-4396-a601-c0d1fa6b74eb');
 });
 Route::get('/test/view', function(){
- return view('vote.spv.candidates');
+ return view('vote.spv.schoolforms');
 });
 
 Route::get('/test/{userUUID}', 'App\Http\Controllers\paperController@downloadSingelInvitation', ['userUUID' => 'userUUID']);
@@ -40,13 +49,10 @@ Route::get('/test/{userUUID}', 'App\Http\Controllers\paperController@downloadSin
 //ROUTES FOR TERMINAL
 Route::group(['prefix' => 'vote'], function(){
   //STANDARD ROUTE
-  Route::get('/{electionUUID}/{terminalUUID}', 'App\Http\Controllers\terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID'])->name('vote');
+  Route::get('/{electionUUID}/{terminalUUID}', 'App\Http\Controllers\terminalController@index')->name('vote');
 
   //DIRECT ROUTE
-  Route::get('/{electionUUID}/{terminalUUID}/d/{directUUID}', 'App\Http\Controllers\terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID'], ['directUUID' => 'directUUID'])->name('vote.direct');
-
-  //TOKEN
-  Route::get('/token', 'App\Http\Controllers\terminalController@verifyTerminalAcces')->name('vote.token');
+  Route::get('/d/{electionUUID}/{terminalUUID}', 'App\Http\Controllers\terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID'])->name('vote.direct');
 
 });
 

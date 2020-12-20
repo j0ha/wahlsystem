@@ -17,7 +17,7 @@
           }
     </style>
   </head>
-  <body style="height:100vh; width:100vw;">
+  <body class="eao-vote-body">
     <div class="d-flex eao-vote-header">
       <span class="display-4">Bitte verifiziere Dich!</span>
     </div>

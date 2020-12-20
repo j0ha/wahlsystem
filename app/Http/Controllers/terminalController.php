@@ -9,6 +9,13 @@ use Carbon\Carbon;
 
 class terminalController extends Controller
 {
+    public function index($electionUUID, $terminalUUID) {
+      if(Self::verifyTerminalAcces($electionUUID, $terminalUUID) == true) {
+        return view('vote.vote')->with('terminalUUID', $terminalUUID)->with('electionUUID', $electionUUID);
+      } else {
+        return abort(404);
+      }
+    }
 
   //Function to verify if the controller and the termial fit together
     private function verifyTruthiness($electionUUID, $terminalUUID)

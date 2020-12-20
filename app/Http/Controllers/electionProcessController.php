@@ -62,7 +62,7 @@ class electionProcessController extends Controller
             break;
         }
       } catch (\Exception $e) {
-        return 'error';
+        return $e;
       }
     }
 }

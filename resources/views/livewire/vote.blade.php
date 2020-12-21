@@ -1,4 +1,5 @@
 
+<div class="eao-vote-body">
   @if($state == 'start')
     <div class="d-flex align-items-center justify-content-center h-100">
       <div class="w-50 h-30 d-flex justify-content-center align-items-center">
@@ -18,6 +19,9 @@
   @endif
 
   @if($state == 'forms' AND $election->type == 'spv')
+  <div class="d-flex eao-vote-header">
+    <span class="display-4">Bitte wähle deinen Jahrgang!</span>
+  </div>
     <div class="d-flex flex-column eao-vote-btn-list">
       @foreach($spv_forms as $form)
         <button type="button" wire:click="spvOpenSchoolclasses('{{$form->uuid}}')" class="btn btn-primary eao-vote-btn-list-item">{{$form->name}}</button>
@@ -26,6 +30,9 @@
   @endif
 
   @if($state == 'schoolclasses' AND $election->type == 'spv')
+  <div class="d-flex eao-vote-header">
+    <span class="display-4">Bitte wähle deine Klasse!</span>
+  </div>
     <div class="d-flex flex-column eao-vote-btn-list">
       @foreach($spv_schoolclasses as $schoolclass)
         <button type="button" wire:click="spvOpenVoters('{{$schoolclass->uuid}}')" class="btn btn-primary eao-vote-btn-list-item">{{$schoolclass->name}}</button>
@@ -33,6 +40,9 @@
     </div>
   @endif
   @if($state == 'voters' AND $election->type == 'spv')
+  <div class="d-flex eao-vote-header">
+    <span class="display-4">Bitte wähle deinen Namen!</span>
+  </div>
     <div class="d-flex flex-column eao-vote-btn-list">
       @foreach($spv_voters as $voter)
         <button type="button" wire:click="spv_birthVerification('{{$voter->uuid}}')" class="btn btn-primary eao-vote-btn-list-item">{{$voter->name}} {{$voter->surname}}</button>
@@ -41,6 +51,9 @@
   @endif
 
   @if($state == 'birth_verification' AND $election->type == 'spv')
+  <div class="d-flex eao-vote-header">
+    <span class="display-4">Bitte verifiziere Dich!</span>
+  </div>
 
     <div class="eao-vote-content">
       <div class="container-fluid h-100 w-100 d-inline-block px-0 mx-0">
@@ -74,6 +87,9 @@
   @endif
 
   @if($state == 'vote' AND $election->type == 'spv')
+  <div class="d-flex eao-vote-header">
+    <span class="display-4">Bitte stimme ab!</span>
+  </div>
   <div class="h-90 w-100">
     <div class="container-fluid h-100 w-100 d-inline-block px-0 mx-0">
       <div class="row h-90 w-100 px-0 mx-0">
@@ -97,6 +113,8 @@
 
   @if($state != 'start' OR $state != 'end')
     <div class="d-flex eao-vote-footer">
+      
       <span>{{$election->name}}</span>
     </div>
   @endif
+</div>

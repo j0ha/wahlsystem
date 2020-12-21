@@ -11019,3 +11019,43 @@ a.text-dark:focus {
   width: 100vw;
   height: 100vh;
 }
+
+.eao-vote-btn-select {
+  color: black;
+  background-color: #E5DADA;
+  border-color: #E5DADA;
+}
+
+.eao-vote-btn-select:hover {
+  color: black;
+  background-color: #DDCFCF;
+  border-color: #DDCFCF;
+}
+
+.eao-vote-btn-select:focus,
+.eao-vote-btn-select.focus {
+  color: black;
+  background-color: #DDCFCF;
+  border-color: #DDCFCF;
+  box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
+}
+
+.eao-vote-btn-select.disabled,
+.eao-vote-btn-select:disabled {
+  color: black;
+  background-color: #F7F3F3;
+  border-color: #F7F3F3;
+}
+
+.eao-vote-btn-select:not(:disabled):not(.disabled):active,
+.eao-vote-btn-select:not(:disabled):not(.disabled).active,
+.show > .eao-vote-btn-select.dropdown-toggle {
+  color: black;
+  background-color: #C6E9C3;
+  border-color: #C6E9C3;
+}
+
+.eao-vote-noborder {
+  border-radius: 0;
+  border: none;
+}

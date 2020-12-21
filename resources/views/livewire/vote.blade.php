@@ -94,18 +94,24 @@
     <div class="container-fluid h-100 w-100 d-inline-block px-0 mx-0">
       <div class="row h-90 w-100 px-0 mx-0">
         @foreach($spv_candidates as $candidate)
-        <div class="col h-100 px-0 bg-secondary img-cover justify-content-center" style="background-image: url({{$candidate->image}});">
-            <div class="align-self-center w-75">
-              <h1 class="display-1">
-                {{$candidate->name}}
-              </h1>
-              <p>{{$candidate->description}}</p>
-            </div>
+        <div class="col h-100 px-0">
+          <div class="h-90 bg-secondary img-cover justify-content-center" style="background-image: url({{$candidate->image}});">
+              <div class="align-self-center w-75">
+                <h1 class="display-1">
+                  {{$candidate->name}}
+                </h1>
+                <p>{{$candidate->description}}</p>
+              </div>
+          </div>
+          <div class="row h-10 w-100 px-0 mx-0">
+            <button wire:click="select('{{$candidate->uuid}}')" type="button" name="button" class="btn eao-vote-btn-select btn-lg btn-block px-0 mx-0 eao-vote-noborder">{{$candidate->name}} auswählen</button>
+          </div>
         </div>
+
         @endforeach
       </div>
       <div class="row h-10 w-100 px-0 mx-0">
-        <button type="button" name="button" class="btn btn-primary btn-lg btn-block px-0 mx-0">Abstimmen</button>
+        <button wire:click="vote()" type="button" name="button" class="btn btn-primary btn-lg btn-block px-0 mx-0 eao-vote-noborder" @if(!$spv_selected_candidate_uuid) disabled @endif>Für {{$spv_selected_candidate_name ?? '...'}} Abstimmen</button>
       </div>
     </div>
   </div>

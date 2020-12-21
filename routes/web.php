@@ -24,7 +24,7 @@ Route::get('/', function () {
 
 //TESTROUTE
 Route::get('/testRoute/{thing}/{uuid}/{elctionUUID}', 'App\Http\Controllers\securityController@verifyToElection', ['thing' => 'thing'], ['uuid' => 'UUID'], ['electionUUID' => 'electionUUID']);
-
+Route::get('/tesA/{voterUUID}', 'App\Http\Controllers\securityController@voteVerification', ['voterUUID' => 'voterUUID']);
 Route::get('/testRoute/d', function(){
   $securityController = new securityController;
   $re = $securityController->verifyToElection('form', 'bbab8a77-1494-48b8-a78b-12b1ee177434', '28deb7de-b978-4a51-a960-e34553729abd');

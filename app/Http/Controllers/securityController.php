@@ -101,4 +101,19 @@ class securityController extends Controller
         $thirdSafety->candidate_value = 0;
       }
     }
+    public function voteVerification($voterUUID) {
+      try {
+        $voter = Voter::where('uuid', $voterUUID)->firstOrFail();
+        if($voter->voted_via_email == false AND $voter->voted_via_terminal == false) {
+          return true;
+        } else {
+          // TODO: security report
+          return 'false';
+        }
+      } catch (\Exception $e) {
+        // TODO: error error-report
+        // TODO: security report
+        return '2';
+      }
+    }
 }

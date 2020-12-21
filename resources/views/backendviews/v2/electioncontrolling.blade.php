@@ -6,25 +6,49 @@
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
         <div class="card border-3 border-top border-top-primary">
             <div class="card-body">
-                <h5 class="text-muted">Staus</h5>
+                <h5 class="text-muted">Status</h5>
                 <div class="metric-value d-inline-block">
-                    <h1><span class="badge badge-light px-4 py-2" style="font-size: 2em;">Wartend</span></h1>
+                    @if($electionArray[0]->status == "waiting")
+                        <h1><span class="badge badge-light px-4 py-4">Waiting</span></h1>
+                    @endif
+                    @if($electionArray[0]->status == "planned")
+                        <h1><span class="badge badge-primary px-4 py-4">Planned</span></h1>
+                    @endif
+                    @if($electionArray[0]->status == "live")
+                        <h1><span class="badge badge-success px-xl-5 py-3">Live</span></h1>
+                    @endif
+                    @if($electionArray[0]->status == "ended")
+                        <h1><span class="badge badge-danger px-4 py-4">Ended</span></h1>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
+      <!-- Infocard - What is the status of the election -->
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
         <div class="card border-3 border-top border-top-primary">
             <div class="card-body">
-                <h3 class="card-title border-bottom">Statussen</h5>
-                <p class="card-text"><span class="badge badge-light">Wartend</span>Die Wahl ist erstellt und kann eingestellt werden. Eine Abstimmung ist nicht ferigeschaltet.</p>
-                <p class="card-text"><span class="badge badge-primary">Geplant</span>Die Wahl ist geplant und kann eingestellt werden. Eine Abstimmung ist nicht ferigeschaltet.</p>
-                <p class="card-text"><span class="badge badge-success">Läuft</span>Die Wahl ist aktiv und kann nicht verändert werden. Eine Abstimmung ist möglich.</p>
-                <p class="card-text"><span class="badge badge-danger">Beendet</span>Die Wahl ist beendet und kann nicht verändert werden. Eine Abstimmung ist nicht mehr möglich. Die Auswertung lässt sich abrufen.</p>
+                <h5 class="card-title border-bottom">Status-Möglichkeiten:</h5>
+                <p class="card-text"><span class="badge badge-light">Waiting</span>
+                    <br>Die Wahl ist erstellt und kann nun gestartet werden. Das Abstimmen ist zu diesem Zeitpunkt noch nicht möglich.</p>
+                <p class="card-text"><span class="badge badge-primary">Planned</span>
+                    <br>Die Wahl ist geplant zu einem bestimmten Zeitpunkt zu starten bzw. zu enden und kann während der Vorbereitungsphase noch verändert werden. Eine Abstimmung ist zu diesem Zeitpunkt noch nicht freigeschaltet.</p>
+                <p class="card-text"><span class="badge badge-success">Live</span>
+                    <br>Die Wahl ist aktiv und kann nicht mehr verändert werden. Das Abstimmen ist von diesem Zeitpunkt aus möglich.</p>
+                <p class="card-text"><span class="badge badge-danger">Ended</span>
+                    <br>Die Wahl ist beendet und kann nicht verändert werden. Eine Abstimmung ist nicht mehr möglich. Die Auswertung lässt sich abrufen.</p>
             </div>
         </div>
     </div>
   </div>
+
+
+
+
+
+
+  <!-- Infocard - What is the status of the election -->
+  @if($electionArray[0]->status == "waiting")
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="section-block" id="modal">
@@ -32,29 +56,43 @@
             <p>Den Status der Wahl steuern</p>
         </div>
         <div class="card">
-            <h5 class="card-header">aktivieren</h5>
+            <h5 class="card-header">Activating tool</h5>
             <div class="card-body">
                 <div class="">
-                    <h4>Wahl akivieren</h4>
+                    <h4>Activate the election</h4>
                     <!-- Button trigger modal -->
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#changetoactive">Jetzt aktivieren</a>
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#changetoactiveplan">Planen</a>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#changetoactive">Activate now</a>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#changetoactiveplan">Plan a timetable</a>
                 </div>
             </div>
         </div>
-        <div class="card">
-            <h5 class="card-header">Beenden</h5>
-            <div class="card-body">
-                <div class="">
+    </div>
+  </div>
+  @endif
+
+
+
+
+  <!-- Infocard - What is the status of the election -->
+  @if($electionArray[0]->status == "live")
+  <div class="card">
+      <h5 class="card-header">Beenden</h5>
+      <div class="card-body">
+            <div class="">
                     <h4>Wahl beenden</h4>
                     <!-- Button trigger modal -->
                     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#changetoend">Jetzt beenden</a>
                     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#changetoendplan">Planen</a>
-                </div>
             </div>
-        </div>
-        <div class="card">
-            <h5 class="card-header">Auswerten</h5>
+      </div>
+  </div>
+  @endif
+
+
+  <!-- Infocard - What is the status of the election -->
+  @if($electionArray[0]->status == "ended")
+  <div class="card">
+      <h5 class="card-header">Auswertung</h5>
             <div class="card-body">
                 <div class="">
                     <h4>Wahl beenden</h4>
@@ -63,11 +101,11 @@
                     <a href="#" class="btn btn-primary">Auswertung downloaden</a>
                 </div>
             </div>
-        </div>
-    </div>
-
+  </div>
+  @endif
     </div>
   </div>
+
 
 
 <!-- Modals -->

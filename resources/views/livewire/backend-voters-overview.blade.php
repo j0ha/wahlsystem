@@ -32,8 +32,15 @@
                   <td>{{ $voter->name }}</td>
                   <td>{{ $voter->surname }}</td>
                   <td>{{ $voter->birth_year }}</td>
-                  <td>{{ $voter->form_id }}</td>
-                  <td>{{ $voter->schoolclass_id }}</td>
+                  @php
+                      $formName = App\Form::where('id', $voter->form_id)->get('name');
+                  @endphp
+                  <td>{{$formName[0]->name}}</td>
+                  @php
+                      $className = App\Schoolclass::where('id', $voter->schoolclass_id)->get('name');
+                  @endphp
+                  <td>{{$className[0]->name}}</td>
+
                   <td>@if($voter->voted_via_email)<span class="badge badge-pill badge-success mx-1">voted directly</span>@elseif ($voter->voted_via_terminal)<span class="badge badge-pill badge-success mx-1">voted via terminal</span>@else<span class="badge badge-pill badge-light mx-1">not voted</span>@endif @if($voter->direct_uuid)<span class="badge badge-pill badge-success mx-1">created directly</span>@else<span class="badge badge-pill badge-light mx-1">created directly</span>@endif @if($voter->got_email == true)<span class="badge badge-pill badge-success mx-1">E-Mail sent</span>@else<span class="badge badge-pill badge-light mx-1">E-Mail sent</span>@endif</td>
                   <td>
                     <button wire:click.lazy="editVoter('{{$voter->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Edit</button>

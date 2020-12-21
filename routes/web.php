@@ -134,6 +134,14 @@ Route::group(['prefix' => 'dvi'], function() {
   });
 });
 
+/*==============================================================
+                         BEGIN Election-Controlling ROUTES
+  ==============================================================*/
+
+Route::post('/electionActivate', 'App\Http\Controllers\electionControlling@activate')->name('e.activate');
+Route::post('/electionActivateWithTime', 'App\Http\Controllers\electionControlling@activateWithTime')->name('e.activateWithTime');
+Route::post('/electionEnding', 'App\Http\Controllers\electionControlling@endElection')->name('e.end');
+
 
 Route::namespace('App\Http\Controllers')->group(function () {
     Auth::routes();

@@ -27,7 +27,10 @@
             @foreach($schoolclasses as $schoolclass)
               <tr>
                   <td>{{$schoolclass->name}}</td>
-                  <td>{{$schoolclass->form_id}}</td>
+                  @php
+                  $formName = App\Form::where('id', $schoolclass->form_id)->get('name');
+                  @endphp
+                  <td>{{$formName[0]->name}}</td>
                   <td>
                     <button wire:click.lazy="edit('{{$schoolclass->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Bearbeiten</button>
                     <button wire:click.lazy="delete('{{$schoolclass->uuid}}')" type="button" class="btn btn-danger mx-1">Löschen</button>

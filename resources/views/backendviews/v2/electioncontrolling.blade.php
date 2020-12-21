@@ -82,7 +82,7 @@
                     <h4>Wahl beenden</h4>
                     <!-- Button trigger modal -->
                     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#changetoend">Jetzt beenden</a>
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#changetoendplan">Planen</a>
+
             </div>
       </div>
   </div>
@@ -113,7 +113,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="changetoactiveLabel">Jetzt aktivieren</h5>
+                <h5 class="modal-title" id="changetoactiveLabel">Activate now</h5>
                 <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
@@ -122,8 +122,13 @@
                 <p>Möchtest du die Wahl wirklich aktivieren?</p>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-secondary" data-dismiss="modal">Abbrechen</a>
-                <a href="#" class="btn btn-primary">Aktivieren</a>
+                <a href="" class="btn btn-secondary" data-dismiss="modal">Break</a>
+                <form action="{{route('e.activate')}}" method="post">
+                    @csrf
+                    <button class="btn btn-primary">Activate</button>
+                    <input type="hidden" name="eUUID" value="{{$electionArray[0]->uuid}}">
+                </form>
+
             </div>
         </div>
     </div>
@@ -132,24 +137,28 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="changetoactiveplanLabel">Jetzt aktivieren</h5>
+                <h5 class="modal-title" id="changetoactiveplanLabel">Activate now</h5>
                 <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
             </div>
             <div class="modal-body">
                 <p>Möchtest du die Wahl wirklich für folgende Zeit planen?</p>
-                <form class="" action="" method="post">
+                <form class="" action="{{route('e.activateWithTime')}}" method="post">
+                    @csrf
                   <div class="form-group">
-                      <label for="inputText6" class="col-form-label">Startzeit</label>
-                      <input id="inputText6" type="datetime" class="form-control">
+                      <label for="inputText6" class="col-form-label">Start</label>
+                      <input name="starttime" type="datetime-local" class="form-control">
+                      <label for="inputText6" class="col-form-label">End</label>
+                      <input name="endtime" type="datetime-local" class="form-control">
+                      <input type="hidden" name="eUUID" value="{{$electionArray[0]->uuid}}">
                   </div>
 
 
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-secondary" data-dismiss="modal">Abbrechen</a>
-                <a href="#" class="btn btn-primary">Planen</a>
+                <a href="" class="btn btn-secondary" data-dismiss="modal">Abbrechen</a>
+                <button class="btn btn-primary">Planen</button>
                 </form>
             </div>
         </div>
@@ -160,8 +169,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="changetoendLabel">Jetzt beenden</h5>
-                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title" id="changetoendLabel">End now</h5>
+                <a href="" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
             </div>
@@ -169,37 +178,18 @@
                 <p>Möchtest du die Wahl wirklich beenden?</p>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-secondary" data-dismiss="modal">Abbrechen</a>
-                <a href="#" class="btn btn-primary">Beenden</a>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="changetoendplan" tabindex="-1" role="dialog" aria-labelledby="changetoendplanLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="changetoendplanLabel">Jetzt beenden</h5>
-                <a href="#" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </a>
-            </div>
-            <div class="modal-body">
-                <p>Möchtest du die Wahl wirklich für folgende Zeit planen zu beenden?</p>
-                <form class="" action="" method="post">
-                  <div class="form-group">
-                      <label for="inputText6" class="col-form-label">Endzeit</label>
-                      <input id="inputText6" type="datetime" class="form-control">
-                  </div>
-
-
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-secondary" data-dismiss="modal">Abbrechen</a>
-                <a href="#" class="btn btn-primary">Planen</a>
+                <a href="" class="btn btn-secondary" data-dismiss="modal">Break</a>
+                <form action="{{route('e.end')}}" method="post">
+                    @csrf
+                    <button class="btn btn-primary">End up</button>
+                    <input type="hidden" name="eUUID" value="{{$electionArray[0]->uuid}}">
                 </form>
+
+
+
             </div>
         </div>
     </div>
 </div>
+
 @endsection

@@ -9,26 +9,60 @@ use App\Schoolclass;
 use App\Voter;
 use App\Candidate;
 use App\Terminal;
+use App\Http\Controllers\terminalController;
+use App\Http\Controllers\securityController;
 use Illuminate\Support\Facades\DB;
 
 class electionProcessController extends Controller
 {
 
-    public function vote($candidateUUID, $voterUUID) {
+    public function vote($candidateUUID, $voterUUID, $terminalUUID, $electionUUID) {
         try {
-          $candidate = Candidate::find(Self::getId($candidateUUID, 'candidates'));
-          $candidate->votes = $candidate->votes + 1;
-          $candidate->save();
+          $securityController = new securityController;
+          $terminalController = new terminalController;
+          $isallowed = $securityController->voteVerification($voterUUID);
+          $candidatebelongsto = $securityController->verifyToElection('candidate', $candidateUUID, $electionUUID);
+          $terminalAccess = $terminalController->verifyTerminalAcces($electionUUID, $terminalUUID);
+          if($isallowed == true and $candidatebelongsto == true and $terminalAccess == true){
+            $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
 
-          $voter = Voter::find(Self::getId($voterUUID, 'voters'));
-          $voter->voted_via_terminal = true;
-          $voter->save();
+            $voter = Voter::find(Self::getId($voterUUID, 'voters'));
+            switch ($terminal->kind) {
+              case 'normal':
+                $voter->voted_via_terminal = true;
+                break;
+              case 'email':
+                $voter->voted_via_email = true;
+                break;
+            }
 
-          //// TODO: Add security things
+            $voter->save();
+            Self::voteAgent($candidateUUID);
+            $terminalController->hit($terminalUUID);
+          } else {
+            // TODO: error reporter
+            // TODO: security repoter
+          }
+          // TODO: Add security things
         } catch (\Exception $e) {
-          return 'fatal error';
+          // TODO: Error reporter
+          dd($e);
         }
 
+    }
+
+    private function voteAgent($candidateUUID) {
+      try {
+        $candidate = Candidate::find(Self::getId($candidateUUID, 'candidates'));
+        $candidate->votes = $candidate->votes + 1;
+        $candidate->save();
+
+        // TODO: safeties!!!
+      } catch (\Exception $e) {
+        // TODO: error reporter
+        // TODO: security reporter
+        dd($e);
+      }
     }
 
     public function querryElectionCandidates($electionUUID) {

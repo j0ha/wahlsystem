@@ -7,6 +7,7 @@ use App\Http\Controllers\terminalController;
 use App\Http\Controllers\securityController;
 use App\Http\Controllers\electiontypes\spv;
 use App\Election;
+use App\Candidate;
 use Carbon\Carbon;
 
 class Vote extends Component
@@ -23,6 +24,8 @@ class Vote extends Component
     public $spv_birthday_month;
     public $spv_birthday_year;
     public $spv_candidates;
+    public $spv_selected_candidate_uuid;
+    public $spv_selected_candidate_name;
 
     public $spv_voter_uuid;
 
@@ -97,12 +100,13 @@ class Vote extends Component
 
 
       $isthere = $securityController->verifyToElection('voter', $voterUUID, $this->electionUUID);
-      if($isthere == true) {
-        //// TODO: darf er wählen?
+      $isallowed = $securityController->voteVerification($voterUUID);
+      if($isthere == true and $isallowed == true) {
         $this->spv_voter_uuid = $voterUUID;
         $this->state = 'birth_verification';
       } else {
-        //error handler
+        // TODO: error reporter
+        // TODO: security reporter
       }
 
     }
@@ -133,15 +137,24 @@ class Vote extends Component
       //birthday in database
       $birthday_database = new Carbon($votersdata->birth_year);
       //compare the two dates
-      if($birthday_typed->equalTo($birthday_database)) {
+
+      $isallowed = $securityController->voteVerification($this->spv_voter_uuid);
+
+      if($birthday_typed->equalTo($birthday_database) and $isallowed == true) {
 
 
         $this->state = 'vote';
+      } else {
+        Self::abbort();
       }
     }
 
     public function abbort() {
+      Self::resetData();
+      $this->state = 'start';
+    }
 
+    private function resetData() {
       $this->spv_forms = null;
       $this->spv_schoolclasses = null;
       $this->spv_voters = null;
@@ -149,14 +162,15 @@ class Vote extends Component
       $this->spv_birthday_month = null;
       $this->spv_birthday_year = null;
       $this->spv_candidates = null;
-
-      $this->state = 'start';
+      $this->spv_selected_candidate_uuid = null;
+      $this->spv_selected_candidate_name = null;
+      $this->spv_voter_uuid = null;
     }
 
     public function back() {
       switch ($this->state) {
         case 'forms':
-          $this->state = 'start';
+          Self::abbort();
           break;
         case 'schoolclasses':
           $this->state = 'forms';
@@ -168,9 +182,49 @@ class Vote extends Component
           $this->state = 'voters';
           break;
         default:
-          $this->state = 'start';
+          Self::abbort();
           break;
       }
     }
 
+    public function select($candidateUUID) {
+      try {
+        $securityController = new securityController;
+        $terminalContoller = new terminalController;
+        $electionProcessController = new spv;
+
+        $isallowed = $securityController->voteVerification($this->spv_voter_uuid);
+        $candidatebelongsto = $securityController->verifyToElection('candidate', $candidateUUID, $this->electionUUID);
+        $terminalAccess = $terminalContoller->verifyTerminalAcces($this->electionUUID, $this->terminalUUID);
+
+        if($isallowed == true and $candidatebelongsto == true and $terminalAccess == true) {
+          $this->spv_selected_candidate_uuid = $candidateUUID;
+          $this->spv_selected_candidate_name = Candidate::where('uuid', $candidateUUID)->firstOrFail()->name;
+        }
+
+      } catch (\Exception $e) {
+        dd($e);
+        // TODO: error reporter
+        // TODO: security reporter
+      }
+
+
+    }
+
+    public function vote() {
+      try {
+        $securityController = new securityController;
+        $terminalContoller = new terminalController;
+        $electionProcessController = new spv;
+        $electionProcessController->vote($this->spv_selected_candidate_uuid, $this->spv_voter_uuid, $this->terminalUUID, $this->electionUUID);
+
+        Self::resetData();
+        $this->state = 'end';
+
+      } catch (\Exception $e) {
+        // TODO: error reporter
+        // TODO: security reporter
+    }
+
+}
 }

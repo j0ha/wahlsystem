@@ -132,4 +132,16 @@ class terminalController extends Controller
         return false;
       }
     }
+
+    public function hit($terminalUUID){
+      try {
+        $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
+
+        $terminal->hits = $terminal->hits + 1;
+        $terminal->update();
+      } catch (\Exception $e) {
+        // TODO: error reporter
+      }
+
+    }
 }

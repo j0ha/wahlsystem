@@ -59,7 +59,10 @@ class spv extends electionProcessController
 
   public function querryStudentsInClasses($classUUID) {
     try {
-      $students = Voter::where('schoolclass_id', Self::getId($classUUID, 'classes'))->get();
+      $students = Voter::where('schoolclass_id', Self::getId($classUUID, 'classes'))->where([
+        ['voted_via_terminal', '=', '0'],
+        ['voted_via_email', '=', '0'],
+        ])->get();
 
       return $students;
     } catch (\Exception $e) {

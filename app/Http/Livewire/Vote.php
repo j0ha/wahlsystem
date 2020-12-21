@@ -140,4 +140,37 @@ class Vote extends Component
       }
     }
 
+    public function abbort() {
+
+      $this->spv_forms = null;
+      $this->spv_schoolclasses = null;
+      $this->spv_voters = null;
+      $this->spv_birthday_day = null;
+      $this->spv_birthday_month = null;
+      $this->spv_birthday_year = null;
+      $this->spv_candidates = null;
+
+      $this->state = 'start';
+    }
+
+    public function back() {
+      switch ($this->state) {
+        case 'forms':
+          $this->state = 'start';
+          break;
+        case 'schoolclasses':
+          $this->state = 'forms';
+          break;
+        case 'voters':
+          $this->state = 'schoolclasses';
+          break;
+        case 'birth_verification':
+          $this->state = 'voters';
+          break;
+        default:
+          $this->state = 'start';
+          break;
+      }
+    }
+
 }

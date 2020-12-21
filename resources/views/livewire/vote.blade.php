@@ -112,9 +112,10 @@
   @endif
 
   @if($state != 'start' OR $state != 'end')
-    <div class="d-flex eao-vote-footer">
-      
+    <div class="d-flex justify-content-between eao-vote-footer">
+      <button wire:click="back()" class="btn btn-secondary mx-3" type="button"@if($state == 'vote') disabled @endif>Schritt zurück</button>
       <span>{{$election->name}}</span>
+      <button wire:click="abbort()" class="btn btn-light mx-3" type="button">Abbrechen</button>
     </div>
   @endif
 </div>

@@ -108,12 +108,12 @@ class securityController extends Controller
           return true;
         } else {
           // TODO: security report
-          return 'false';
+          return false;
         }
       } catch (\Exception $e) {
         // TODO: error error-report
         // TODO: security report
-        return '2';
+        return false;
       }
     }
 }

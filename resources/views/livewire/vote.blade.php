@@ -4,9 +4,11 @@
     <div class="d-flex align-items-center justify-content-center h-100">
       <div class="w-50 h-30 d-flex justify-content-center align-items-center">
         <div class="col">
+          @if($election->logo)
           <div class="row mb-5">
-            <img class="mx-auto" src="https://www.stadtteilschule-walddoerfer.de/fileadmin/stswa/images/theme/logo-stadtteilschule-walddoerfer.png" alt="">
+            <img class="mx-auto" src="{{$election->logo}}" alt="">
           </div>
+          @endif
           <div class="row justify-content-center">
             <span class="display-3">{{$election->name}}</span>
           </div>
@@ -21,9 +23,11 @@
   <div class="d-flex align-items-center justify-content-center h-100">
     <div class="w-50 h-30 d-flex justify-content-center align-items-center">
       <div class="col">
+        @if($election->logo)
         <div class="row mb-5">
-          <img class="mx-auto" src="https://www.stadtteilschule-walddoerfer.de/fileadmin/stswa/images/theme/logo-stadtteilschule-walddoerfer.png" alt="">
+          <img class="mx-auto" src="{{$election->logo}}" alt="">
         </div>
+        @endif
         <div class="row justify-content-center">
           <span class="display-3">{{$election->name}}</span>
         </div>

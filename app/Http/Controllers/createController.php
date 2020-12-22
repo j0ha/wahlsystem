@@ -31,7 +31,7 @@ class createController extends Controller
           $e->name = $request->electionName;
           $e->description = $request->electionDescription;
           $e->abstention = 1;
-          $e->status = "active";
+          $e->status = "waiting";
           $e->uuid = $uuid=Str::uuid();
           $e->type = $request->electionMode;
           $e->save();

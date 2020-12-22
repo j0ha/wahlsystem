@@ -8,16 +8,16 @@
             <div class="card-body">
                 <h5 class="text-muted">Status</h5>
                 <div class="metric-value d-inline-block">
-                    @if($electionArray[0]->status == "waiting")
+                    @if($selectedE[0]->status == "waiting")
                         <h1><span class="badge badge-light px-4 py-4">Waiting</span></h1>
                     @endif
-                    @if($electionArray[0]->status == "planned")
+                    @if($selectedE[0]->status == "planned")
                         <h1><span class="badge badge-primary px-4 py-4">Planned</span></h1>
                     @endif
-                    @if($electionArray[0]->status == "live")
+                    @if($selectedE[0]->status == "live")
                         <h1><span class="badge badge-success px-xl-5 py-3">Live</span></h1>
                     @endif
-                    @if($electionArray[0]->status == "ended")
+                    @if($selectedE[0]->status == "ended")
                         <h1><span class="badge badge-danger px-4 py-4">Ended</span></h1>
                     @endif
                 </div>
@@ -48,7 +48,7 @@
 
 
   <!-- Infocard - What is the status of the election -->
-  @if($electionArray[0]->status == "waiting")
+  @if($selectedE[0]->status == "waiting")
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="section-block" id="modal">
@@ -74,7 +74,7 @@
 
 
   <!-- Infocard - What is the status of the election -->
-  @if($electionArray[0]->status == "live")
+  @if($selectedE[0]->status == "live")
   <div class="card">
       <h5 class="card-header">Beenden</h5>
       <div class="card-body">
@@ -90,13 +90,16 @@
 
 
   <!-- Infocard - What is the status of the election -->
-  @if($electionArray[0]->status == "ended")
+  @if($selectedE[0]->status == "ended")
   <div class="card">
       <h5 class="card-header">Auswertung</h5>
             <div class="card-body">
                 <div class="">
                     <h4>Wahl beenden</h4>
                     <!-- Button trigger modal -->
+                    <a href="#" class="btn btn-primary">Auswertung anzeigen</a>
+                    <a href="#" class="btn btn-primary">Auswertung downloaden</a>
+
                     <a href="#" class="btn btn-primary">Auswertung anzeigen</a>
                     <a href="#" class="btn btn-primary">Auswertung downloaden</a>
                 </div>
@@ -126,7 +129,7 @@
                 <form action="{{route('e.activate')}}" method="post">
                     @csrf
                     <button class="btn btn-primary">Activate</button>
-                    <input type="hidden" name="eUUID" value="{{$electionArray[0]->uuid}}">
+                    <input type="hidden" name="eUUID" value="{{$selectedE[0]->uuid}}">
                 </form>
 
             </div>
@@ -151,7 +154,7 @@
                       <input name="starttime" type="datetime-local" class="form-control">
                       <label for="inputText6" class="col-form-label">End</label>
                       <input name="endtime" type="datetime-local" class="form-control">
-                      <input type="hidden" name="eUUID" value="{{$electionArray[0]->uuid}}">
+                      <input type="hidden" name="eUUID" value="{{$selectedE[0]->uuid}}">
                   </div>
 
 
@@ -182,7 +185,7 @@
                 <form action="{{route('e.end')}}" method="post">
                     @csrf
                     <button class="btn btn-primary">End up</button>
-                    <input type="hidden" name="eUUID" value="{{$electionArray[0]->uuid}}">
+                    <input type="hidden" name="eUUID" value="{{$selectedE[0]->uuid}}">
                 </form>
 
 

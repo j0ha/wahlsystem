@@ -66,7 +66,7 @@ class Multiform extends Component
         $e->name = $this->name;
         $e->description = $this->description;
         $e->abstention = 1;
-        $e->status = "active";
+        $e->status = "waiting";
         $e->uuid = $uuid;
         $e->type = $this->mode;
         $e->permission_id = $permission->id;

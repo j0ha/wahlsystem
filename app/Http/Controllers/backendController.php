@@ -124,9 +124,10 @@ class backendController extends Controller
     public function indexControlling($electionUUID){
         $user = Auth::user();
         $electionArray = Self::electionPermission($user);
+        $selectedE = Election::where('uuid', $electionUUID)->get();
 
         if ($user->hasPermissionTo($electionUUID)) {
-            return view('backendviews.v2.electioncontrolling', ['electionUUID' => $electionUUID], compact('electionArray', 'user'));
+            return view('backendviews.v2.electioncontrolling', ['electionUUID' => $electionUUID], compact('electionArray', 'user', 'selectedE'));
         } else {
             return redirect()->route('unauthorized');
         }

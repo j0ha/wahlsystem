@@ -30,9 +30,17 @@
          <div class="row justify-content-center">
            <span>Vielen Dank für deine Stimme!</span>
          </div>
+         <div class="row justify-content-center">
+           <span>Bitte verlasse nun die Wahlkabine!</span>
+         </div>
       </div>
     </div>
   </div>
+  <script type="text/javascript">
+    window.setTimeout(function(){
+        window.location.href = "{{$spv_terminal_route}}";
+    }, 5000);
+  </script>
   @endif
 
   @if($state == 'forms' AND $election->type == 'spv')

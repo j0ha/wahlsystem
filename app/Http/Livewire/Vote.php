@@ -26,6 +26,7 @@ class Vote extends Component
     public $spv_candidates;
     public $spv_selected_candidate_uuid;
     public $spv_selected_candidate_name;
+    public $spv_terminal_route;
 
     public $spv_voter_uuid;
 
@@ -35,7 +36,7 @@ class Vote extends Component
       $this->state = 'start';
 
       $this->election = Election::where('uuid', $electionUUID)->firstOrFail();
-
+      $this->spv_terminal_route = route('vote',['electionUUID'=>$electionUUID, 'terminalUUID'=>$terminalUUID]);
     }
 
     public function render()

@@ -11084,3 +11084,10 @@ a.text-dark:focus {
   overflow: hidden;
   outline: 0;
 }
+
+.eao-vote-alert-bg-danger {
+  background-color: rgb(255, 0, 0, 0.2);
+}
+.eao-vote-alert-bg-light {
+  background-color: rgb(255, 255, 255, 0.2);
+}

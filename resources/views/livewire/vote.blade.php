@@ -143,10 +143,19 @@
   @endif
 
   <div class="eao-vote-modal-show" wire:loading>
-    <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+    <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center eao-vote-alert-bg-light">
         <div class="eao-loader">
         </div>
         <span class="mt-3">Bitte warten. Lade...</span>
+    </div>
+  </div>
+
+  <div class="eao-vote-modal-show" wire:offline>
+    <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center eao-vote-alert-bg-danger">
+        <div class="eao-loader">
+        </div>
+        <span class="mt-3">Verbindung zum Server verloren, bitte warten!</span>
+        <span class="mt-3">Die Seite zu aktualisieren, behebt das Problem vielleicht.</span>
     </div>
   </div>
 

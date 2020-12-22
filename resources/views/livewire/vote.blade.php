@@ -141,4 +141,13 @@
       <button wire:click="abbort()" class="btn btn-light mx-3" type="button">Abbrechen</button>
     </div>
   @endif
+
+  <div class="eao-vote-modal-show" wire:loading>
+    <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+        <div class="eao-loader">
+        </div>
+        <span class="mt-3">Bitte warten. Lade...</span>
+    </div>
+  </div>
+
 </div>

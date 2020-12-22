@@ -11059,3 +11059,28 @@ a.text-dark:focus {
   border-radius: 0;
   border: none;
 }
+
+.eao-loader {
+  border: 0.3vh solid #f3f3f3; /* Light grey */
+  border-top: 0.3vh solid black; /* Blue */
+  border-radius: 50%;
+  width: 4vh;
+  height: 4vh;
+  animation: eao-spiner 1s linear infinite;
+}
+
+@keyframes eao-spiner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.eao-vote-modal-show {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  outline: 0;
+}

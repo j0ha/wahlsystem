@@ -34,5 +34,19 @@
     <div class="d-flex eao-vote-footer">
       <span>Schulsprecherwahl STS Walddórfer</span>
     </div>
+
+    <div class="eao-vote-modal-show">
+      <div class="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+
+          <div class="eao-loader">
+          </div>
+
+          <span class="mt-3">Bitte warten. Lade...</span>
+
+
+
+      </div>
+
+    </div>
   </body>
 </html>

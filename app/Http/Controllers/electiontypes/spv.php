@@ -35,7 +35,7 @@ class spv extends electionProcessController
   public function querrySchoolForms($electtionUUID) {
     try {
       $election = Election::where('uuid', $electtionUUID)->firstOrFail();
-      $forms = Form::where('election_id', $election->id)->get();
+      $forms = Form::getWithActive($election->id);
 
       return $forms;
 
@@ -83,7 +83,7 @@ class spv extends electionProcessController
   }
 
   public function getThem() {
-    $voters = Schoolclass::getWithActive(1);
+    $voters = Form::getWithActive(1);
     return $voters;
   }
 

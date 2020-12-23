@@ -30,6 +30,8 @@ Route::get('/testRoute/d', function(){
   $re = $securityController->verifyToElection('form', 'bbab8a77-1494-48b8-a78b-12b1ee177434', '28deb7de-b978-4a51-a960-e34553729abd');
   return $re;
 });
+Route::get('/testy', 'App\Http\Controllers\electiontypes\spv@getThem');
+
 
 
 Route::get('/testRoute/candidates/{electionUUID}', 'App\Http\Controllers\electionProcessController@querryElectionCandidates', ['electionUUID' => 'electionUUID']);

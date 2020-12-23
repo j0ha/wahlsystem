@@ -16,4 +16,8 @@ class Voter extends Model
                 ->orWhere('surname', 'like', '%'.$search.'%')->where('election_id', $electionId)
                 ->orWhere('email', 'like', '%'.$search.'%')->where('election_id', $electionId);
     }
+
+    public function schoolclass() {
+      return $this->belongsTo('App\Schoolclass');
+    }
 }

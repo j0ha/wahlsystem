@@ -28,7 +28,7 @@ class statsController extends Controller
           if($terminalStat_sumHits != 0) {
               $terminalStat[$terminal->name] = array(round($terminal->hits/$terminalStat_sumHits*100, 2), $terminal->name);
           } else {
-              $terminalStat[$terminal->name] = array(0, $terminal->name);  
+              $terminalStat[$terminal->name] = array(0, $terminal->name);
           }
 
 

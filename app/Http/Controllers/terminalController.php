@@ -66,7 +66,7 @@ class terminalController extends Controller
 
         } else {
 
-          return false;
+            return false;
 
         }
 
@@ -80,7 +80,7 @@ class terminalController extends Controller
       try {
         $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
 
-        if($terminal->status == "active") {
+        if($terminal->status == true) {
 
           return true;
 

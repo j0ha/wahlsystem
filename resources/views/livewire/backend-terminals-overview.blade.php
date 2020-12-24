@@ -125,7 +125,6 @@
                               </div>
                           </div>
                       </div>
-
                     </div>
                     <div class="modal-footer">
                         <a href="#" class="btn btn-secondary" data-dismiss="modal">Schießen</a>

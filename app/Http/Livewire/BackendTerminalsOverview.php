@@ -56,11 +56,11 @@ class BackendTerminalsOverview extends Component
 
     public function edit($terminalUUID) {
       $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
+      $this->status = $terminal->status;
       $this->terminalUUID = $terminalUUID;
       $this->name = $terminal->name;
       $this->description = $terminal->description;
       $this->kind = $terminal->kind;
-      $this->staus = $terminal->status;
       $this->position = $terminal->position;
       $this->start_time = $terminal->start_time;
       $this->end_time = $terminal->end_time;

@@ -73,6 +73,7 @@ class Vote extends Component
       $isthere = $securityController->verifyToElection('form', $formUUID, $this->electionUUID);
       if($isthere == true) {
         $this->spv_schoolclasses = $electionProcessController->querrySchoolClassesInForm($formUUID);
+//        dd($this->spv_schoolclasses);
         $this->state = 'schoolclasses';
       } else {
         //error handler
@@ -174,10 +175,11 @@ class Vote extends Component
           Self::abbort();
           break;
         case 'schoolclasses':
-          $this->state = 'forms';
+          Self::spvOpenForms();
           break;
         case 'voters':
-          $this->state = 'schoolclasses';
+          //$this->state = 'schoolclasses';
+            Self::abbort();
           break;
         case 'birth_verification':
           $this->state = 'voters';

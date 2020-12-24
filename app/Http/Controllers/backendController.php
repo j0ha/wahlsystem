@@ -47,7 +47,9 @@ class backendController extends Controller
 
       $stat_voters = Voter::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->count();
       $stat_questions = Candidate::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->count();
-      $stat_votes = Voter::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->where('voted_via_email', 1)->Orwhere('voted_via_terminal', 1)->count();
+      $stat_votes = Voter::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->where(function ($query){
+          $query->where('voted_via_terminal', 1)->orWhere('voted_via_email', 1)->count();
+      })->count();
       $stat_terminalUsage = $statsController->terminalUsage($electionUUID);
       $stat_terminals = $statsController->terminals($electionUUID);
       $stat_schoolclassesSpread = $statsController->schoolclassesSpread($electionUUID);

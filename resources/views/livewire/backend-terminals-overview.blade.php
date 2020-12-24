@@ -4,7 +4,7 @@
       <div class="col-sm-12 col-md-6">
         <div class="dt-buttons">
           <button wire:click.lazy="create()" data-toggle="modal" data-target="#createModal" class="btn btn-outline-primary buttons-print" tabindex="0" aria-controls="example" type="button"><span>Neues Terminal</span></button>
-          <button class="btn btn-outline-light buttons-export buttons-html5" tabindex="0" aria-controls="example" type="button"><span>Export</span></button>
+          <button wire:click="downloadList()" class="btn btn-outline-light buttons-export buttons-html5" tabindex="0" aria-controls="example" type="button"><span>Export</span></button>
           <button class="btn btn-outline-light buttons-pdf buttons-html5" tabindex="0" aria-controls="example" type="button"><span>PDF</span></button>
           <button class="btn btn-outline-light buttons-print" tabindex="0" aria-controls="example" type="button"><span>Drucken</span></button>
         </div>
@@ -158,7 +158,9 @@
                       <div class="form-group">
                           <label for="kind" class="col-form-label">Art</label>
                           <select wire:model.defer="kind" id="kind" name="kind" class="form-control">
-                            <option value="'browser'">Browser</option>
+                            @foreach(config('terminalkinds') as $kind)
+                            <option value="'{{$kind['short']}}'">{{$kind['name']}}</option>
+                              @endforeach
                           </select>
                       </div>
                       <div class="form-group">

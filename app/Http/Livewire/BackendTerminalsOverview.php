@@ -143,7 +143,7 @@ class BackendTerminalsOverview extends Component
     }
 
     public function downloadList() {
-
+        dd(config('terminalkinds'));
     }
 
     public function downloadPDF() {

@@ -12,7 +12,7 @@ use App\Http\Controllers\electiontypes\spv;
 
 class statsController extends Controller
 {
-  
+
     public function terminalUsage($electionUUID) {
       $electionProcessController = new electionProcessController;
       $terminals = Terminal::where('election_id', $electionProcessController->getId($electionUUID, 'elections'))->get();
@@ -25,7 +25,14 @@ class statsController extends Controller
       }
 
       foreach($terminals as $terminal) {
-        $terminalStat[$terminal->name] = array(round($terminal->hits/$terminalStat_sumHits*100, 2), $terminal->name);
+          if($terminalStat_sumHits != 0) {
+              $terminalStat[$terminal->name] = array(round($terminal->hits/$terminalStat_sumHits*100, 2), $terminal->name);
+          } else {
+              $terminalStat[$terminal->name] = array(0, $terminal->name);  
+          }
+
+
+
 
       }
       return $terminalStat;

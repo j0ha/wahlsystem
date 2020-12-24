@@ -193,7 +193,14 @@
                                 </a>
                     </div>
                     <div class="modal-body">
-                      <button wire:click.lazy="copyDirect()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Link kopieren</a>
+                        <input type="hidden" value="{{$url}}">
+                        <div class="form-group row">
+                            <label for="url" class="col-3 col-lg-2 col-form-label text-right">Email</label>
+                            <div class="col-9 col-lg-10">
+                                <input id="url" type="text" value="{{$url}}" class="form-control">
+                            </div>
+                        </div>
+                      <button onclick="copyURL()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Link kopieren</a>
                       <button wire:click.lazy="delete()" class="btn btn-danger mx-2 my-2" data-dismiss="modal">Löschen</a>
                     </div>
                     <div class="modal-footer">

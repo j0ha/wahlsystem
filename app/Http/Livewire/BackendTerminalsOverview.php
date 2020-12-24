@@ -26,6 +26,7 @@ class BackendTerminalsOverview extends Component
   public $status;
   public $end_time;
   public $ip_restriction;
+  public $url;
 
   public $electionUUID;
 
@@ -92,11 +93,12 @@ class BackendTerminalsOverview extends Component
       $this->name = $terminal->name;
       $this->description = $terminal->description;
       $this->kind = $terminal->kind;
-      $this->staus = $terminal->status;
+      $this->status = $terminal->status;
       $this->position = $terminal->position;
       $this->start_time = $terminal->start_time;
       $this->end_time = $terminal->end_time;
       $this->ip_restriction = $terminal->ip_restriction;
+      $this->url = route('vote', ['electionUUID' => $this->electionUUID, 'terminalUUID' => $this->terminalUUID]);
     }
 
     public function create(){

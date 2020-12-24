@@ -14,4 +14,13 @@
       </div>
   </div>
 </div>
+<script type="application/javascript">
+    function copyURL() {
+        var url = document.getElementById("url");
+        url.select();
+        document.execCommand("copy");
+    }
+</script>
 @endsection
+
+

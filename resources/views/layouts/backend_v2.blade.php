@@ -114,6 +114,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('election.schoolgrades.overview', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-address-card"></i>Forms</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('election.securityreporter', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fas fa-lock"></i>Security reporter</a>
+                            </li>
 
                           <li class="nav-divider">
                                 Wahlsteuerung

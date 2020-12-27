@@ -13,6 +13,15 @@ use App\Election;
 
 class securityController extends Controller
 {
+
+    private $securityreporter;
+    public function __construct()
+    {
+        $this->securityreporter = new securityreporterController('39dd732f-8e44-42a7-bdb3-96187f8c5846');
+
+        //Todo change to OOP
+    }
+
     public function verifyToElection($thing, $UUID, $electionUUID) {
       switch ($thing) {
         case 'voter':
@@ -107,12 +116,11 @@ class securityController extends Controller
         if($voter->voted_via_email == false AND $voter->voted_via_terminal == false) {
           return true;
         } else {
-          // TODO: security report
+            $this->securityreporter->report('voterVerification failed',2, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID, null);
           return false;
         }
       } catch (\Exception $e) {
-        // TODO: error error-report
-        // TODO: security report
+          $this->securityreporter->report('voterVerification catched',2, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID, $e);
         return false;
       }
     }

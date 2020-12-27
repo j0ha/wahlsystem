@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Controllers\securityreporterController;
 use Livewire\Component;
 use App\Http\Controllers\terminalController;
 use App\Http\Controllers\securityController;
@@ -29,6 +30,7 @@ class Vote extends Component
     public $spv_terminal_route;
 
     public $spv_voter_uuid;
+
 
     public function mount($electionUUID, $terminalUUID) {
       $this->electionUUID = $electionUUID;
@@ -107,8 +109,8 @@ class Vote extends Component
         $this->spv_voter_uuid = $voterUUID;
         $this->state = 'birth_verification';
       } else {
-        // TODO: error reporter
-        // TODO: security reporter
+          $securityreporter = new securityreporterController($this->electionUUID);
+          $securityreporter->report('give access faild',4, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID, null);
       }
 
     }
@@ -147,6 +149,8 @@ class Vote extends Component
 
         $this->state = 'vote';
       } else {
+          $securityreporter = new securityreporterController($this->electionUUID);
+          $securityreporter->report('birth verification failed',3, get_class(),'IP: '. \Request::getClientIp(), null);
         Self::abbort();
       }
     }
@@ -206,9 +210,7 @@ class Vote extends Component
         }
 
       } catch (\Exception $e) {
-        dd($e);
-        // TODO: error reporter
-        // TODO: security reporter
+          $this->securityreporter->report('select a candidate failed',4, get_class(),'IP: '. \Request::getClientIp().' CandidateUUID: '. $candidateUUID, $e);
       }
 
 
@@ -225,8 +227,7 @@ class Vote extends Component
         $this->state = 'end';
 
       } catch (\Exception $e) {
-        // TODO: error reporter
-        // TODO: security reporter
+          $this->securityreporter->report('livewire vote function catched',3, get_class(), null, $e);
     }
 
 }

@@ -5,6 +5,28 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Schoolclass
+ *
+ * @property int $id
+ * @property string $name
+ * @property int $election_id
+ * @property int $form_id
+ * @property string $uuid
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Schoolclass newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Schoolclass newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Schoolclass query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Schoolclass whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schoolclass whereElectionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schoolclass whereFormId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schoolclass whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schoolclass whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schoolclass whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Schoolclass whereUuid($value)
+ * @mixin \Eloquent
+ */
 class Schoolclass extends Model
 {
     protected $table = 'classes';

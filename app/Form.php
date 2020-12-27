@@ -5,6 +5,30 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Form
+ *
+ * @property int $id
+ * @property string $name
+ * @property int $election_id
+ * @property string $uuid
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Schoolclass[] $schoolclasses
+ * @property-read int|null $schoolclasses_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Voter[] $voters
+ * @property-read int|null $voters_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Form newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Form newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Form query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Form whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Form whereElectionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Form whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Form whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Form whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Form whereUuid($value)
+ * @mixin \Eloquent
+ */
 class Form extends Model
 {
   public function voters() {

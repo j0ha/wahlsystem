@@ -125,7 +125,7 @@
                                 <a class="nav-link" href="{{route('election.Controlling', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-power-off"></i>Controlling</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('election.evaluation', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-power-off"></i>Evaluation</a>
+                                <a class="nav-link" href="{{route('election.evaluation', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-balance-scale"></i>Evaluation</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fas fa-fw fa-chart-line"></i>Prediction</a>

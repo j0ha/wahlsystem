@@ -35,7 +35,7 @@ class electionControlling extends Controller
         } else {
             echo "Du PENNER HAST KEINEN ZUGRIFF!";
         }
-        $election = Election::where('uuid', $request->eUUID)->update(['status' => 'ended']);
+
         return redirect()->route('election.Controlling', ['electionUUID' => $request->eUUID]);
     }
 }

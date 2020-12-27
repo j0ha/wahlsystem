@@ -100,7 +100,7 @@
                                 <a class="nav-link" href="{{route('election.Dashboard', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-chart-pie"></i>Dashboard</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('election.Informations', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-info"></i>Grunddaten</a>
+                                <a class="nav-link" href="{{route('election.Informations', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-info"></i>Basic-Informations</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="fas fa-fw fa-hands-helping"></i>Wahlhelfer</a>
@@ -109,27 +109,30 @@
                                 <a class="nav-link" href="{{route('election.terminals.overview', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fas fa-desktop"></i>Terminals</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('election.schoolclasses.overview', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-book"></i>Schulklassen</a>
+                                <a class="nav-link" href="{{route('election.schoolclasses.overview', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-book"></i>Classes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('election.schoolgrades.overview', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-address-card"></i>Schuljahrgänge</a>
+                                <a class="nav-link" href="{{route('election.schoolgrades.overview', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-address-card"></i>Forms</a>
                             </li>
 
                           <li class="nav-divider">
                                 Wahlsteuerung
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('election.Controlling', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-power-off"></i>Vorgangssteuerung</a>
+                                <a class="nav-link" href="{{route('election.Controlling', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-power-off"></i>Controlling</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fas fa-fw fa-chart-line"></i>Prognose</a>
+                                <a class="nav-link" href="{{route('election.evaluation', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-power-off"></i>Evaluation</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fas fa-fw fa-chart-line"></i>Prediction</a>
                                 <div id="submenu-4" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Übersicht</a>
+                                            <a class="nav-link" href="">Overview</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="">Externen Link erstellen</a>
+                                            <a class="nav-link" href="">Create external link</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -173,9 +176,6 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{route('candidates.add.single', ['electionUUID' => $electionUUID])}}">Add Single</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="{{route('candidates.add.many', ['electionUUID' => $electionUUID])}}">Upload File</a>
                                         </li>
                                     </ul>
                                 </div>

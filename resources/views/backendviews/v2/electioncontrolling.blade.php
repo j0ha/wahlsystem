@@ -48,7 +48,7 @@
 
 
   <!-- Infocard - What is the status of the election -->
-  @if($selectedE[0]->status == "waiting")
+
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="section-block" id="modal">
@@ -61,51 +61,61 @@
                 <div class="">
                     <h4>Activate the election</h4>
                     <!-- Button trigger modal -->
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#changetoactive">Activate now</a>
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#changetoactiveplan">Plan a timetable</a>
+                    @if($selectedE[0]->status == "waiting")
+                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#changetoactive">Activate now</a>
+                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#changetoactiveplan">Plan a timetable</a>
+                    @else
+                    <a href="" class="btn btn-primary disabled" data-toggle="modal" data-target="#changetoactive">Activate now</a>
+                    <a href="" class="btn btn-primary disabled" data-toggle="modal" data-target="#changetoactiveplan">Plan a timetable</a>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
   </div>
-  @endif
 
 
 
 
   <!-- Infocard - What is the status of the election -->
-  @if($selectedE[0]->status == "live")
+
   <div class="card">
       <h5 class="card-header">Beenden</h5>
       <div class="card-body">
             <div class="">
                     <h4>Wahl beenden</h4>
                     <!-- Button trigger modal -->
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#changetoend">Jetzt beenden</a>
+                    @if($selectedE[0]->status == "live")
+                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#changetoend">Jetzt beenden</a>
+                    @else
+                    <a href="" class="btn btn-primary disabled" data-toggle="modal" data-target="#changetoend">Jetzt beenden</a>
+                    @endif
 
             </div>
       </div>
   </div>
-  @endif
+
 
 
   <!-- Infocard - What is the status of the election -->
-  @if($selectedE[0]->status == "ended")
+
   <div class="card">
       <h5 class="card-header">Auswertung</h5>
             <div class="card-body">
                 <div class="">
                     <h4>Wahl beenden</h4>
                     <!-- Button trigger modal -->
-                    <a href="#" class="btn btn-primary">Auswertung anzeigen</a>
-                    <a href="#" class="btn btn-primary">Auswertung downloaden</a>
-
-                    <a href="#" class="btn btn-primary">Auswertung anzeigen</a>
-                    <a href="#" class="btn btn-primary">Auswertung downloaden</a>
+                    @if($selectedE[0]->status == "ended")
+                    <a href="" class="btn btn-primary">Auswertung anzeigen</a>
+                    <a href="" class="btn btn-primary">Auswertung downloaden</a>
+                    @else
+                    <a href="" class="btn btn-primary disabled" >Auswertung anzeigen</a>
+                    <a href="" class="btn btn-primary disabled" >Auswertung downloaden</a>
+                    @endif
                 </div>
             </div>
   </div>
-  @endif
+
     </div>
   </div>
 

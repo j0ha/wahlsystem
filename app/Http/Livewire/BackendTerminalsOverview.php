@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Terminal;
+use Bugsnag;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Http\Controllers\electionProcessController;
@@ -113,29 +114,30 @@ class BackendTerminalsOverview extends Component
     }
 
     public function createSave(){
-      $this->validate();
-      $electionProcess = new electionProcessController;
-      $terminal = new Terminal;
-      $terminal->name = $this->name;
-      $terminal->uuid = Str::uuid();
-      $terminal->status = false;
-      $terminal->election_id = $electionProcess->getId($this->electionUUID, 'elections');
-      $terminal->description = $this->description;
-      $terminal->kind = 'browser';
-      $terminal->position = $this->position;
-      if($this->start_time == ''){
-        $terminal->start_time = null;
-      } else {
-        $terminal->start_time = $this->start_time;
-      }
+            $this->validate();
+            $electionProcess = new electionProcessController;
+            $terminal = new Terminal;
+            $terminal->name = $this->name;
+            $terminal->uuid = Str::uuid();
+            $terminal->status = false;
+            $terminal->election_id = $electionProcess->getId($this->electionUUID, 'elections');
+            $terminal->description = $this->description;
+            $terminal->kind = 'browser';
+            $terminal->position = $this->position;
+            if($this->start_time == ''){
+                $terminal->start_time = null;
+            } else {
+                $terminal->start_time = $this->start_time;
+            }
 
-      if($this->end_time == '') {
-        $terminal->end_time = null;
-      } else {
-        $terminal->end_time = $this->end_time;
-      }
-      $terminal->ip_restriction = $this->ip_restriction;
-      $terminal->save();
+            if($this->end_time == '') {
+                $terminal->end_time = null;
+            } else {
+                $terminal->end_time = $this->end_time;
+            }
+            $terminal->ip_restriction = $this->ip_restriction;
+            $terminal->save();
+
     }
 
     public function copyDirect() {

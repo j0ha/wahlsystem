@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Illuminate\Http\Request;
 use App\Election;
 use App\Terminal;
@@ -140,7 +141,7 @@ class terminalController extends Controller
         $terminal->hits = $terminal->hits + 1;
         $terminal->update();
       } catch (\Exception $e) {
-        // TODO: error reporter
+          Bugsnag::notifyException($e);
       }
 
     }

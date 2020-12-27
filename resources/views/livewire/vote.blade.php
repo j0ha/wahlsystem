@@ -97,7 +97,7 @@
                   @error('spv_birthday_day') <span class="error">{{ $message }}</span> @enderror
                   @error('spv_birthday_month') <span class="error">{{ $message }}</span> @enderror
                   @error('spv_birthday_year') <span class="error">{{ $message }}</span> @enderror
-                  <input wire:model.lazy="spv_birthday_day" type="number" name="" value="" placeholder="16" class="form-less">.<input wire:model.lazy="spv_birthday_month" type="number" name="" value=""placeholder="12" class="form-less">.<input wire:model.lazy="spv_birthday_year" type="number" name="" value=""placeholder="2000" class="form-less">
+                  <input wire:model.lazy="spv_birthday_day" type="number" name="" value="" placeholder="02" class="form-less">.<input wire:model.lazy="spv_birthday_month" type="number" name="" value=""placeholder="12" class="form-less">.<input wire:model.lazy="spv_birthday_year" type="number" name="" value=""placeholder="2002" class="form-less">
                   </form>
                 </div>
 
@@ -148,7 +148,7 @@
 
   @if($state != 'start' AND $state != 'end')
     <div class="d-flex justify-content-between eao-vote-footer">
-      <button wire:click="back()" class="btn btn-secondary mx-3" type="button"@if($state == 'vote') disabled @endif>Schritt zurück</button>
+      <button wire:click="back()" class="btn btn-secondary mx-3" type="button"@if($state == 'vote' OR $state == 'voters') disabled @endif>Schritt zurück</button>
       <span>{{$election->name}}</span>
       <button wire:click="abbort()" class="btn btn-light mx-3" type="button">Abbrechen</button>
     </div>

@@ -39,9 +39,11 @@
           <div class="card-body">
               <h5 class="text-muted">Wahlbeteiligung</h5>
               <div class="metric-value d-inline-block">
-                @if($stat_votes AND $stat_voters)
-                  <h1 class="mb-1">{{round($stat_votes/$stat_voters*100,3)}}%</h1>
-                  @endif
+                  @if($stat_votes AND $stat_voters)
+                    <h1 class="mb-1">{{round($stat_votes/$stat_voters*100,3)}}%</h1>
+                    @else
+                    <h1 class="mb-1">0%</h1>
+                    @endif
               </div>
           </div>
       </div>

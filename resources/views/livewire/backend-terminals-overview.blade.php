@@ -4,7 +4,7 @@
       <div class="col-sm-12 col-md-6">
         <div class="dt-buttons">
           <button wire:click.lazy="create()" data-toggle="modal" data-target="#createModal" class="btn btn-outline-primary buttons-print" tabindex="0" aria-controls="example" type="button"><span>Neues Terminal</span></button>
-          <button class="btn btn-outline-light buttons-export buttons-html5" tabindex="0" aria-controls="example" type="button"><span>Export</span></button>
+          <button wire:click="downloadList()" class="btn btn-outline-light buttons-export buttons-html5" tabindex="0" aria-controls="example" type="button"><span>Export</span></button>
           <button class="btn btn-outline-light buttons-pdf buttons-html5" tabindex="0" aria-controls="example" type="button"><span>PDF</span></button>
           <button class="btn btn-outline-light buttons-print" tabindex="0" aria-controls="example" type="button"><span>Drucken</span></button>
         </div>
@@ -125,7 +125,6 @@
                               </div>
                           </div>
                       </div>
-
                     </div>
                     <div class="modal-footer">
                         <a href="#" class="btn btn-secondary" data-dismiss="modal">Schießen</a>
@@ -159,7 +158,9 @@
                       <div class="form-group">
                           <label for="kind" class="col-form-label">Art</label>
                           <select wire:model.defer="kind" id="kind" name="kind" class="form-control">
-                            <option value="'browser'">Browser</option>
+                            @foreach(config('terminalkinds') as $kind)
+                            <option value="'{{$kind['short']}}'">{{$kind['name']}}</option>
+                              @endforeach
                           </select>
                       </div>
                       <div class="form-group">
@@ -193,7 +194,14 @@
                                 </a>
                     </div>
                     <div class="modal-body">
-                      <button wire:click.lazy="copyDirect()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Link kopieren</a>
+                        <input type="hidden" value="{{$url}}">
+                        <div class="form-group row">
+                            <label for="url" class="col-3 col-lg-2 col-form-label text-right">Email</label>
+                            <div class="col-9 col-lg-10">
+                                <input id="url" type="text" value="{{$url}}" class="form-control">
+                            </div>
+                        </div>
+                      <button onclick="copyURL()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Link kopieren</a>
                       <button wire:click.lazy="delete()" class="btn btn-danger mx-2 my-2" data-dismiss="modal">Löschen</a>
                     </div>
                     <div class="modal-footer">

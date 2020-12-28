@@ -52,6 +52,7 @@ class BackendVoteractivator extends Component
                 $this->voter = $voter;
                 $this->state = 'allow';
             } elseif ($securitycontroller->voteVerification($voter->uuid) == false){
+                $this->voter = $voter;
                 $this->state = 'voted';
             } else {
                 $this->state = 'error';

@@ -18,6 +18,8 @@ class Multiform extends Component
 
   public $name;
   public $description;
+  public $abstention;
+  public $stats;
   public $mode;
 
   public $step;
@@ -65,7 +67,17 @@ class Multiform extends Component
 
         $e->name = $this->name;
         $e->description = $this->description;
-        $e->abstention = 1;
+        if(isset($this->abstention)){
+            $e->abstention = 1;
+        } else {
+            $e->abstention = 0;
+        }
+
+        if(isset($this->stats)){
+            $e->statistics = 1;
+        } else {
+            $e->statistics = 0;
+        }
         $e->status = "waiting";
         $e->uuid = $uuid;
         $e->type = $this->mode;

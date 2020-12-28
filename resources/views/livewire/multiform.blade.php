@@ -40,6 +40,22 @@
     @error('mode') <span class="error text-danger"> {{ $message }} </span> @enderror
    <small id="electionnamehelp" class="form-text text-muted">The mode decides wheter the elector can abstain inside of your election or not.</small>
  </div>
+          <div class="form-group">
+          <label for="electionMode">Abstentionmode:</label>
+          <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" wire:model.lazy="abstention" id="abstentionCheckbox">
+              <label class="custom-control-label" for="abstentionCheckbox">If you want to allow abstention select the checkbox.</label>
+          </div>
+          </div>
+
+          <div class="form-group">
+              <label for="electionMode">Statistics:</label>
+              <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" wire:model.lazy="stats" id="statisticsCheckbox">
+                  <label class="custom-control-label" for="statisticsCheckbox">If you want the admin to view the statistics during the election select this checkbox.</label>
+              </div>
+          </div>
+          <br>
 @endif
 @if($step > 0 && $step <= 1)
   <!-- Submit Button -->
@@ -57,7 +73,6 @@
 
 
 </form>
-</div>
 </div>
 </div>
 </div>

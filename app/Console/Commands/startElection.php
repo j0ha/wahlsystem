@@ -39,7 +39,6 @@ class startElection extends Command
     public function handle()
     {
         $time = date("Y-m-d H:i:00");
-        $this->info($time);
         $elections = Election::where('status', 'planned')->get();
 
         foreach($elections as $e){
@@ -48,7 +47,7 @@ class startElection extends Command
             }
         }
 
-        $this->info("Success");
+
 
 
     }

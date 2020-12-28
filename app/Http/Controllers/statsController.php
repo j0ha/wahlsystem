@@ -20,7 +20,7 @@ class statsController extends Controller
     }
 
     public function terminalUsage() {
-      $electionProcessController = new electionProcessController;
+      $electionProcessController = new electionProcessController($this->electionUUID);
       $terminals = Terminal::where('election_id', $electionProcessController->getId($this->electionUUID, 'elections'))->get();
       // $electionProcessController->getId($electionUUID, 'elections')
       $terminalStat = array();
@@ -45,13 +45,13 @@ class statsController extends Controller
     }
 
     public function terminals() {
-      $electionProcessController = new electionProcessController;
+      $electionProcessController = new electionProcessController($this->electionUUID);
       $terminals = Terminal::where('election_id', $electionProcessController->getId($this->electionUUID, 'elections'))->get();
       return $terminals;
     }
 
     public function schoolclassesSpread() {
-      $spv = new spv;
+      $spv = new spv($this->electionUUID);
       $schoolclasses = Schoolclass::where('election_id', $spv->getId($this->electionUUID, 'elections'))->get();
       $schoolclassspreadStat = array();
 
@@ -63,7 +63,7 @@ class statsController extends Controller
     }
 
     public function formVoterSpread() {
-      $electionProcessController = new electionProcessController;
+      $electionProcessController = new electionProcessController($this->electionUUID);
       $votersCount = Voter::where('election_id', $electionProcessController->getId($this->electionUUID, 'elections'))->count();
       $forms = Form::where('election_id', $electionProcessController->getId($this->electionUUID, 'elections'))->get();
 
@@ -79,7 +79,7 @@ class statsController extends Controller
     }
 
     public function schoolclassesVoteTurnout() {
-      $spv = new spv;
+      $spv = new spv($this->electionUUID);
       $schoolclasses = Schoolclass::where('election_id', $spv->getId($this->electionUUID, 'elections'))->get();
       $schoolclassTurnoutStat = array();
 

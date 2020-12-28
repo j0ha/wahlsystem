@@ -47,7 +47,7 @@ class BackendTerminalsOverview extends Component
 
     public function render()
     {
-      $electionProcess = new electionProcessController;
+      $electionProcess = new electionProcessController($this->electionUUID);
         return view('livewire.backend-terminals-overview', [
             'terminals' => Terminal::search($this->search, $electionProcess->getId($this->electionUUID, 'elections'))
                 ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
@@ -115,7 +115,7 @@ class BackendTerminalsOverview extends Component
 
     public function createSave(){
       $this->validate();
-      $electionProcess = new electionProcessController;
+      $electionProcess = new electionProcessController($this->electionUUID);
       $terminal = new Terminal;
       $terminal->name = $this->name;
       $terminal->uuid = Str::uuid();

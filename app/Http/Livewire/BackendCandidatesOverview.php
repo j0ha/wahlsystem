@@ -31,7 +31,7 @@ class BackendCandidatesOverview extends Component
 
     public function render()
     {
-      $electionProcess = new electionProcessController;
+      $electionProcess = new electionProcessController($this->electionUUID);
 
         return view('livewire.backend-candidates-overview', [
             'candidates' => Candidate::search($this->search, $electionProcess->getId($this->electionUUID, 'elections'))

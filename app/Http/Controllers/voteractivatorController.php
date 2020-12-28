@@ -15,9 +15,9 @@ class voteractivatorController extends Controller
     public function __construct($electionUUID)
     {
         $this->electionUUID = $electionUUID;
-        $this->securityController = new securityController();
-        $this->securityreporter = new securityreporterController($electionUUID);
-        $this->terminalcontroller = new terminalController();
+        $this->securityController = new securityController($this->electionUUID);
+        $this->securityreporter = new securityreporterController($this->electionUUID);
+        $this->terminalcontroller = new terminalController($this->electionUUID);
     }
 
     public function activateVoter($voterUUID) {

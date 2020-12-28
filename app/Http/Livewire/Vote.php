@@ -63,14 +63,14 @@ class Vote extends Component
     }
 
     private function spvOpenForms() {
-      $this->electionProcessController = new spv;
+      $this->electionProcessController = new spv($this->electionUUID);
       $this->spv_forms = $this->electionProcessController->querrySchoolForms($this->electionUUID);
       $this->state = 'forms';
     }
 
     public function spvOpenSchoolclasses($formUUID) {
-      $securityController = new securityController;
-      $electionProcessController = new spv;
+      $securityController = new securityController($this->electionUUID);
+      $electionProcessController = new spv($this->electionUUID);
 
       $isthere = $securityController->verifyToElection('form', $formUUID, $this->electionUUID);
       if($isthere == true) {
@@ -84,8 +84,8 @@ class Vote extends Component
     }
 
     public function spvOpenVoters($schoolclassUUID) {
-      $securityController = new securityController;
-      $electionProcessController = new spv;
+      $securityController = new securityController($this->electionUUID);
+      $electionProcessController = new spv($this->electionUUID);
 
       $isthere = $securityController->verifyToElection('schoolclass', $schoolclassUUID, $this->electionUUID);
       if($isthere == true) {
@@ -98,10 +98,7 @@ class Vote extends Component
     }
 
     public function spv_birthVerification($voterUUID) {
-      $securityController = new securityController;
-      $electionProcessController = new spv;
-
-
+      $securityController = new securityController($this->electionUUID);
 
       $isthere = $securityController->verifyToElection('voter', $voterUUID, $this->electionUUID);
       $isallowed = $securityController->voteVerification($voterUUID);
@@ -128,8 +125,8 @@ class Vote extends Component
 
     public function validation() {
       $this->validate();
-      $securityController = new securityController;
-      $electionProcessController = new spv;
+      $securityController = new securityController($this->electionUUID);
+      $electionProcessController = new spv($this->electionUUID);
       $this->spv_candidates = $electionProcessController->querryElectionCandidates($this->electionUUID);
 
       // TODO: darf er wählen?
@@ -196,9 +193,8 @@ class Vote extends Component
 
     public function select($candidateUUID) {
       try {
-        $securityController = new securityController;
-        $terminalContoller = new terminalController;
-        $electionProcessController = new spv;
+        $securityController = new securityController($this->electionUUID);
+        $terminalContoller = new terminalController($this->electionUUID);
 
         $isallowed = $securityController->voteVerification($this->spv_voter_uuid);
         $candidatebelongsto = $securityController->verifyToElection('candidate', $candidateUUID, $this->electionUUID);
@@ -218,8 +214,6 @@ class Vote extends Component
 
     public function vote() {
       try {
-        $securityController = new securityController;
-        $terminalContoller = new terminalController;
         $electionProcessController = new spv;
         $electionProcessController->vote($this->spv_selected_candidate_uuid, $this->spv_voter_uuid, $this->terminalUUID, $this->electionUUID);
 

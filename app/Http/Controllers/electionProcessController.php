@@ -11,20 +11,22 @@ use App\Terminal;
 class electionProcessController extends Controller
 {
     private $securityreporter;
-    private $electionUUID;
+    protected $electionUUID;
+    private $securityController;
+    private $terminalController;
     public function __construct($electionUUID)
     {
         $this->electionUUID = $electionUUID;
         $this->securityreporter = new securityreporterController($this->electionUUID);
+        $this->securityController = new securityController($this->electionUUID);
+        $this->terminalController = new terminalController($this->electionUUID);
     }
 
     public function vote($candidateUUID, $voterUUID, $terminalUUID) {
         try {
-          $securityController = new securityController;
-          $terminalController = new terminalController;
-          $isallowed = $securityController->voteVerification($voterUUID);
-          $candidatebelongsto = $securityController->verifyToElection('candidate', $candidateUUID, $this->electionUUID);
-          $terminalAccess = $terminalController->verifyTerminalAcces($this->electionUUID, $terminalUUID);
+          $isallowed = $this->securityController->voteVerification($voterUUID);
+          $candidatebelongsto = $this->securityController->verifyToElection('candidate', $candidateUUID);
+          $terminalAccess = $this->terminalController->verifyTerminalAcces($this->electionUUID, $terminalUUID);
           if($isallowed == true and $candidatebelongsto == true and $terminalAccess == true){
             $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
 
@@ -40,7 +42,7 @@ class electionProcessController extends Controller
 
             $voter->save();
             Self::voteAgent($candidateUUID);
-            $terminalController->hit($terminalUUID);
+            $this->terminalController->hit($terminalUUID);
           } else {
               $this->securityreporter->report('vote failed',3, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID. ' given terminalUUID: '.$terminalUUID.' CandidateUUID: '. $candidateUUID, null);
           }

@@ -28,7 +28,7 @@ class BackendSchoolgradesOverview extends Component
 
     public function render()
     {
-      $electionProcess = new electionProcessController;
+      $electionProcess = new electionProcessController($this->electionUUID);
 
         return view('livewire.backend-schoolgrades-overview', [
             'schoolgrades' => Form::search($this->search, $electionProcess->getId($this->electionUUID, 'elections'))
@@ -72,7 +72,7 @@ class BackendSchoolgradesOverview extends Component
 
     public function createSave(){
       $schoolclass = new Form;
-      $electionProcess = new electionProcessController;
+      $electionProcess = new electionProcessController($this->electionUUID);
       $schoolclass->name = $this->name;
       $schoolclass->uuid = Str::uuid();
       $schoolclass->election_id = $electionProcess->getId($this->electionUUID, 'elections');

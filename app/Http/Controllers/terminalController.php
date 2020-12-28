@@ -15,7 +15,7 @@ class terminalController extends Controller
     public function __construct($electionUUID)
     {
         $this->electionUUID = $electionUUID;
-        $this->securityreporter = new securityreporterController('39dd732f-8e44-42a7-bdb3-96187f8c5846');
+        $this->securityreporter = new securityreporterController($this->electionUUID);
     }
 
     public function index($terminalUUID) {

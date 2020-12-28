@@ -27,13 +27,13 @@ class BackendSchoolclassesOverview extends Component
 
   public function mount($electionUUID) {
     $this->electionUUID = $electionUUID;
-    $electionProcess = new electionProcessController;
+    $electionProcess = new electionProcessController($this->electionUUID);
     $this->forms = Form::where('election_id', $electionProcess->getId($electionUUID, 'elections'))->get();
   }
 
     public function render()
     {
-      $electionProcess = new electionProcessController;
+      $electionProcess = new electionProcessController($this->electionUUID);
 
         return view('livewire.backend-schoolclasses-overview', [
             'schoolclasses' => Schoolclass::search($this->search, $electionProcess->getId($this->electionUUID, 'elections'))
@@ -78,7 +78,7 @@ class BackendSchoolclassesOverview extends Component
 
     public function createSave(){
       $schoolclass = new Schoolclass;
-      $electionProcess = new electionProcessController;
+      $electionProcess = new electionProcessController($this->electionUUID);
       $schoolclass->name = $this->name;
       $schoolclass->uuid = Str::uuid();
       $schoolclass->form_id = $this->form_id;

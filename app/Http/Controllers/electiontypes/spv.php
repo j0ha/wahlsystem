@@ -32,9 +32,9 @@ class spv extends electionProcessController
     }
   }
 
-  public function querrySchoolForms($electtionUUID) {
+  public function querrySchoolForms() {
     try {
-      $election = Election::where('uuid', $electtionUUID)->firstOrFail();
+      $election = Election::where('uuid', $this->electtionUUID)->firstOrFail();
       $forms = Form::getWithActive($election->id);
 
       return $forms;

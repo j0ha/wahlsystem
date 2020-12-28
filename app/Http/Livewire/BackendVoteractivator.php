@@ -23,7 +23,7 @@ class BackendVoteractivator extends Component
 
     public function render()
     {
-        $electionProcess = new electionProcessController;
+        $electionProcess = new electionProcessController($this->electionUUID);
         $this->stat_voter = Voter::where('election_id',  $electionProcess->getId($this->electionUUID, 'elections'))->count();
         $this->stat_active_voters = Voter::where([
             ['election_id', '=', $electionProcess->getId($this->electionUUID, 'elections')],
@@ -43,7 +43,7 @@ class BackendVoteractivator extends Component
     public function search(){
 
         $voteractivatorController = new voteractivatorController($this->electionUUID);
-        $securitycontroller = new securityController();
+        $securitycontroller = new securityController($this->electionUUID);
 
         $voter = $voteractivatorController->returnVoter($this->search_url);
 

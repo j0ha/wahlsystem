@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\electionProcessController;
 use Dotenv\Result\Success;
 use Illuminate\Http\Request;
 use App\Election;
@@ -16,7 +17,7 @@ use Session;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\electionProcessController;
+
 
 
 class backendController extends Controller
@@ -138,9 +139,34 @@ class backendController extends Controller
     public function indexEvaluation($electionUUID){
         $user = Auth::user();
         $electionArray = Self::electionPermission($user);
+        //Erzeuge neue Objekte
+        $electionProcess = new electionProcessController;
+        $statsController = new statsController;
+        //Die Election ID holen spart Codezeilen
+        $electionID = $electionProcess->getId($electionUUID, 'elections');
+
+        //Summe aller Stimmen
+        $number_voters = Candidate::where('election_id', $electionID)->sum('votes');
+        $number_voters_unpolled = Voter::where('election_id', $electionID)->where('voted_via_email', 0)->where('voted_via_terminal', 0)->count();
+        //number_of_abstention
+
+        //Wahlbeteiligung in %
+        $stat_votes = Voter::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->where(function ($query){
+            $query->where('voted_via_terminal', 1)->orWhere('voted_via_email', 1)->count();
+        })->count();
+        $stat_voters = Voter::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->count();
+
+        //Auswertung der Wahl
+        $votedistribution_candidates = Candidate::where('election_id', $electionID)->get();
+
+        //Donuts + Graph
+        $stat_schoolclassesVoteTurnout = $statsController->schoolclassesVoteTurnout($electionUUID);
+        $stat_formVoterSpread = $statsController->formVoterSpread($electionUUID);
+        $stat_terminalUsage = $statsController->terminalUsage($electionUUID);
+
 
         if ($user->hasPermissionTo($electionUUID)) {
-            return view('backendviews.v2.evaluation', ['electionUUID' => $electionUUID], compact('electionArray', 'user'));
+            return view('backendviews.v2.evaluation', ['electionUUID' => $electionUUID], compact('electionArray', 'user', 'number_voters', 'number_voters_unpolled', 'votedistribution_candidates', 'stat_schoolclassesVoteTurnout', 'stat_terminalUsage', 'stat_votes', 'stat_voters', 'stat_formVoterSpread'));
         } else {
             return redirect()->route('unauthorized');
         }

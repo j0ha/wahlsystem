@@ -1,6 +1,24 @@
-@extends('layouts.backend_v2')
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-@section('backendcontent')
+
+    <link href="http://localhost:8000/backend/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://localhost:8000/backend/libs/css/style.css">
+    <link rel="stylesheet" href="http://localhost:8000/backend/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="http://localhost:8000/backend/vendor/charts/chartist-bundle/chartist.css">
+    <link rel="stylesheet" href="http://localhost:8000/backend/vendor/charts/morris-bundle/morris.css">
+    <link rel="stylesheet" href="http://localhost:8000/backend/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="http://localhost:8000/backend/vendor/charts/c3charts/c3.css">
+    <link rel="stylesheet" href="http://localhost:8000/backend/vendor/fonts/flag-icon-css/flag-icon.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <title>Evaluation</title>
+</head>
+<body>
 
 
     <div class="row">
@@ -96,14 +114,14 @@
 
 
 
-@endsection
 
-@section('scripts')
+
+
     <script type="text/javascript">
         new Morris.Bar({
             element: 'votedistribution',
             data: [
-                @foreach($votedistribution_candidates as $distribution)
+                    @foreach($votedistribution_candidates as $distribution)
                 { y: {{$distribution->votes}}, x: '{{$distribution->name}}' },
                 @endforeach
             ],
@@ -178,4 +196,6 @@
         });
 
     </script>
-@endsection
+
+</body>
+</html>

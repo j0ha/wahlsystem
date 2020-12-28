@@ -114,6 +114,8 @@ Route::group(['prefix' => 'dvi'], function() {
     ==============================================================*/
     Route::group(['prefix' => 'downloads'], function(){
       Route::get('/singelInvitation/{voterUUID}', 'App\Http\Controllers\paperController@downloadSingelInvitation', ['voterUUID' => 'voterUUID'])->name('download.singelInvitation');
+        Route::get('/evaluation/{electionUUID}', 'App\Http\Controllers\paperController@downloadEvaluation')->name('download.evaluation');
+
     });
   });
 });

@@ -121,7 +121,7 @@ class BackendTerminalsOverview extends Component
       $terminal->status = false;
       $terminal->election_id = $electionProcess->getId($this->electionUUID, 'elections');
       $terminal->description = $this->description;
-      $terminal->kind = 'browser';
+      $terminal->kind = $this->kind;
       $terminal->position = $this->position;
       if($this->start_time == ''){
         $terminal->start_time = null;

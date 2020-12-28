@@ -165,11 +165,11 @@
                       </div>
                       <div class="form-group">
                           <label for="start_time" class="col-form-label">Startzeit</label>
-                          <input wire:model.defer="start_time" id="start_time" name="start_time" placeholder="Startzeit" type="datetime" class="form-control">
+                          <input wire:model.defer="start_time" id="start_time" name="start_time" placeholder="Startzeit" type="datetime-local" class="form-control">
                       </div>
                       <div class="form-group">
                           <label for="end_time" class="col-form-label">Endzeit</label>
-                          <input wire:model.defer="end_time" id="end_time" name="end_time" placeholder="Endzeit" type="datetime" class="form-control">
+                          <input wire:model.defer="end_time" id="end_time" name="end_time" placeholder="Endzeit" type="datetime-local" class="form-control">
                       </div>
                       <div class="form-group">
                           <label for="ip_restriction" class="col-form-label">IP-Beschränkung</label>

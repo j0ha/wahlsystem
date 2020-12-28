@@ -106,7 +106,7 @@
                     <h4>Wahl beenden</h4>
                     <!-- Button trigger modal -->
                     @if($selectedE[0]->status == "ended")
-                    <a href="" class="btn btn-primary">Auswertung anzeigen</a>
+                    <a href="{{route('election.evaluation', ['electionUUID' => $selectedE[0]->uuid])}}" class="btn btn-primary">Auswertung anzeigen</a>
                     <a href="" class="btn btn-primary">Auswertung downloaden</a>
                     @else
                     <a href="" class="btn btn-primary disabled" >Auswertung anzeigen</a>

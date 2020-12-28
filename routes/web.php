@@ -54,7 +54,7 @@ Route::group(['prefix' => 'vote'], function(){
   Route::get('/{electionUUID}/{terminalUUID}', 'App\Http\Controllers\terminalController@index')->name('vote');
 
   //DIRECT ROUTE
-  Route::get('/d/{electionUUID}/{terminalUUID}', 'App\Http\Controllers\terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID'])->name('vote.direct');
+  Route::get('/d/{electionUUID}/{terminalUUID}/{directUUID}', 'App\Http\Controllers\terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID'], ['directUUID' => 'directUUID'])->name('vote.direct');
 
 });
 
@@ -87,6 +87,8 @@ Route::group(['prefix' => 'dvi'], function() {
 
     //Show the stats of the actual electionUUID
     Route::get('/{electionUUID}/stats', 'App\Http\Controllers\backendController@indexElectionStats')->name('election.Stats');
+
+      Route::get('/{electionUUID}/voteractivator', 'App\Http\Controllers\backendController@indexVoteractivator')->name('election.voteractivator');
     /*==============================================================
                            BEGIN VOTERS ROUTES
     ==============================================================*/

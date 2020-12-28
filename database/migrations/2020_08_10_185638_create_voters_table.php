@@ -28,6 +28,7 @@ class CreateVotersTable extends Migration
             $table->integer('election_id');
             $table->integer('schoolclass_id')->nullable();
             $table->integer('form_id')->nullable();
+            $table->boolean('activated');
             $table->timestamps();
         });
     }

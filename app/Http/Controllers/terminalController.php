@@ -28,7 +28,7 @@ class terminalController extends Controller
     }
 
   //Function to verify if the controller and the termial fit together
-    private function verifyTruthiness($electionUUID, $terminalUUID)
+    public function verifyTruthiness($electionUUID, $terminalUUID)
     {
       $election = null;
       $terminal = null;

@@ -17,7 +17,8 @@ class CreateElectionsTable extends Migration
             $table->id();
             $table->String('name');
             $table->String('description');
-            $table->boolean('abstention')->nullable();
+            $table->boolean('abstention');
+            $table->boolean('statistics');
             $table->char('status', 16)->default(0);
             $table->uuid('uuid');
             $table->char('type');

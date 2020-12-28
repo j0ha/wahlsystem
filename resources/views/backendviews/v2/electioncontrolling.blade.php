@@ -68,6 +68,8 @@
                     <a href="" class="btn btn-primary disabled" data-toggle="modal" data-target="#changetoactive">Activate now</a>
                     <a href="" class="btn btn-primary disabled" data-toggle="modal" data-target="#changetoactiveplan">Plan a timetable</a>
                     @endif
+
+
                 </div>
             </div>
         </div>

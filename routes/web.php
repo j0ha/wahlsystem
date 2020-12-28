@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use App\Mail\electionInvitation;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\securityController;
@@ -121,6 +119,16 @@ Route::group(['prefix' => 'dvi'], function() {
 
     });
   });
+
+    Route::group(['prefix' => 'profil'],  function() {
+        //Lists up all of the data, some fields maybe changeable?
+        Route::get('/data', 'App\Http\Controllers\backendController@indexProfile')->name('profile.Data')->middleware('auth');
+        Route::post('/profileUpdate', 'App\Http\Controllers\backendController@updateProfile')->name('profile.Data.Update')->middleware('auth');
+        Route::post('/profileDelete', 'App\Http\Controllers\backendController@deleteProfile')->name('profile.Data.DeleteProfile')->middleware('auth');
+        //Open for everything
+        Route::get('/', function(){return 'user profil setting site';});
+
+    });
 });
   /*==============================================================
                          BEGIN ELECTION CREATION ROUTES
@@ -131,15 +139,7 @@ Route::group(['prefix' => 'dvi'], function() {
   /*==============================================================
                          BEGIN PROFILE ROUTES
   ==============================================================*/
-  Route::group(['prefix' => 'profil'],  function() {
-    //Lists up all of the data, some fields maybe changeable?
-    Route::get('/data', 'App\Http\Controllers\backendController@indexProfile')->name('profile.Data')->middleware('auth');
-    Route::post('/profileUpdate', 'App\Http\Controllers\backendController@updateProfile')->name('profile.Data.Update')->middleware('auth');
-    Route::post('/profileDelete', 'App\Http\Controllers\backendController@deleteProfile')->name('profile.Data.DeleteProfile')->middleware('auth');
-    //Open for everything
-    Route::get('/', function(){return 'user profil setting site';});
 
-  });
 });
 
 /*==============================================================

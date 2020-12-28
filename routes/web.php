@@ -111,7 +111,10 @@ Route::group(['prefix' => 'dvi'], function() {
                            BEGIN DOWNLOAD ROUTES
     ==============================================================*/
     Route::group(['prefix' => 'downloads'], function(){
-      Route::get('/singelInvitation/{voterUUID}', 'App\Http\Controllers\paperController@downloadSingelInvitation', ['voterUUID' => 'voterUUID'])->name('download.singelInvitation');
+      Route::get('/singelInvitation/{voterUUID}/{electionUUID}', function($voterUUID, $electionUUID){
+          $papercontroler = new \App\Http\Controllers\paperController($electionUUID);
+          return $papercontroler->downloadSingelInvitation($voterUUID);
+      })->name('download.singelInvitation');
         Route::get('/evaluation/{electionUUID}', 'App\Http\Controllers\paperController@downloadEvaluation')->name('download.evaluation');
 
     });

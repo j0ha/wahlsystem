@@ -81,7 +81,7 @@ class BackendVotersOverview extends Component
       Mail::to($voter->email)->send(new electionInvitation($voter->uuid));
     }
     public function downloadSheet() {
-      redirect()->route('download.singelInvitation', ['voterUUID' => $this->voterUUID]);
+      redirect()->route('download.singelInvitation', ['voterUUID' => $this->voterUUID, 'electionUUID'=>$this->electionUUID]);
     }
     public function copyDirect() {
 

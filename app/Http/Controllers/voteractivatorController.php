@@ -36,12 +36,12 @@ class voteractivatorController extends Controller
         try {
         $contents = explode('/', $directLink);
 
-        $electionUUID = $contents[4];
-        $terminalUUID = $contents[5];
-        $directUUID = $contents[6];
+        $electionUUID = $contents[5];
+        $terminalUUID = $contents[6];
+        $directUUID = $contents[7];
 
-        $terminalToElection = $this->terminalcontroller->verifyTruthiness($this->electionUUID,$terminalUUID);
-        $voterToElection = $this->securityController->verifyToElection('voter_direct', $directUUID, $this->electionUUID);
+        $terminalToElection = $this->terminalcontroller->verifyTruthiness($terminalUUID);
+        $voterToElection = $this->securityController->verifyToElection('voter_direct', $directUUID);
         $electionUUIDtoElectionUUID = Self::electionUUIDisElectionUUID($electionUUID);
 
         $voter = Voter::where('direct_uuid', $directUUID)->firstOrFail();

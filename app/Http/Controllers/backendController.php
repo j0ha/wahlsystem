@@ -171,6 +171,17 @@ class backendController extends Controller
             return redirect()->route('unauthorized');
         }
     }
+
+    public function indexSecurityreporter($electionUUID){
+        $user = Auth::user();
+        $electionArray = Self::electionPermission($user);
+
+        if ($user->hasPermissionTo($electionUUID)) {
+            return view('backendviews.v2.securityreporter', ['electionUUID' => $electionUUID], compact('electionArray', 'user'));
+        } else {
+            return redirect()->route('unauthorized');
+        }
+    }
     /*==============================================================
                            ENDING INDEXPAGES
     ==============================================================*/

@@ -17,13 +17,7 @@ class paperController extends Controller
         $route = url('/vote/'.$election->uuid.'/'.$voter->direct_uuid);
 
         $pdf = PDF::loadView('pdf.invitation', ['voter'=>$voter, 'election' =>$election, 'route'=>$route]);
-        $pdf->download($voter->name.$voter->surname.'_VoteInvitation_'.time().'.pdf', $voter);
-
-        return $pdf->download($voter->name.$voter->surname.'_VoteInvitation_'.time().'.pdf', $voter);
-        //redirect()->route('voters.view', ['electionUUID' => $election->uuid]);
-
-
-
+        return $pdf->download($voter->name.$voter->surname.'_VoteInvitation_'.time().'.pdf');
     }
 
     public function downloadEvaluation($electionUUID) {

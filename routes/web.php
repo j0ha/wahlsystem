@@ -78,6 +78,9 @@ Route::group(['prefix' => 'dvi'], function() {
     Route::get('/{electionUUID}/schoolgrade', 'App\Http\Controllers\backendController@indexSchoolgrade')->name('election.schoolgrades.overview');
 
     Route::get('/{electionUUID}/controlling', 'App\Http\Controllers\backendController@indexControlling')->name('election.Controlling');
+
+    Route::get('/{electionUUID}/securityreporter', 'App\Http\Controllers\backendController@indexSecurityreporter')->name('election.securityreporter');
+
     Route::get('/{electionUUID}/evaluation', 'App\Http\Controllers\backendController@indexEvaluation')->name('election.evaluation');
 
     Route::get('/{electionUUID}/terminals', 'App\Http\Controllers\backendController@indexTerminals')->name('election.terminals.overview');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 use Illuminate\Http\Request;
 use App\Election;
 use App\Terminal;
@@ -9,6 +10,15 @@ use Carbon\Carbon;
 
 class terminalController extends Controller
 {
+
+    private $securityreporter;
+    public function __construct()
+    {
+        $this->securityreporter = new securityreporterController('39dd732f-8e44-42a7-bdb3-96187f8c5846');
+
+        //Todo change to OOP
+    }
+
     public function index($electionUUID, $terminalUUID) {
       if(Self::verifyTerminalAcces($electionUUID, $terminalUUID) == true) {
         return view('vote.vote')->with('terminalUUID', $terminalUUID)->with('electionUUID', $electionUUID);
@@ -27,12 +37,14 @@ class terminalController extends Controller
         $election = Election::where('uuid', $electionUUID)->firstOrFail();
         $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
       } catch (\Exception $e) {
+          $this->securityreporter->report('ElectionUUID or TerminalUUID not found',3, get_class(),'IP: '. Request::getClientIp(), null);
         return false;
       }
 
       if($terminal->election_id == $election->id) {
         return true;
       } else {
+          $this->securityreporter->report('ElectionUUID does not fit TerminalUUID',3, get_class(),'IP: '. Request::getClientIp(), null);
         return false;
       }
     }
@@ -45,8 +57,8 @@ class terminalController extends Controller
           return true;
 
         } else {
+            $this->securityreporter->report('Tried to access Terminal at wrong access time',5, get_class(),null, null);
           return false;
-
         }
 
       } catch (\Exception $e) {
@@ -65,7 +77,7 @@ class terminalController extends Controller
           return true;
 
         } else {
-
+            $this->securityreporter->report('Tried to access Terminal with wrong IP',5, get_class(),null, null);
             return false;
 
         }
@@ -85,8 +97,8 @@ class terminalController extends Controller
           return true;
 
         } else {
-
-          return false;
+            $this->securityreporter->report('Tried to access Terminal at wrong status',5, get_class(), null, null);
+            return false;
 
         }
 
@@ -105,7 +117,7 @@ class terminalController extends Controller
           return true;
 
         } else {
-
+            $this->securityreporter->report('Tried to access Election at wrong status',5, get_class(), null, null);
           return false;
 
         }
@@ -140,7 +152,6 @@ class terminalController extends Controller
         $terminal->hits = $terminal->hits + 1;
         $terminal->update();
       } catch (\Exception $e) {
-        // TODO: error reporter
       }
 
     }

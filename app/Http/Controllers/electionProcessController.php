@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Election;
 use App\Form;
 use App\Schoolclass;
@@ -15,6 +14,13 @@ use Illuminate\Support\Facades\DB;
 
 class electionProcessController extends Controller
 {
+    private $securityreporter;
+    public function __construct()
+    {
+        $this->securityreporter = new securityreporterController('39dd732f-8e44-42a7-bdb3-96187f8c5846');
+
+        //Todo change to OOP
+    }
 
     public function vote($candidateUUID, $voterUUID, $terminalUUID, $electionUUID) {
         try {
@@ -40,13 +46,11 @@ class electionProcessController extends Controller
             Self::voteAgent($candidateUUID);
             $terminalController->hit($terminalUUID);
           } else {
-            // TODO: error reporter
-            // TODO: security repoter
+              $this->securityreporter->report('vote failed',3, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID. ' given terminalUUID: '.$terminalUUID.' CandidateUUID: '. $candidateUUID, null);
           }
           // TODO: Add security things
         } catch (\Exception $e) {
-          // TODO: Error reporter
-          dd($e);
+            $this->securityreporter->report('vote failed',3, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID. ' given terminalUUID: '.$terminalUUID.' CandidateUUID: '. $candidateUUID, $e);
         }
 
     }
@@ -59,9 +63,7 @@ class electionProcessController extends Controller
 
         // TODO: safeties!!!
       } catch (\Exception $e) {
-        // TODO: error reporter
-        // TODO: security reporter
-        dd($e);
+          $this->securityreporter->report('vote failed',1, get_class(),'CandidateUUID: '. $candidateUUID, $e);
       }
     }
 
@@ -71,7 +73,7 @@ class electionProcessController extends Controller
 
         return $candidates;
       } catch (\Exception $e) {
-        return 'error';
+
       }
 
     }
@@ -96,7 +98,7 @@ class electionProcessController extends Controller
             break;
         }
       } catch (\Exception $e) {
-        return $e;
+
       }
     }
 }

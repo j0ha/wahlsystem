@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Terminal;
+use Bugsnag;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Http\Controllers\electionProcessController;

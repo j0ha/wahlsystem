@@ -35,7 +35,7 @@ class securityController extends Controller
           }
           break;
         case 'voter_direct':
-        $voter_direct = Voter::where('uuid_direct', $UUID)->firstOrFail();
+        $voter_direct = Voter::where('direct_uuid', $UUID)->firstOrFail();
         $election = Election::find($voter_direct->election_id);
 
         if($election->uuid == $electionUUID) {

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Securityreport;
 use Bugsnag;
 use Exception;
-use Illuminate\Http\Request;
 
 
 class securityreporterController extends Controller

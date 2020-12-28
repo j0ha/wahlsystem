@@ -15,20 +15,20 @@ class securityController extends Controller
 {
 
     private $securityreporter;
-    public function __construct()
+    private $electionUUID;
+    public function __construct($electionUUID)
     {
-        $this->securityreporter = new securityreporterController('39dd732f-8e44-42a7-bdb3-96187f8c5846');
-
-        //Todo change to OOP
+        $this->electionUUID = $electionUUID;
+        $this->securityreporter = new securityreporterController($this->electionUUID);
     }
 
-    public function verifyToElection($thing, $UUID, $electionUUID) {
+    public function verifyToElection($thing, $UUID) {
       switch ($thing) {
         case 'voter':
           $voter = Voter::where('uuid', $UUID)->firstOrFail();
           $election = Election::find($voter->election_id);
 
-          if($election->uuid == $electionUUID) {
+          if($election->uuid == $this->electionUUID) {
             return true;
           } else {
             return false;
@@ -38,7 +38,7 @@ class securityController extends Controller
         $voter_direct = Voter::where('direct_uuid', $UUID)->firstOrFail();
         $election = Election::find($voter_direct->election_id);
 
-        if($election->uuid == $electionUUID) {
+        if($election->uuid == $this->electionUUID) {
           return true;
         } else {
           return false;
@@ -48,7 +48,7 @@ class securityController extends Controller
           $candidate = Candidate::where('uuid', $UUID)->firstOrFail();
           $election = Election::find($candidate->election_id);
 
-          if($election->uuid == $electionUUID) {
+          if($election->uuid == $this->electionUUID) {
             return true;
           } else {
             return false;
@@ -58,7 +58,7 @@ class securityController extends Controller
           $schoolclass = Schoolclass::where('uuid', $UUID)->firstOrFail();
           $election = Election::find($schoolclass->election_id);
 
-          if($election->uuid == $electionUUID) {
+          if($election->uuid == $this->electionUUID) {
             return true;
           } else {
             return false;
@@ -68,7 +68,7 @@ class securityController extends Controller
           $form = Form::where('uuid', $UUID)->firstOrFail();
           $election = Election::find($form->election_id);
 
-          if($election->uuid == $electionUUID) {
+          if($election->uuid == $this->electionUUID) {
             return true;
           } else {
             return false;
@@ -80,9 +80,9 @@ class securityController extends Controller
       }
     }
 
-    public function safetyTables($electionUUID, $candidateUUID) {
+    public function safetyTables($candidateUUID) {
       Self::thirdSafetyTableUpdate($candidateUUID);
-      Self::fourthSafetyTableUpdate($electionUUID, $candidateUUID);
+      Self::fourthSafetyTableUpdate($this->electionUUID, $candidateUUID);
     }
 
     private function thirdSafetyTableUpdate($candidateUUID) {
@@ -91,21 +91,21 @@ class securityController extends Controller
       $candidate->save();
     }
 
-    private function fourthSafetyTableUpdate($electionUUID, $candidateUUID) {
+    private function fourthSafetyTableUpdate($candidateUUID) {
       $result = new FourthSafety;
-      $result->election_id = $electionUUID;
+      $result->election_id = $this->electionUUID;
       $result->candidate_uuid = $candidateUUID;
-      $reuslt->save();
+      $result->save();
     }
 
-    public function initializeSafety($electionUUID, $candidatesUUID) {
-      Self::initializeThirdSafety($electionUUID, $candidates);
+    public function initializeSafety($candidatesUUID) {
+      Self::initializeThirdSafety($this->electionUUID, $candidatesUUID);
     }
 
-    private function initializeThirdSafety($electionUUID, $candidatesUUID) {
+    private function initializeThirdSafety($candidatesUUID) {
       foreach ($candidates as $candidateData) {
         $thirdSafety = new thirdSafety;
-        $thirdSafety->election_uuid = $electionUUID;
+        $thirdSafety->election_uuid = $this->electionUUID;
         $thirdSafety->candidate_uuid = $candidateData->uuid;
         $thirdSafety->candidate_value = 0;
       }

@@ -10,6 +10,12 @@ use PDF;
 
 class paperController extends Controller
 {
+    private $electionUUID;
+    public function __construct($electionUUID)
+    {
+        $this->electionUUID = $electionUUID;
+    }
+
     public function downloadSingelInvitation($voterUUID) {
 
         $voter = Voter::where('uuid', $voterUUID)->firstOrFail();
@@ -20,12 +26,12 @@ class paperController extends Controller
         return $pdf->download($voter->name.$voter->surname.'_VoteInvitation_'.time().'.pdf');
     }
 
-    public function downloadEvaluation($electionUUID) {
+    public function downloadEvaluation() {
 
         $electionProcess = new electionProcessController;
         $statsController = new statsController;
         //Die Election ID holen spart Codezeilen
-        $electionID = $electionProcess->getId($electionUUID, 'elections');
+        $electionID = $electionProcess->getId($this->electionUUID, 'elections');
 
         //Summe aller Stimmen
         $number_voters = Candidate::where('election_id', $electionID)->sum('votes');
@@ -33,18 +39,18 @@ class paperController extends Controller
         //number_of_abstention
 
         //Wahlbeteiligung in %
-        $stat_votes = Voter::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->where(function ($query){
+        $stat_votes = Voter::where('election_id',  $electionProcess->getId($this->electionUUID, 'elections'))->where(function ($query){
             $query->where('voted_via_terminal', 1)->orWhere('voted_via_email', 1)->count();
         })->count();
-        $stat_voters = Voter::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->count();
+        $stat_voters = Voter::where('election_id',  $electionProcess->getId($this->electionUUID, 'elections'))->count();
 
         //Auswertung der Wahl
         $votedistribution_candidates = Candidate::where('election_id', $electionID)->get();
 
         //Donuts + Graph
-        $stat_schoolclassesVoteTurnout = $statsController->schoolclassesVoteTurnout($electionUUID);
-        $stat_formVoterSpread = $statsController->formVoterSpread($electionUUID);
-        $stat_terminalUsage = $statsController->terminalUsage($electionUUID);
+        $stat_schoolclassesVoteTurnout = $statsController->schoolclassesVoteTurnout($this->electionUUID);
+        $stat_formVoterSpread = $statsController->formVoterSpread($this->electionUUID);
+        $stat_terminalUsage = $statsController->terminalUsage($this->electionUUID);
 
         $pdf = PDF::loadView('pdf.evaluation', ['number_voters'=>$number_voters, 'number_voters_unpolled' =>$number_voters_unpolled, 'stat_votes'=>$stat_votes, 'stat_schoolclassesVoteTurnout'=>$stat_schoolclassesVoteTurnout, 'stat_voters'=>$stat_voters, 'votedistribution_candidates'=>$votedistribution_candidates, 'stat_formVoterSpread'=>$stat_formVoterSpread, 'stat_terminalUsage'=>$stat_terminalUsage]);
         $pdf->setOption('enable-javascript', true);

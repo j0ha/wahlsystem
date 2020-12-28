@@ -12,10 +12,16 @@ use App\Http\Controllers\electiontypes\spv;
 
 class statsController extends Controller
 {
+    private $electionUUID;
 
-    public function terminalUsage($electionUUID) {
+    public function __construct($electionUUID)
+    {
+        $this->electionUUID = $electionUUID;
+    }
+
+    public function terminalUsage() {
       $electionProcessController = new electionProcessController;
-      $terminals = Terminal::where('election_id', $electionProcessController->getId($electionUUID, 'elections'))->get();
+      $terminals = Terminal::where('election_id', $electionProcessController->getId($this->electionUUID, 'elections'))->get();
       // $electionProcessController->getId($electionUUID, 'elections')
       $terminalStat = array();
       $terminalStat_sumHits = 0;
@@ -38,15 +44,15 @@ class statsController extends Controller
       return $terminalStat;
     }
 
-    public function terminals($electionUUID) {
+    public function terminals() {
       $electionProcessController = new electionProcessController;
-      $terminals = Terminal::where('election_id', $electionProcessController->getId($electionUUID, 'elections'))->get();
+      $terminals = Terminal::where('election_id', $electionProcessController->getId($this->electionUUID, 'elections'))->get();
       return $terminals;
     }
 
-    public function schoolclassesSpread($electionUUID) {
+    public function schoolclassesSpread() {
       $spv = new spv;
-      $schoolclasses = Schoolclass::where('election_id', $spv->getId($electionUUID, 'elections'))->get();
+      $schoolclasses = Schoolclass::where('election_id', $spv->getId($this->electionUUID, 'elections'))->get();
       $schoolclassspreadStat = array();
 
       foreach ($schoolclasses as $schoolclass) {
@@ -56,10 +62,10 @@ class statsController extends Controller
       return $schoolclassspreadStat;
     }
 
-    public function formVoterSpread($electionUUID) {
+    public function formVoterSpread() {
       $electionProcessController = new electionProcessController;
-      $votersCount = Voter::where('election_id', $electionProcessController->getId($electionUUID, 'elections'))->count();
-      $forms = Form::where('election_id', $electionProcessController->getId($electionUUID, 'elections'))->get();
+      $votersCount = Voter::where('election_id', $electionProcessController->getId($this->electionUUID, 'elections'))->count();
+      $forms = Form::where('election_id', $electionProcessController->getId($this->electionUUID, 'elections'))->get();
 
       $formspreadStat = array();
 
@@ -72,9 +78,9 @@ class statsController extends Controller
       return $formspreadStat;
     }
 
-    public function schoolclassesVoteTurnout($electionUUID) {
+    public function schoolclassesVoteTurnout() {
       $spv = new spv;
-      $schoolclasses = Schoolclass::where('election_id', $spv->getId($electionUUID, 'elections'))->get();
+      $schoolclasses = Schoolclass::where('election_id', $spv->getId($this->electionUUID, 'elections'))->get();
       $schoolclassTurnoutStat = array();
 
       foreach ($schoolclasses as $schoolclass) {

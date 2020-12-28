@@ -3,32 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Election;
-use App\Form;
-use App\Schoolclass;
 use App\Voter;
 use App\Candidate;
 use App\Terminal;
-use App\Http\Controllers\terminalController;
-use App\Http\Controllers\securityController;
-use Illuminate\Support\Facades\DB;
+
 
 class electionProcessController extends Controller
 {
     private $securityreporter;
-    public function __construct()
+    private $electionUUID;
+    public function __construct($electionUUID)
     {
-        $this->securityreporter = new securityreporterController('39dd732f-8e44-42a7-bdb3-96187f8c5846');
-
-        //Todo change to OOP
+        $this->electionUUID = $electionUUID;
+        $this->securityreporter = new securityreporterController($this->electionUUID);
     }
 
-    public function vote($candidateUUID, $voterUUID, $terminalUUID, $electionUUID) {
+    public function vote($candidateUUID, $voterUUID, $terminalUUID) {
         try {
           $securityController = new securityController;
           $terminalController = new terminalController;
           $isallowed = $securityController->voteVerification($voterUUID);
-          $candidatebelongsto = $securityController->verifyToElection('candidate', $candidateUUID, $electionUUID);
-          $terminalAccess = $terminalController->verifyTerminalAcces($electionUUID, $terminalUUID);
+          $candidatebelongsto = $securityController->verifyToElection('candidate', $candidateUUID, $this->electionUUID);
+          $terminalAccess = $terminalController->verifyTerminalAcces($this->electionUUID, $terminalUUID);
           if($isallowed == true and $candidatebelongsto == true and $terminalAccess == true){
             $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
 

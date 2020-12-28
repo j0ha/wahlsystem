@@ -10,31 +10,30 @@ use Carbon\Carbon;
 
 class terminalController extends Controller
 {
-
+    private $electionUUID;
     private $securityreporter;
-    public function __construct()
+    public function __construct($electionUUID)
     {
+        $this->electionUUID = $electionUUID;
         $this->securityreporter = new securityreporterController('39dd732f-8e44-42a7-bdb3-96187f8c5846');
-
-        //Todo change to OOP
     }
 
-    public function index($electionUUID, $terminalUUID) {
-      if(Self::verifyTerminalAcces($electionUUID, $terminalUUID) == true) {
-        return view('vote.vote')->with('terminalUUID', $terminalUUID)->with('electionUUID', $electionUUID);
+    public function index($terminalUUID) {
+      if(Self::verifyTerminalAcces($this->electionUUID, $terminalUUID) == true) {
+        return view('vote.vote')->with('terminalUUID', $terminalUUID)->with('electionUUID', $this->electionUUID);
       } else {
         return abort(404);
       }
     }
 
   //Function to verify if the controller and the termial fit together
-    public function verifyTruthiness($electionUUID, $terminalUUID)
+    public function verifyTruthiness($terminalUUID)
     {
       $election = null;
       $terminal = null;
 
       try {
-        $election = Election::where('uuid', $electionUUID)->firstOrFail();
+        $election = Election::where('uuid', $this->electionUUID)->firstOrFail();
         $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
       } catch (\Exception $e) {
           $this->securityreporter->report('ElectionUUID or TerminalUUID not found',3, get_class(),'IP: '. Request::getClientIp(), null);
@@ -49,7 +48,7 @@ class terminalController extends Controller
       }
     }
     //Function to check if the terminal is within the time slot for operation
-    private function checkActiveTime($electionUUID, $terminalUUID) {
+    private function checkActiveTime($terminalUUID) {
       try {
         $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
 
@@ -67,7 +66,7 @@ class terminalController extends Controller
 
     }
     //Function to check if the Clients IP is allowed to visit the termial
-    private function checkUserIp($electionUUID, $terminalUUID) {
+    private function checkUserIp($terminalUUID) {
       $clientIp = \Request::getClientIp();
       try {
         $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
@@ -88,7 +87,7 @@ class terminalController extends Controller
     }
 
     //Function to check the terminal status
-    private function checkTerminalStatus($electionUUID, $terminalUUID) {
+    private function checkTerminalStatus($terminalUUID) {
       try {
         $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
 
@@ -108,9 +107,9 @@ class terminalController extends Controller
     }
 
     //Function to check the terminal status
-    private function checkElectionStatus($electionUUID, $terminalUUID) {
+    private function checkElectionStatus() {
       try {
-        $election = Election::where('uuid', $electionUUID)->firstOrFail();
+        $election = Election::where('uuid', $this->electionUUID)->firstOrFail();
 
         if($election->status == "active") {
 
@@ -131,11 +130,11 @@ class terminalController extends Controller
     //Function to verify the acces to the vote terminal
     public function verifyTerminalAcces($electionUUID, $terminalUUID) {
 
-      $ces = Self::checkElectionStatus($electionUUID, $terminalUUID);
-      $cts = Self::checkTerminalStatus($electionUUID, $terminalUUID);
-      $cuip = Self::checkUserIp($electionUUID, $terminalUUID);
-      $cat = Self::checkActiveTime($electionUUID, $terminalUUID);
-      $vt = Self::verifyTruthiness($electionUUID, $terminalUUID);
+      $ces = Self::checkElectionStatus();
+      $cts = Self::checkTerminalStatus($terminalUUID);
+      $cuip = Self::checkUserIp($terminalUUID);
+      $cat = Self::checkActiveTime($terminalUUID);
+      $vt = Self::verifyTruthiness($terminalUUID);
 
 
       if($ces == true && $cts == true && $cuip == true && $cat == true && $vt == true) {

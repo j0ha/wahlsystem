@@ -36,14 +36,14 @@ class terminalController extends Controller
         $election = Election::where('uuid', $this->electionUUID)->firstOrFail();
         $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
       } catch (\Exception $e) {
-          $this->securityreporter->report('ElectionUUID or TerminalUUID not found',3, get_class(),'IP: '. Request::getClientIp(), null);
+          $this->securityreporter->report('ElectionUUID or TerminalUUID not found',3, get_class(),'IP: '. \Request::getClientIp(), null);
         return false;
       }
 
       if($terminal->election_id == $election->id) {
         return true;
       } else {
-          $this->securityreporter->report('ElectionUUID does not fit TerminalUUID',3, get_class(),'IP: '. Request::getClientIp(), null);
+          $this->securityreporter->report('ElectionUUID does not fit TerminalUUID',3, get_class(),'IP: '. \Request::getClientIp(), null);
         return false;
       }
     }

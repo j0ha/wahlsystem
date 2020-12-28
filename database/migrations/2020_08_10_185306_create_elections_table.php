@@ -25,6 +25,8 @@ class CreateElectionsTable extends Migration
             $table->integer('permission_id')->nullable();
             $table->datetime('activeby')->nullable();
             $table->datetime('activeto')->nullable();
+            $table->datetime('realstart')->nullable();
+            $table->datetime('realend')->nullable();
             $table->binary('logo')->nullable();
             $table->timestamps();
         });

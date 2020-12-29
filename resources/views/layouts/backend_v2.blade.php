@@ -114,9 +114,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('election.schoolgrades.overview', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-address-card"></i>Forms</a>
                             </li>
+                            @if($user->hasRole('admin'))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('election.securityreporter', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fas fa-lock"></i>Security reporter</a>
                             </li>
+                            @endif
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('election.voteractivator', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fas fa-shekel-sign"></i>Voter activator</a>
                             </li>
@@ -127,9 +129,12 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('election.Controlling', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-power-off"></i>Controlling</a>
                             </li>
+
+                            @if($status == 'ended')
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('election.evaluation', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-balance-scale"></i>Evaluation</a>
                             </li>
+                            @endif
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fas fa-fw fa-chart-line"></i>Prediction</a>
                                 <div id="submenu-4" class="collapse submenu" style="">
@@ -143,10 +148,10 @@
                                     </ul>
                                 </div>
                             </li>
+                                @if($status == 'waiting')
                           <li class="nav-divider">
                                 Inhaltsverwaltung
                             </li>
-
 
                             <!-- ============================================================== -->
                             <!-- VOTER MENUE -->
@@ -172,6 +177,7 @@
                             <!-- ============================================================== -->
                             <!-- CANDIDATE MENUE FOR SSPW -->
                             <!-- ============================================================== -->
+
                             <?php // TODO: HIER MÜSSEN WIR NOCH DIE VARIABLE ÜBERGEBEN WELCHE ART VON ELECTION ES IST UM RICHTIG ZUZUORDNEN ?>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-question"></i>Candidates</a>
@@ -186,6 +192,8 @@
                                     </ul>
                                 </div>
                             </li>
+                            @endif
+                              <!--End If für die Frage ob eine Election UUID vorhanden ist-->
                             @endif
 
 

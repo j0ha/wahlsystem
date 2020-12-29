@@ -7,18 +7,22 @@
                         <div class="form-group">
                             <label for="voterName" class="col-form-label">Name</label>
                             <input wire:model="voterName" name="voterName" id="voterName" type="text" placeholder="Mustermann" class="form-control">
+                            @error('voterName') <span class="error text-danger"> {{ $message }} </span> @enderror
                         </div>
                         <div class="form-group">
                             <label for="voterSurame" class="col-form-label">Surname</label>
                             <input wire:model="voterSurname" name="voterSurname" id="voterSurname" type="text" placeholder="Max" class="form-control">
+                            @error('voterSurname') <span class="error text-danger"> {{ $message }} </span> @enderror
                         </div>
                         <div class="form-group">
                             <label for="voterDate" class="col-form-label">Geburtsdatum</label>
                             <input wire:model="voterDate" name="voterDate" id="voterDate" type="date" class="form-control">
+                            @error('voterDate') <span class="error text-danger"> {{ $message }} </span> @enderror
                         </div>
                         <div class="form-group">
                             <label for="voterEmail">E-Mail Adresse</label>
                             <input wire:model="voterEmail" name="voterEmail" id="voterEmail" type="email" placeholder="name@beispiel.de" class="form-control">
+                            @error('voterEmail') <span class="error text-danger"> {{ $message }} </span> @enderror
                         </div>
                         <div class="form-group">
                             <label for="voterForm">Forms</label>
@@ -28,6 +32,7 @@
                                     <option value="{{$form->id}}">{{$form->name}}</option>
                                 @endforeach
                             </select>
+                            @error('form') <span class="error text-danger"> {{ $message }} </span> @enderror
                         </div>
                         <div class="form-group">
                             <label for="voterClass">Classes</label>
@@ -37,6 +42,7 @@
                                     <option value="{{$class->id}}">{{$class->name}}</option>
                                 @endforeach
                             </select>
+                            @error('class') <span class="error text-danger"> {{ $message }} </span> @enderror
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Submit</button>

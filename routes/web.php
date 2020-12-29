@@ -75,16 +75,22 @@ Route::group(['prefix' => 'dvi'], function() {
 
     Route::get('/{electionUUID}/controlling', 'App\Http\Controllers\backendController@indexControlling')->name('election.Controlling');
 
+    Route::group(['middleware' => 'admin'], function (){
     Route::get('/{electionUUID}/securityreporter', 'App\Http\Controllers\backendController@indexSecurityreporter')->name('election.securityreporter');
+    });
 
+    Route::group(['middleware' => 'ended'], function (){
     Route::get('/{electionUUID}/evaluation', 'App\Http\Controllers\backendController@indexEvaluation')->name('election.evaluation');
+    });
 
     Route::get('/{electionUUID}/terminals', 'App\Http\Controllers\backendController@indexTerminals')->name('election.terminals.overview');
 
     //Show the stats of the actual electionUUID
     Route::get('/{electionUUID}/stats', 'App\Http\Controllers\backendController@indexElectionStats')->name('election.Stats');
 
-      Route::get('/{electionUUID}/voteractivator', 'App\Http\Controllers\backendController@indexVoteractivator')->name('election.voteractivator');
+    Route::get('/{electionUUID}/voteractivator', 'App\Http\Controllers\backendController@indexVoteractivator')->name('election.voteractivator');
+
+    Route::group(['middleware' => 'waiting'], function (){
     /*==============================================================
                            BEGIN VOTERS ROUTES
     ==============================================================*/
@@ -105,6 +111,7 @@ Route::group(['prefix' => 'dvi'], function() {
 
     Route::get('/{electionUUID}/candidates/bulkadd', 'App\Http\Controllers\backendController@indexCandidatesAddMany')->name('candidates.add.many');
     Route::post('/electionCandidatesAddMany', 'App\Http\Controllers\backendController@candidatesAddMany')->name('candidatesAddMany');
+    });
     /*==============================================================
                            EMAIL ROUTES
     ==============================================================*/

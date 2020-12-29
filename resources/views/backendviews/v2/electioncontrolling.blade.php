@@ -11,7 +11,7 @@
                     @if($selectedE[0]->status == config('votestates.waiting.short'))
                         <h1><span class="badge badge-light px-4 py-4">Waiting</span></h1>
                     @endif
-                    @if($selectedE[0]->status == config('votestates.planed.short'))
+                    @if($selectedE[0]->status == config('votestates.planned.short'))
                         <h1><span class="badge badge-primary px-4 py-4">Planned</span></h1>
                     @endif
                     @if($selectedE[0]->status == config('votestates.live.short'))
@@ -30,13 +30,13 @@
             <div class="card-body">
                 <h5 class="card-title border-bottom">Status-Möglichkeiten:</h5>
                 <p class="card-text"><span class="badge badge-light">Waiting</span>
-                    <br>Die Wahl ist erstellt und kann nun gestartet werden. Das Abstimmen ist zu diesem Zeitpunkt noch nicht möglich.</p>
+                    <br>The election has been created and could be possibly started now. Voting is not possible at this status.</p>
                 <p class="card-text"><span class="badge badge-primary">Planned</span>
-                    <br>Die Wahl ist geplant zu einem bestimmten Zeitpunkt zu starten bzw. zu enden und kann während der Vorbereitungsphase noch verändert werden. Eine Abstimmung ist zu diesem Zeitpunkt noch nicht freigeschaltet.</p>
+                    <br>The election is planned and will start at your startpoint and end at your endingpoint. During the preparing status its not possible to change the election anymore. To vote is not possible at the moment.</p>
                 <p class="card-text"><span class="badge badge-success">Live</span>
-                    <br>Die Wahl ist aktiv und kann nicht mehr verändert werden. Das Abstimmen ist von diesem Zeitpunkt aus möglich.</p>
+                    <br>The election is now active and can not be changed anymore. Voting is now possible.</p>
                 <p class="card-text"><span class="badge badge-danger">Ended</span>
-                    <br>Die Wahl ist beendet und kann nicht verändert werden. Eine Abstimmung ist nicht mehr möglich. Die Auswertung lässt sich abrufen.</p>
+                    <br>The election has been ended and can not be changed. It could not be voted anymore</p>
             </div>
         </div>
     </div>

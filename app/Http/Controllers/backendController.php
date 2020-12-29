@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\electionProcessController;
-use Dotenv\Result\Success;
+
 use Illuminate\Http\Request;
 use App\Election;
 use Illuminate\Support\Facades\Auth;
@@ -13,10 +12,7 @@ use App\Voter;
 use App\Form;
 use App\Schoolclass;
 use App\Candidate;
-use Session;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\DB;
+
 
 
 
@@ -36,12 +32,15 @@ class backendController extends Controller
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
 
+
         return view('layouts.backend_v2', compact('electionArray', 'user'));
     }
 
     public function indexDashboard($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
+
       $electionProcess = new electionProcessController($electionUUID);
       $statsController = new statsController($electionUUID);
 
@@ -58,7 +57,7 @@ class backendController extends Controller
       $stat_schoolclassesVoteTurnout = $statsController->schoolclassesVoteTurnout();
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.dashboard',['electionUUID' => $electionUUID] , compact('electionArray', 'user', 'stat_voters', 'stat_questions', 'stat_votes', 'stat_terminalUsage', 'stat_terminals', 'stat_schoolclassesSpread', 'stat_formVoterSpread', 'stat_schoolclassesVoteTurnout'));
+        return view('backendviews.v2.dashboard',['electionUUID' => $electionUUID] , compact('electionArray', 'user', 'stat_voters', 'stat_questions', 'stat_votes', 'stat_terminalUsage', 'stat_terminals', 'stat_schoolclassesSpread', 'stat_formVoterSpread', 'stat_schoolclassesVoteTurnout', 'status'));
 
       } else {
         return redirect()->route('unauthorized');
@@ -70,10 +69,11 @@ class backendController extends Controller
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
       $selectedE = Election::where('uuid', $electionUUID)->get();
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
 
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.electionInformations', ['electionUUID' => $electionUUID])->with(compact('selectedE', 'electionArray', 'user'));
+        return view('backendviews.v2.electionInformations', ['electionUUID' => $electionUUID])->with(compact('selectedE', 'status', 'electionArray', 'user'));
 
       } else {
         return redirect()->route('unauthorized');
@@ -83,9 +83,10 @@ class backendController extends Controller
     public function indexElectionStats($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.Stats',['electionUUID' => $electionUUID])->with(compact('electionArray'));
+        return view('backendviews.Stats',['electionUUID' => $electionUUID])->with(compact('electionArray','status'));
       } else {
         return redirect()->route('unauthorized');
       }
@@ -94,9 +95,10 @@ class backendController extends Controller
     public function indexTerminals($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
+      $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.terminals', ['electionUUID' => $electionUUID],compact('electionArray', 'user'));
+        return view('backendviews.v2.terminals', ['electionUUID' => $electionUUID],compact('status','electionArray', 'user'));
       } else {
         return redirect()->route('unauthorized');
       }
@@ -105,9 +107,10 @@ class backendController extends Controller
     public function indexSchoolclass($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.schoolclasses', ['electionUUID' => $electionUUID],compact('electionArray', 'user'));
+        return view('backendviews.v2.schoolclasses', ['electionUUID' => $electionUUID],compact('status','electionArray', 'user'));
       } else {
         return redirect()->route('unauthorized');
       }
@@ -116,9 +119,10 @@ class backendController extends Controller
     public function indexSchoolgrade($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.schoolgrades', ['electionUUID' => $electionUUID],compact('electionArray', 'user'));
+        return view('backendviews.v2.schoolgrades', ['electionUUID' => $electionUUID],compact('status','electionArray', 'user'));
       } else {
         return redirect()->route('unauthorized');
       }
@@ -128,9 +132,10 @@ class backendController extends Controller
         $user = Auth::user();
         $electionArray = Self::electionPermission($user);
         $selectedE = Election::where('uuid', $electionUUID)->get();
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
 
         if ($user->hasPermissionTo($electionUUID)) {
-            return view('backendviews.v2.electioncontrolling', ['electionUUID' => $electionUUID], compact('electionArray', 'user', 'selectedE'));
+            return view('backendviews.v2.electioncontrolling', ['electionUUID' => $electionUUID], compact('status','electionArray', 'user', 'selectedE'));
         } else {
             return redirect()->route('unauthorized');
         }
@@ -139,6 +144,7 @@ class backendController extends Controller
     public function indexEvaluation($electionUUID){
         $user = Auth::user();
         $electionArray = Self::electionPermission($user);
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
         //Erzeuge neue Objekte
         $electionProcess = new electionProcessController($electionUUID);
         $statsController = new statsController($electionUUID);
@@ -166,7 +172,7 @@ class backendController extends Controller
 
 
         if ($user->hasPermissionTo($electionUUID)) {
-            return view('backendviews.v2.evaluation', ['electionUUID' => $electionUUID], compact('electionArray', 'user', 'number_voters', 'number_voters_unpolled', 'votedistribution_candidates', 'stat_schoolclassesVoteTurnout', 'stat_terminalUsage', 'stat_votes', 'stat_voters', 'stat_formVoterSpread'));
+            return view('backendviews.v2.evaluation', ['electionUUID' => $electionUUID], compact('status','electionArray', 'user', 'number_voters', 'number_voters_unpolled', 'votedistribution_candidates', 'stat_schoolclassesVoteTurnout', 'stat_terminalUsage', 'stat_votes', 'stat_voters', 'stat_formVoterSpread'));
         } else {
             return redirect()->route('unauthorized');
         }
@@ -175,9 +181,10 @@ class backendController extends Controller
     public function indexSecurityreporter($electionUUID){
         $user = Auth::user();
         $electionArray = Self::electionPermission($user);
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
 
         if ($user->hasPermissionTo($electionUUID)) {
-            return view('backendviews.v2.securityreporter', ['electionUUID' => $electionUUID], compact('electionArray', 'user'));
+            return view('backendviews.v2.securityreporter', ['electionUUID' => $electionUUID], compact('status','electionArray', 'user'));
         } else {
             return redirect()->route('unauthorized');
         }
@@ -186,9 +193,10 @@ class backendController extends Controller
     public function indexVoteractivator($electionUUID){
         $user = Auth::user();
         $electionArray = Self::electionPermission($user);
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
 
         if ($user->hasPermissionTo($electionUUID)) {
-            return view('backendviews.v2.voteractivator', ['electionUUID' => $electionUUID], compact('electionArray', 'user'));
+            return view('backendviews.v2.voteractivator', ['electionUUID' => $electionUUID], compact('status','electionArray', 'user'));
         } else {
             return redirect()->route('unauthorized');
         }
@@ -206,9 +214,10 @@ class backendController extends Controller
     public function indexCandidates($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.candidates.overview', ['electionUUID' => $electionUUID], compact('electionArray', 'user'));
+        return view('backendviews.v2.candidates.overview', ['electionUUID' => $electionUUID], compact('status','electionArray', 'user'));
       } else {
         return redirect()->route('unauthorized');
       }
@@ -218,9 +227,10 @@ class backendController extends Controller
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
       $selectedE = Election::where('uuid', $electionUUID)->firstOrFail()->id;
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.candidates.addC', ['electionUUID' => $electionUUID], compact('electionArray', 'user'));
+        return view('backendviews.v2.candidates.addC', ['electionUUID' => $electionUUID], compact('status','electionArray', 'user'));
       } else {
         return redirect()->route('unauthorized');
       }
@@ -266,23 +276,13 @@ class backendController extends Controller
       $electionArray = Self::electionPermission($user);
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.candidates.upload', ['electionUUID' => $electionUUID], compact('electionArray', 'user'));
+        return view('backendviews.v2.candidates.upload', ['electionUUID' => $electionUUID], compact('status','electionArray', 'user'));
       } else {
         return redirect()->route('unauthorized');
       }
     }
 
-    public function candidatesAddMany(Request $request){
-      $file = $request->file('candidateFile');
 
-      $candidateArray = Self::csvToArray($file);
-
-      for ($i = 0; $i < count($candidateArray); $i ++){
-          Candidate::firstOrCreate($candidateArray[$i]);
-      }
-
-      return "TEST";
-      }
 
 
 
@@ -302,9 +302,10 @@ class backendController extends Controller
     public function indexVoters($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.voters.overview', ['electionUUID' => $electionUUID],compact('electionArray', 'user'));
+        return view('backendviews.v2.voters.overview', ['electionUUID' => $electionUUID],compact('status','electionArray', 'user'));
       } else {
         return redirect()->route('unauthorized');
       }
@@ -313,11 +314,12 @@ class backendController extends Controller
     public function indexVotersAddSingle($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
 
 
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.voters.add', ['electionUUID' => $electionUUID], compact('electionArray', 'user'));
+        return view('backendviews.v2.voters.add', ['electionUUID' => $electionUUID], compact('status','electionArray', 'user'));
       } else {
         return redirect()->route('unauthorized');
       }
@@ -328,9 +330,10 @@ class backendController extends Controller
     public function indexVotersAddMany($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.voters.upload', ['electionUUID' => $electionUUID], compact('electionArray', 'user'));
+        return view('backendviews.v2.voters.upload', ['electionUUID' => $electionUUID], compact('status','electionArray', 'user'));
       } else {
         return redirect()->route('unauthorized');
       }

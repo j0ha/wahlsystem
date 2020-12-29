@@ -37,7 +37,8 @@ Route::get('/test/email/send', function(){
   Mail::to('taylor@example.com')->send(new electionInvitation('71c34c0b-1c7b-4396-a601-c0d1fa6b74eb'));
 });
 Route::get('/test/email', function(){
- return new electionInvitation('71c34c0b-1c7b-4396-a601-c0d1fa6b74eb');
+ $email = new \App\Http\Controllers\emailController('39dd732f-8e44-42a7-bdb3-96187f8c5846');
+ $email->sendBulkInvations(array('f7a8dc9b-2162-4382-976e-cf3340c39b45', '164dbd5f-50ec-4ec9-ab05-24a5bf510d70'), '196e6137-b5e2-4968-8d76-c42d40598e61');
 });
 Route::get('/test/view', function(){
  return view('vote.spv.schoolforms');

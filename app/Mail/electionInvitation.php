@@ -19,17 +19,15 @@ class electionInvitation extends Mailable
      *
      * @return void
      */
+    public $route;
+    public $voter;
+    public $election;
 
-     public $voter;
-     public $election;
-     public $route;
-
-    public function __construct($voterUUID)
+    public function __construct($election, $terminalUUID, $voter)
     {
-        $this->voter = Voter::where('uuid', $voterUUID)->firstOrFail();
-        $this->election = Election::find($this->voter->election_id);
-        $this->route = url('/vote/'.$this->election->uuid.'/'.$this->voter->direct_uuid);
-
+        $this->voter = $voter;
+        $this->election = $election;
+        $this->route = route('vote.direct', ['electionUUID'=>$this->election->uuid,'terminalUUID'=>$terminalUUID, 'directUUID'=>$this->voter->direct_uuid]);
     }
 
     /**
@@ -42,8 +40,6 @@ class electionInvitation extends Mailable
 
       $pdf = PDF::loadView('pdf.invitation', ['voter'=>$this->voter, 'election' =>$this->election, 'route'=>$this->route]);
 
-      // return $pdf->download($voter->name.$voter->surname.'_VoteInvitation_'.time().'.pdf', $voter);
-
-        return $this->markdown('emails.electionInvitation')->attachData($pdf->inline(), 'name.pdf');
+      return $this->markdown('emails.electionInvitation')->attachData($pdf->inline(), 'Invitation.pdf');
     }
 }

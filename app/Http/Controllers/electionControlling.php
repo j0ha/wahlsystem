@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Election;
 use Illuminate\Support\Facades\Auth;
 
+
 class electionControlling extends Controller
 {
     public function activate(Request $request){
@@ -18,11 +19,11 @@ class electionControlling extends Controller
             if(Candidate::where('election_id', $electionID)->count() != 0 AND Voter::where('election_id', $electionID)->count() != 0 AND Terminal::where('election_id', $electionID)->count() != 0){
                 Election::where('uuid', $request->eUUID)->update(['status' => config('votestates.live.short')]);
             } else {
-                return "Error: You have to create: Candidates, Voters and Terminals before you can start the election!";
+                return back()->with('activeError', 'Error: You have to create: Candidates, Voters and Terminals before you can start the election!');
             }
 
         } else {
-            echo "Du PENNER HAST KEINEN ZUGRIFF!";
+            return abort(404);
         }
         return redirect()->route('election.Controlling', ['electionUUID' => $request->eUUID]);
     }
@@ -34,10 +35,10 @@ class electionControlling extends Controller
             if(Candidate::where('election_id', $electionID)->count() != 0 AND Voter::where('election_id', $electionID)->count() != 0 AND Terminal::where('election_id', $electionID)->count() != 0){
                 Election::where('uuid', $request->eUUID)->update(['status' => config('votestates.planed.short'), 'activeby' => $request->starttime, 'activeto' => $request->endtime]);
             } else {
-                return"Error: You have to create: Candidates, Voters and Terminals before you can start the election!";
+                return back()->with('activeError', 'Error: You have to create: Candidates, Voters and Terminals before you can start the election!');
             }
         } else {
-            echo "Du PENNER HAST KEINEN ZUGRIFF!";
+            return abort(404);
         }
         return redirect()->route('election.Controlling', ['electionUUID' => $request->eUUID]);
     }
@@ -47,7 +48,7 @@ class electionControlling extends Controller
         if($user->hasPermissionTo($request->eUUID)){
            Election::where('uuid', $request->eUUID)->update(['status' => config('votestates.ended.short')]);
         } else {
-            echo "Du PENNER HAST KEINEN ZUGRIFF!";
+            return abort(404);
         }
 
         return redirect()->route('election.Controlling', ['electionUUID' => $request->eUUID]);

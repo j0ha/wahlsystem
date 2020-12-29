@@ -71,6 +71,9 @@
 
 
                 </div>
+                @if(\Session::has('activeError'))
+                    <span class="error text-danger">{{\Session::get('activeError')}}</span>
+                @endif
             </div>
         </div>
     </div>

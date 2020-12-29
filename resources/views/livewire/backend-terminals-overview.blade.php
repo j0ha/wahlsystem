@@ -158,8 +158,9 @@
                       <div class="form-group">
                           <label for="kind" class="col-form-label">Art</label>
                           <select wire:model.defer="kind" id="kind" name="kind" class="form-control">
+                              <option>Please select</option>
                             @foreach(config('terminalkinds') as $kind)
-                            <option value="'{{$kind['short']}}'">{{$kind['name']}}</option>
+                            <option value="{{$kind['short']}}">{{$kind['name']}}</option>
                               @endforeach
                           </select>
                       </div>

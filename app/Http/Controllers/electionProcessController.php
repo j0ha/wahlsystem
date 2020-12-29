@@ -6,6 +6,7 @@ use App\Election;
 use App\Voter;
 use App\Candidate;
 use App\Terminal;
+use Bugsnag;
 
 
 class electionProcessController extends Controller
@@ -32,12 +33,16 @@ class electionProcessController extends Controller
 
             $voter = Voter::find(Self::getId($voterUUID, 'voters'));
             switch ($terminal->kind) {
-              case 'normal':
+              case config('terminalkinds.normal.short'):
                 $voter->voted_via_terminal = true;
                 break;
-              case 'email':
+              case config('terminalkinds.email.short'):
                 $voter->voted_via_email = true;
                 break;
+              default:
+                Bugsnag::leaveBreadcrumb('worng terminal type was detected at vote function', ['terminalKind'=>$terminal->kind]);
+                $this->securityreporter->report('worng terminal type was detected at vote function',1, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID. ' given terminalUUID: '.$terminalUUID.' CandidateUUID: '. $candidateUUID, null);
+                return false;
             }
 
             $voter->save();
@@ -49,6 +54,7 @@ class electionProcessController extends Controller
           // TODO: Add security things
         } catch (\Exception $e) {
             $this->securityreporter->report('vote failed',3, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID. ' given terminalUUID: '.$terminalUUID.' CandidateUUID: '. $candidateUUID, $e);
+            Bugsnag::notifyException($e);
         }
 
     }
@@ -62,6 +68,7 @@ class electionProcessController extends Controller
         // TODO: safeties!!!
       } catch (\Exception $e) {
           $this->securityreporter->report('vote failed',1, get_class(),'CandidateUUID: '. $candidateUUID, $e);
+          Bugsnag::notifyException($e);
       }
     }
 
@@ -71,7 +78,7 @@ class electionProcessController extends Controller
 
         return $candidates;
       } catch (\Exception $e) {
-
+          Bugsnag::notifyException($e);
       }
 
     }
@@ -96,7 +103,7 @@ class electionProcessController extends Controller
             break;
         }
       } catch (\Exception $e) {
-
+          Bugsnag::notifyException($e);
       }
     }
 }

@@ -214,7 +214,7 @@ class Vote extends Component
     public function vote() {
       try {
         $electionProcessController = new spv($this->electionUUID);
-        $electionProcessController->vote($this->spv_selected_candidate_uuid, $this->spv_voter_uuid, $this->terminalUUID, $this->electionUUID);
+        $electionProcessController->vote($this->spv_selected_candidate_uuid, $this->spv_voter_uuid, $this->terminalUUID);
 
         Self::resetData();
         $this->state = 'end';

@@ -106,7 +106,18 @@
                                 <h3 class="font-16" id="demo">Wahldaten</h3>
                                 <p><b>Name: </b>{{$election->name}}</p>
                                 <p><b>Description: </b>{{$election->description}}</p>
-                                <p><b>Status: </b>{{$election->status}}</p>
+                                <p><b>Status: </b>@if($election->status == config('votestates.waiting.short'))
+                                    <span class="badge badge-light">Waiting</span>
+                                @endif
+                                @if($election->status == config('votestates.planed.short'))
+                                   <span class="badge badge-primary">Planned</span>
+                                @endif
+                                @if($election->status == config('votestates.live.short'))
+                                   <span class="badge badge-success">Live</span>
+                                @endif
+                                @if($election->status == config('votestates.ended.short'))
+                                    <span class="badge badge-danger">Ended</span>
+                                    @endif</p>
                             </div>
                         </div>
                         <div class="card border-3 border-top border-top-primary">

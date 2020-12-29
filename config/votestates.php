@@ -5,9 +5,9 @@ return [
         'short' => 'waiting',
         'name' => 'Waiting',
     ],
-    'planed' => [
-        'short' => 'planed',
-        'name' => 'Planed',
+    'planned' => [
+        'short' => 'planned',
+        'name' => 'Planned',
     ],
     'live' => [
         'short' => 'live',

@@ -46,11 +46,14 @@ Route::group(['prefix' => 'vote'], function(){
   //STANDARD ROUTE
   Route::get('/{electionUUID}/{terminalUUID}', function($electionUUID, $terminalUUID){
       $terminalController = new \App\Http\Controllers\terminalController($electionUUID);
-      return $terminalController->index($terminalUUID);
+      return $terminalController->index($terminalUUID, null);
   })->name('vote');
 
   //DIRECT ROUTE
-  Route::get('/d/{electionUUID}/{terminalUUID}/{directUUID}', 'App\Http\Controllers\terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID'], ['directUUID' => 'directUUID'])->name('vote.direct');
+  Route::get('/d/{electionUUID}/{terminalUUID}/{directUUID}', function($electionUUID, $terminalUUID, $directUUID){
+      $terminalController = new \App\Http\Controllers\terminalController($electionUUID);
+      return $terminalController->index($terminalUUID, $directUUID);
+  })->name('vote.direct');
 
 });
 

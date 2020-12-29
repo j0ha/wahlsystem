@@ -3,6 +3,8 @@
 namespace App\Http\Livewire;
 
 use App\Http\Controllers\securityreporterController;
+use App\Terminal;
+use App\Voter;
 use Livewire\Component;
 use App\Http\Controllers\terminalController;
 use App\Http\Controllers\securityController;
@@ -28,17 +30,53 @@ class Vote extends Component
     public $spv_selected_candidate_uuid;
     public $spv_selected_candidate_name;
     public $spv_terminal_route;
+    public $directUUID;
+    public $terminal;
 
     public $spv_voter_uuid;
 
 
-    public function mount($electionUUID, $terminalUUID) {
+    public function mount($electionUUID, $terminalUUID, $directUUID) {
       $this->electionUUID = $electionUUID;
       $this->terminalUUID = $terminalUUID;
-      $this->state = 'start';
+      $this->directUUID = $directUUID;
+
+      $this->terminal = Terminal::where('uuid', $this->terminalUUID)->firstOrFail();
+      $securityreporter = new securityreporterController($this->electionUUID);
+
+      if($this->directUUID == null AND $this->terminal->kind == config('terminalkinds.normal.short')) {
+          $this->spv_terminal_route = route('vote',['electionUUID'=>$electionUUID, 'terminalUUID'=>$terminalUUID]);
+          $this->state = 'start';
+      } elseif($this->directUUID != null AND $this->terminal->kind == config('terminalkinds.email.short')) {
+          try {
+              $securityController = new securityController($this->electionUUID);
+
+              $isallowed = $securityController->verifyToElection('voter_direct', $this->directUUID);
+
+              if($isallowed == true) {
+                  $voter = Voter::where('direct_uuid', $this->directUUID)->firstOrFail();
+                  $voteverification = $securityController->voteVerification($voter->uuid);
+                  if($voteverification == true){
+                      Self::spv_birthVerification($voter->uuid);
+                  } else {
+                      $securityreporter->report('give access faild at direct access',4, get_class(),'IP: '. \Request::getClientIp(), null);
+                  }
+
+              } else {
+                  //todo error route
+                  $securityreporter->report('tried access with wrong directUUID', 3, get_class(), 'IP: '.\Request::getClientIp(), null);
+              }
+          } catch(\Exception $e) {
+              //todo error route
+          }
+        } else {
+          //todo error route
+          $securityreporter->report('directUUID does not fit to terminalUUID', 4, get_class(), 'IP: '.\Request::getClientIp(), null);
+      }
+
+
 
       $this->election = Election::where('uuid', $electionUUID)->firstOrFail();
-      $this->spv_terminal_route = route('vote',['electionUUID'=>$electionUUID, 'terminalUUID'=>$terminalUUID]);
     }
 
     public function render()
@@ -191,11 +229,12 @@ class Vote extends Component
     }
 
     public function select($candidateUUID) {
+        $securityreporter = new securityreporterController($this->electionUUID);
       try {
         $securityController = new securityController($this->electionUUID);
         $terminalContoller = new terminalController($this->electionUUID);
 
-        if ($this->election->manual_voter_activation == true) {
+        if ($this->election->manual_voter_activation == true AND $this->directUUID == null) {
             $isallowed = $securityController->extendedVoteVerification($this->spv_voter_uuid);
         } else {
             $isallowed = $securityController->voteVerification($this->spv_voter_uuid);
@@ -213,22 +252,28 @@ class Vote extends Component
         }
 
       } catch (\Exception $e) {
-          $this->securityreporter->report('select a candidate failed',4, get_class(),'IP: '. \Request::getClientIp().' CandidateUUID: '. $candidateUUID, $e);
+          $securityreporter->report('select a candidate failed',4, get_class(),'IP: '. \Request::getClientIp().' CandidateUUID: '. $candidateUUID, $e);
       }
 
 
     }
 
     public function vote() {
+        $securityreporter = new securityreporterController($this->electionUUID);
       try {
         $electionProcessController = new spv($this->electionUUID);
-        $electionProcessController->vote($this->spv_selected_candidate_uuid, $this->spv_voter_uuid, $this->terminalUUID);
+        if($this->directUUID == null) {
+            $electionProcessController->vote($this->spv_selected_candidate_uuid, $this->spv_voter_uuid, $this->terminalUUID, false);
+        } else {
+            $electionProcessController->vote($this->spv_selected_candidate_uuid, $this->spv_voter_uuid, $this->terminalUUID, true);
+        }
+
 
         Self::resetData();
         $this->state = 'end';
 
       } catch (\Exception $e) {
-          $this->securityreporter->report('livewire vote function catched',3, get_class(), null, $e);
+          $securityreporter->report('livewire vote function catched',3, get_class(), null, $e);
     }
 
 }

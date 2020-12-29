@@ -25,7 +25,7 @@ class CreateTerminalsTable extends Migration
             $table->ipAddress('ip_restriction')->nullable();
             $table->uuid('uuid');
             $table->integer('election_id');
-            $table->integer('hits');
+            $table->integer('hits')->default(0);
             $table->timestamps();
         });
     }

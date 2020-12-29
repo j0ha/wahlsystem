@@ -248,7 +248,7 @@
               </div>
               <div class="modal-footer">
                   <a href="" class="btn btn-secondary" data-dismiss="modal">Cancek</a>
-                  <form action="{{route('e.activate')}}" method="post">
+                  <form action="{{route('e.email')}}" method="post">
                       @csrf
                       <button class="btn btn-primary">Send</button>
                       <input type="hidden" name="eUUID" value="{{$selectedE[0]->uuid}}">

@@ -44,17 +44,16 @@ class emailController extends Controller
         }
     }
 
-    public function sendBulkInvations($voterUUIDs, $terminalUUID) {
+    public function sendBulkInvations($voters, $terminalUUID) {
         try {
             $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
         } catch(\Exception $e) {
             $this->securityreporer->report('did not found terminal', 4, get_class(), null, $e);
             Bugsnag::notifyException($e);
         }
-
-        foreach ($voterUUIDs as $voterUUID) {
-            if ($this->securityController->verifyToElection('voter', $voterUUID) == true AND $terminal->kind == config('terminalkinds.email.short') AND $this->terminalController->verifyTruthiness($terminalUUID) == true) {
-                $voter = Voter::where('uuid', $voterUUID)->firstOrFail();
+        foreach ($voters as $voter) {
+            if ($this->securityController->verifyToElection('voter', $voter->uuid) == true AND $terminal->kind == config('terminalkinds.email.short') AND $this->terminalController->verifyTruthiness($terminalUUID) == true) {
+                $voter = Voter::where('uuid', $voter->uuid)->firstOrFail();
                 Mail::to($voter->email)->queue(new electionInvitation($this->election, $terminalUUID, $voter));
                 $voter->got_email = true;
                 $voter->save();

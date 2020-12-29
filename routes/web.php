@@ -38,7 +38,7 @@ Route::get('/test/email/send', function(){
 });
 Route::get('/test/email', function(){
  $email = new \App\Http\Controllers\emailController('39dd732f-8e44-42a7-bdb3-96187f8c5846');
- $email->sendBulkInvations(array('f7a8dc9b-2162-4382-976e-cf3340c39b45', '164dbd5f-50ec-4ec9-ab05-24a5bf510d70'), '196e6137-b5e2-4968-8d76-c42d40598e61');
+ $email->sendSingelInvation('164dbd5f-50ec-4ec9-ab05-24a5bf510d70', '196e6137-b5e2-4968-8d76-c42d40598e61');
 });
 Route::get('/test/view', function(){
  return view('vote.spv.schoolforms');
@@ -167,6 +167,7 @@ Route::group(['prefix' => 'dvi'], function() {
 Route::post('/electionActivate', 'App\Http\Controllers\electionControlling@activate')->name('e.activate');
 Route::post('/electionActivateWithTime', 'App\Http\Controllers\electionControlling@activateWithTime')->name('e.activateWithTime');
 Route::post('/electionEnding', 'App\Http\Controllers\electionControlling@endElection')->name('e.end');
+Route::post('/electionEmail', 'App\Http\Controllers\electionControlling@sendEmails')->name('e.email');
 
 
 Route::namespace('App\Http\Controllers')->group(function () {

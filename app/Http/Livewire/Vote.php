@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Http\Controllers\securityreporterController;
 use App\Terminal;
 use App\Voter;
+use Bugsnag;
 use Livewire\Component;
 use App\Http\Controllers\terminalController;
 use App\Http\Controllers\securityController;
@@ -60,18 +61,20 @@ class Vote extends Component
                       Self::spv_birthVerification($voter->uuid);
                   } else {
                       $securityreporter->report('give access faild at direct access',4, get_class(),'IP: '. \Request::getClientIp(), null);
+                      $this->redirect(route('escape'));
                   }
 
               } else {
-                  //todo error route
                   $securityreporter->report('tried access with wrong directUUID', 3, get_class(), 'IP: '.\Request::getClientIp(), null);
+                  $this->redirect(route('escape'));
               }
           } catch(\Exception $e) {
-              //todo error route
+              Bugsnag::notifyException($e);
+              $this->redirect(route('escape'));
           }
         } else {
-          //todo error route
           $securityreporter->report('directUUID does not fit to terminalUUID', 4, get_class(), 'IP: '.\Request::getClientIp(), null);
+          $this->redirect(route('escape'));
       }
 
 

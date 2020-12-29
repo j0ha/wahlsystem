@@ -35,16 +35,19 @@
            <span>Vielen Dank für deine Stimme!</span>
          </div>
          <div class="row justify-content-center">
-           <span>Bitte verlasse nun die Wahlkabine!</span>
+           @if($directUUID == null AND $election->kind == 'spv')<span>Bitte verlasse nun die Wahlkabine!</span>@endif
+           @if($directUUID != null)<span>Du kannst diese Seite nun schießen</span>@endif
          </div>
       </div>
     </div>
   </div>
-  <script type="text/javascript">
-    window.setTimeout(function(){
-        window.location.href = "{{$spv_terminal_route}}";
-    }, 5000);
-  </script>
+          @if($directUUID != null)
+              <script type="text/javascript">
+                window.setTimeout(function(){
+                    window.location.href = "{{$spv_terminal_route}}";
+                }, 5000);
+              </script>
+          @endif
   @endif
 
       @if(($state == 'forms' AND $spv_forms == null) OR ($state == 'schoolclasses' AND $spv_schoolclasses == null) OR ($state == 'voters' AND $spv_voters == null))

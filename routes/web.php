@@ -44,7 +44,10 @@ Route::get('/test/{userUUID}', 'App\Http\Controllers\paperController@downloadSin
 //ROUTES FOR TERMINAL
 Route::group(['prefix' => 'vote'], function(){
   //STANDARD ROUTE
-  Route::get('/{electionUUID}/{terminalUUID}', 'App\Http\Controllers\terminalController@index')->name('vote');
+  Route::get('/{electionUUID}/{terminalUUID}', function($electionUUID, $terminalUUID){
+      $terminalController = new \App\Http\Controllers\terminalController($electionUUID);
+      return $terminalController->index($terminalUUID);
+  })->name('vote');
 
   //DIRECT ROUTE
   Route::get('/d/{electionUUID}/{terminalUUID}/{directUUID}', 'App\Http\Controllers\terminalController@verifyTerminalAcces', ['electionUUID' => 'electionUUID'], ['terminalUUID' => 'terminalUUID'], ['directUUID' => 'directUUID'])->name('vote.direct');

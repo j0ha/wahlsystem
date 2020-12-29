@@ -63,8 +63,8 @@ class Vote extends Component
     }
 
     private function spvOpenForms() {
-      $this->electionProcessController = new spv($this->electionUUID);
-      $this->spv_forms = $this->electionProcessController->querrySchoolForms($this->electionUUID);
+      $electionProcessController = new spv($this->electionUUID);
+      $this->spv_forms = $electionProcessController->querrySchoolForms();
       $this->state = 'forms';
     }
 
@@ -75,7 +75,6 @@ class Vote extends Component
       $isthere = $securityController->verifyToElection('form', $formUUID, $this->electionUUID);
       if($isthere == true) {
         $this->spv_schoolclasses = $electionProcessController->querrySchoolClassesInForm($formUUID);
-//        dd($this->spv_schoolclasses);
         $this->state = 'schoolclasses';
       } else {
         //error handler
@@ -214,7 +213,7 @@ class Vote extends Component
 
     public function vote() {
       try {
-        $electionProcessController = new spv;
+        $electionProcessController = new spv($this->electionUUID);
         $electionProcessController->vote($this->spv_selected_candidate_uuid, $this->spv_voter_uuid, $this->terminalUUID, $this->electionUUID);
 
         Self::resetData();

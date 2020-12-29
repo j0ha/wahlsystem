@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\electiontypes;
 
 use App\Http\Controllers\electionProcessController;
+use Bugsnag;
 use Illuminate\Http\Request;
 use App\Election;
 use App\Form;
@@ -28,20 +29,19 @@ class spv extends electionProcessController
           break;
       }
     } catch (\Exception $e) {
-      return 'error';
+        Bugsnag::notifyException($e);
     }
   }
 
   public function querrySchoolForms() {
     try {
-      $election = Election::where('uuid', $this->electtionUUID)->firstOrFail();
+      $election = Election::where('uuid', $this->electionUUID)->firstOrFail();
       $forms = Form::getWithActive($election->id);
 
       return $forms;
 
     } catch (\Exception $e) {
-
-      return 'error';
+        Bugsnag::notifyException($e);
     }
 
   }
@@ -49,11 +49,10 @@ class spv extends electionProcessController
   public function querrySchoolClassesInForm($formUUID) {
     try {
       $schoolClasses = Schoolclass::getWithActive(Self::getId($formUUID, 'forms'));
-
       return $schoolClasses;
     } catch (\Exception $e) {
-      return 'error';
-          }
+        Bugsnag::notifyException($e);
+    }
 
   }
 
@@ -66,7 +65,7 @@ class spv extends electionProcessController
 
       return $students;
     } catch (\Exception $e) {
-      return 'error';
+        Bugsnag::notifyException($e);
     }
 
   }
@@ -77,7 +76,7 @@ class spv extends electionProcessController
 
       return $student;
     } catch (\Exception $e) {
-      return 'error';
+        Bugsnag::notifyException($e);
     }
 
   }

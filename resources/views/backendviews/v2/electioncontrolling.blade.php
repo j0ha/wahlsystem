@@ -121,8 +121,32 @@
             </div>
   </div>
 
+  <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="section-block" id="modal">
+              <h3 class="section-title">E-Mails steuern</h3>
+              <p>Den E-Mail versand steuern</p>
+          </div>
+          <div class="card">
+              <h5 class="card-header">Send tool</h5>
+              <div class="card-body">
+                  <div class="">
+                      <h4>Send E-Mail invitations to every voter</h4>
+                      <a href="" class="btn btn-primary" data-toggle="modal" data-target="#sendnow">Send now</a>
+                      <a href="" class="btn btn-primary" data-toggle="modal" data-target="#sendplan">Plan a timetable</a>
+                  </div>
+                  @if(\Session::has('activeError'))
+                      <span class="error text-danger">{{\Session::get('activeError')}}</span>
+                  @endif
+              </div>
+          </div>
+      </div>
+  </div>
+
     </div>
   </div>
+
+
 
 
 
@@ -209,5 +233,61 @@
         </div>
     </div>
 </div>
+
+  <div class="modal fade" id="sendnow" tabindex="-1" role="dialog" aria-labelledby="changetoactiveLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="changetoactiveLabel">Send now</h5>
+                  <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </a>
+              </div>
+              <div class="modal-body">
+                  <p>Möchtest du wirklich eine E-Mail an alle Voter versenden?</p>
+              </div>
+              <div class="modal-footer">
+                  <a href="" class="btn btn-secondary" data-dismiss="modal">Cancek</a>
+                  <form action="{{route('e.activate')}}" method="post">
+                      @csrf
+                      <button class="btn btn-primary">Send</button>
+                      <input type="hidden" name="eUUID" value="{{$selectedE[0]->uuid}}">
+                  </form>
+
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="modal fade" id="sendplan" tabindex="-1" role="dialog" aria-labelledby="changetoactiveplanLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="changetoactiveplanLabel">Activate now</h5>
+                  <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </a>
+              </div>
+              <div class="modal-body">
+                  <p>Möchtest du die Wahl wirklich für folgende Zeit planen?</p>
+                  <form class="" action="{{route('e.activateWithTime')}}" method="post">
+                      @csrf
+                      <div class="form-group">
+                          <label for="inputText6" class="col-form-label">Send-Time</label>
+                          <input name="starttime" type="datetime-local" class="form-control">
+                          <input type="hidden" name="eUUID" value="{{$selectedE[0]->uuid}}">
+                      </div>
+
+
+              </div>
+              <div class="modal-footer">
+                  <a href="" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                  <button class="btn btn-primary">Planen</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
 
 @endsection

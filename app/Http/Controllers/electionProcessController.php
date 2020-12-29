@@ -25,18 +25,19 @@ class electionProcessController extends Controller
         $this->election = Election::where('uuid', $this->electionUUID)->firstOrFail();
     }
 
-    public function vote($candidateUUID, $voterUUID, $terminalUUID) {
+    public function vote($candidateUUID, $voterUUID, $terminalUUID, $direct) {
         try {
-            if ($this->election->manual_voter_activation == true) {
-                $isallowed = $this->securityController->extendedVoteVerification($this->spv_voter_uuid);
+            if ($this->election->manual_voter_activation == true AND $direct == false) {
+                $isallowed = $this->securityController->extendedVoteVerification($voterUUID);
             } else {
-                $isallowed = $this->securityController->voteVerification($this->spv_voter_uuid);
+                $isallowed = $this->securityController->voteVerification($voterUUID);
             }
 
           $candidatebelongsto = $this->securityController->verifyToElection('candidate', $candidateUUID);
           $terminalAccess = $this->terminalController->verifyTerminalAcces($this->electionUUID, $terminalUUID);
 
           if($isallowed == true and $candidatebelongsto == true and $terminalAccess == true){
+
             $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
 
             $voter = Voter::find(Self::getId($voterUUID, 'voters'));

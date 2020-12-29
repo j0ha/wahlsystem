@@ -14,7 +14,7 @@
   </head>
 
   <body class="eao-vote-body">
-    @livewire('vote', ['electionUUID' => $electionUUID, 'terminalUUID' => $terminalUUID])
+    @livewire('vote', ['electionUUID' => $electionUUID, 'terminalUUID' => $terminalUUID, 'directUUID' => $directUUID])
 
     <livewire:scripts>
     </body>

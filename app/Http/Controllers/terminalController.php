@@ -18,9 +18,9 @@ class terminalController extends Controller
         $this->securityreporter = new securityreporterController($this->electionUUID);
     }
 
-    public function index($terminalUUID) {
+    public function index($terminalUUID, $directUUID) {
       if(Self::verifyTerminalAcces($this->electionUUID, $terminalUUID) == true) {
-        return view('vote.vote')->with('terminalUUID', $terminalUUID)->with('electionUUID', $this->electionUUID);
+        return view('vote.vote')->with('terminalUUID', $terminalUUID)->with('electionUUID', $this->electionUUID)->with('directUUID', $directUUID);
       } else {
         return abort(404);
       }

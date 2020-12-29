@@ -15,19 +15,27 @@ class electionProcessController extends Controller
     protected $electionUUID;
     private $securityController;
     private $terminalController;
+    protected $election;
     public function __construct($electionUUID)
     {
         $this->electionUUID = $electionUUID;
         $this->securityreporter = new securityreporterController($this->electionUUID);
         $this->securityController = new securityController($this->electionUUID);
         $this->terminalController = new terminalController($this->electionUUID);
+        $this->election = Election::where('uuid', $this->electionUUID)->firstOrFail();
     }
 
     public function vote($candidateUUID, $voterUUID, $terminalUUID) {
         try {
-          $isallowed = $this->securityController->voteVerification($voterUUID);
+            if ($this->election->manual_voter_activation == true) {
+                $isallowed = $this->securityController->extendedVoteVerification($this->spv_voter_uuid);
+            } else {
+                $isallowed = $this->securityController->voteVerification($this->spv_voter_uuid);
+            }
+
           $candidatebelongsto = $this->securityController->verifyToElection('candidate', $candidateUUID);
           $terminalAccess = $this->terminalController->verifyTerminalAcces($this->electionUUID, $terminalUUID);
+
           if($isallowed == true and $candidatebelongsto == true and $terminalAccess == true){
             $terminal = Terminal::where('uuid', $terminalUUID)->firstOrFail();
 

@@ -28,6 +28,7 @@ class CreateElectionsTable extends Migration
             $table->datetime('realstart')->nullable();
             $table->datetime('realend')->nullable();
             $table->binary('logo')->nullable();
+            $table->boolean('manual_voter_activation')->default(false);
             $table->timestamps();
         });
     }

@@ -35,8 +35,14 @@ class spv extends electionProcessController
 
   public function querrySchoolForms() {
     try {
-      $election = Election::where('uuid', $this->electionUUID)->firstOrFail();
-      $forms = Form::getWithActive($election->id);
+        if ($this->election->manual_voter_activation == true) {
+            $election = Election::where('uuid', $this->electionUUID)->firstOrFail();
+            $forms = Form::getWithActiveActivation($election->id);
+        } else {
+            $election = Election::where('uuid', $this->electionUUID)->firstOrFail();
+            $forms = Form::getWithActive($election->id);
+        }
+
 
       return $forms;
 
@@ -48,8 +54,13 @@ class spv extends electionProcessController
 
   public function querrySchoolClassesInForm($formUUID) {
     try {
-      $schoolClasses = Schoolclass::getWithActive(Self::getId($formUUID, 'forms'));
-      return $schoolClasses;
+        if ($this->election->manual_voter_activation == true) {
+            $schoolClasses = Schoolclass::getWithActiveActivation(Self::getId($formUUID, 'forms'));
+            return $schoolClasses;
+        } else {
+            $schoolClasses = Schoolclass::getWithActive(Self::getId($formUUID, 'forms'));
+            return $schoolClasses;
+        }
     } catch (\Exception $e) {
         Bugsnag::notifyException($e);
     }
@@ -58,12 +69,22 @@ class spv extends electionProcessController
 
   public function querryStudentsInClasses($classUUID) {
     try {
+        if ($this->election->manual_voter_activation == true) {
+            $students = Voter::where('schoolclass_id', Self::getId($classUUID, 'classes'))->where([
+                ['voted_via_terminal', '=', '0'],
+                ['voted_via_email', '=', '0'],
+                ['activated', '=', '1'],
+            ])->get();
+            return $students;
+        } else {
       $students = Voter::where('schoolclass_id', Self::getId($classUUID, 'classes'))->where([
         ['voted_via_terminal', '=', '0'],
         ['voted_via_email', '=', '0'],
         ])->get();
+        return $students;
+        }
 
-      return $students;
+
     } catch (\Exception $e) {
         Bugsnag::notifyException($e);
     }

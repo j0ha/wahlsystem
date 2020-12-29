@@ -51,4 +51,10 @@ class Form extends Model
  'electionId' => $electionId,
 ));
     }
+
+    public static function getWithActiveActivation($electionId) {
+        return DB::select(DB::raw('select DISTINCT forms.* FROM forms, voters WHERE forms.id IN (SELECT voters.form_id FROM voters WHERE voters.voted_via_terminal = 0 AND voters.voted_via_email = 0 AND voters.activated = 1 AND voters.election_id = :electionId)'), array(
+            'electionId' => $electionId,
+        ));
+    }
 }

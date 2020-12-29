@@ -47,4 +47,10 @@ class Schoolclass extends Model
    'formId' => $formId,
  ));
       }
+
+    public static function getWithActiveActivation($formId) {
+        return DB::select(DB::raw('select DISTINCT classes.* FROM classes, voters WHERE classes.id IN (SELECT voters.schoolclass_id FROM voters WHERE voters.voted_via_terminal = 0 AND voters.voted_via_email = 0 AND voters.activated = 1 AND voters.form_id = :formId)'), array(
+            'formId' => $formId,
+        ));
+    }
 }

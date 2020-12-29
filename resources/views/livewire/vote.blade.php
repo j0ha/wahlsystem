@@ -47,7 +47,35 @@
   </script>
   @endif
 
-  @if($state == 'forms' AND $election->type == 'spv')
+      @if(($state == 'forms' AND $spv_forms == null) OR ($state == 'schoolclasses' AND $spv_schoolclasses == null) OR ($state == 'voters' AND $spv_voters == null))
+          <div class="d-flex align-items-center justify-content-center h-100">
+              <div class="w-50 h-30 d-flex justify-content-center align-items-center">
+                  <div class="col">
+                      @if($election->logo)
+                          <div class="row mb-5">
+                              <img class="mx-auto" src="{{$election->logo}}" alt="">
+                          </div>
+                      @endif
+                      <div class="row justify-content-center">
+                          <span class="display-3">{{$election->name}}</span>
+                      </div>
+                      <div class="row justify-content-center">
+                          <span><b>Aktuell sind keine Wähler aktiv.</b></span>
+                      </div>
+                      <div class="row justify-content-center">
+                          <span>versuche es später erneut!</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <script type="text/javascript">
+              window.setTimeout(function(){
+                  window.location.href = "{{$spv_terminal_route}}";
+              }, 5000);
+          </script>
+      @endif
+
+  @if($state == 'forms' AND $election->type == 'spv' AND $spv_forms != null)
   <div class="d-flex eao-vote-header">
     <span class="display-4">Bitte wähle deinen Jahrgang!</span>
   </div>
@@ -58,7 +86,7 @@
     </div>
   @endif
 
-  @if($state == 'schoolclasses' AND $election->type == 'spv')
+  @if($state == 'schoolclasses' AND $election->type == 'spv' AND $spv_schoolclasses != null)
   <div class="d-flex eao-vote-header">
     <span class="display-4">Bitte wähle deine Klasse!</span>
   </div>
@@ -68,7 +96,7 @@
       @endforeach
     </div>
   @endif
-  @if($state == 'voters' AND $election->type == 'spv')
+  @if($state == 'voters' AND $election->type == 'spv' AND $spv_voters != null)
   <div class="d-flex eao-vote-header">
     <span class="display-4">Bitte wähle deinen Namen!</span>
   </div>

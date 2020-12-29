@@ -72,7 +72,7 @@ class Vote extends Component
       $securityController = new securityController($this->electionUUID);
       $electionProcessController = new spv($this->electionUUID);
 
-      $isthere = $securityController->verifyToElection('form', $formUUID, $this->electionUUID);
+      $isthere = $securityController->verifyToElection('form', $formUUID);
       if($isthere == true) {
         $this->spv_schoolclasses = $electionProcessController->querrySchoolClassesInForm($formUUID);
         $this->state = 'schoolclasses';
@@ -86,7 +86,7 @@ class Vote extends Component
       $securityController = new securityController($this->electionUUID);
       $electionProcessController = new spv($this->electionUUID);
 
-      $isthere = $securityController->verifyToElection('schoolclass', $schoolclassUUID, $this->electionUUID);
+      $isthere = $securityController->verifyToElection('schoolclass', $schoolclassUUID);
       if($isthere == true) {
         $this->spv_voters = $electionProcessController->querryStudentsInClasses($schoolclassUUID);
         $this->state = 'voters';
@@ -99,7 +99,7 @@ class Vote extends Component
     public function spv_birthVerification($voterUUID) {
       $securityController = new securityController($this->electionUUID);
 
-      $isthere = $securityController->verifyToElection('voter', $voterUUID, $this->electionUUID);
+      $isthere = $securityController->verifyToElection('voter', $voterUUID);
       $isallowed = $securityController->voteVerification($voterUUID);
       if($isthere == true and $isallowed == true) {
         $this->spv_voter_uuid = $voterUUID;
@@ -195,13 +195,21 @@ class Vote extends Component
         $securityController = new securityController($this->electionUUID);
         $terminalContoller = new terminalController($this->electionUUID);
 
-        $isallowed = $securityController->voteVerification($this->spv_voter_uuid);
-        $candidatebelongsto = $securityController->verifyToElection('candidate', $candidateUUID, $this->electionUUID);
+        if ($this->election->manual_voter_activation == true) {
+            $isallowed = $securityController->extendedVoteVerification($this->spv_voter_uuid);
+        } else {
+            $isallowed = $securityController->voteVerification($this->spv_voter_uuid);
+        }
+
+        $candidatebelongsto = $securityController->verifyToElection('candidate', $candidateUUID);
         $terminalAccess = $terminalContoller->verifyTerminalAcces($this->electionUUID, $this->terminalUUID);
 
         if($isallowed == true and $candidatebelongsto == true and $terminalAccess == true) {
           $this->spv_selected_candidate_uuid = $candidateUUID;
           $this->spv_selected_candidate_name = Candidate::where('uuid', $candidateUUID)->firstOrFail()->name;
+        } else {
+            Self::resetData();
+            $this->state = 'start';
         }
 
       } catch (\Exception $e) {

@@ -124,4 +124,19 @@ class securityController extends Controller
         return false;
       }
     }
+
+    public function extendedVoteVerification($voterUUID) {
+        try {
+            $voter = Voter::where('uuid', $voterUUID)->firstOrFail();
+            if($voter->voted_via_email == false AND $voter->voted_via_terminal == false AND $voter->activated == true) {
+                return true;
+            } else {
+                $this->securityreporter->report('voterVerification failed',2, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID, null);
+                return false;
+            }
+        } catch (\Exception $e) {
+            $this->securityreporter->report('voterVerification catched',2, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID, $e);
+            return false;
+        }
+    }
 }

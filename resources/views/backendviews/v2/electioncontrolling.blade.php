@@ -8,16 +8,16 @@
             <div class="card-body">
                 <h5 class="text-muted">Status</h5>
                 <div class="metric-value d-inline-block">
-                    @if($selectedE[0]->status == "waiting")
+                    @if($selectedE[0]->status == config('votestates.waiting.short'))
                         <h1><span class="badge badge-light px-4 py-4">Waiting</span></h1>
                     @endif
-                    @if($selectedE[0]->status == "planned")
+                    @if($selectedE[0]->status == config('votestates.planed.short'))
                         <h1><span class="badge badge-primary px-4 py-4">Planned</span></h1>
                     @endif
-                    @if($selectedE[0]->status == "live")
+                    @if($selectedE[0]->status == config('votestates.live.short'))
                         <h1><span class="badge badge-success px-xl-5 py-3">Live</span></h1>
                     @endif
-                    @if($selectedE[0]->status == "ended")
+                    @if($selectedE[0]->status == config('votestates.ended.short'))
                         <h1><span class="badge badge-danger px-4 py-4">Ended</span></h1>
                     @endif
                 </div>

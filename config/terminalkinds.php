@@ -6,9 +6,9 @@ return [
         'name' => 'Normal',
         'deletable' => true
     ],
-  'email' => [
-    'short' => 'email',
-    'name' => 'E-Mail',
-    'deletable' => false
-    ],
+    'email' => [
+        'short' => 'email',
+        'name' => 'E-Mail',
+        'deletable' => false
+        ],
   ] ?>

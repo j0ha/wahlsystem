@@ -111,7 +111,7 @@ class terminalController extends Controller
       try {
         $election = Election::where('uuid', $this->electionUUID)->firstOrFail();
 
-        if($election->status == "active") {
+        if($election->status == config('votestates.live.short')) {
 
           return true;
 

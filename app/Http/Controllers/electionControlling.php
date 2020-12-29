@@ -16,7 +16,7 @@ class electionControlling extends Controller
         $electionID = Election::where('uuid', $request->eUUID)->firstOrFail()->id;
         if($user->hasPermissionTo($request->eUUID)){
             if(Candidate::where('election_id', $electionID)->count() != 0 AND Voter::where('election_id', $electionID)->count() != 0 AND Terminal::where('election_id', $electionID)->count() != 0){
-                Election::where('uuid', $request->eUUID)->update(['status' => 'live']);
+                Election::where('uuid', $request->eUUID)->update(['status' => config('votestates.live.short')]);
             } else {
                 return "Error: You have to create: Candidates, Voters and Terminals before you can start the election!";
             }
@@ -32,7 +32,7 @@ class electionControlling extends Controller
         $electionID = Election::where('uuid', $request->eUUID)->firstOrFail()->id;
         if($user->hasPermissionTo($request->eUUID)){
             if(Candidate::where('election_id', $electionID)->count() != 0 AND Voter::where('election_id', $electionID)->count() != 0 AND Terminal::where('election_id', $electionID)->count() != 0){
-                Election::where('uuid', $request->eUUID)->update(['status' => 'planned', 'activeby' => $request->starttime, 'activeto' => $request->endtime]);
+                Election::where('uuid', $request->eUUID)->update(['status' => config('votestates.planed.short'), 'activeby' => $request->starttime, 'activeto' => $request->endtime]);
             } else {
                 return"Error: You have to create: Candidates, Voters and Terminals before you can start the election!";
             }
@@ -45,7 +45,7 @@ class electionControlling extends Controller
     public function endElection(Request $request){
         $user = Auth::user();
         if($user->hasPermissionTo($request->eUUID)){
-           Election::where('uuid', $request->eUUID)->update(['status' => 'ended']);
+           Election::where('uuid', $request->eUUID)->update(['status' => config('votestates.ended.short')]);
         } else {
             echo "Du PENNER HAST KEINEN ZUGRIFF!";
         }

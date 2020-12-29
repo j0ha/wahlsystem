@@ -70,7 +70,12 @@ class BackendTerminalsOverview extends Component
 
     }
     public function delete() {
-      $terminal = Terminal::where('uuid', $this->terminalUUID)->delete();
+      $terminal = Terminal::where('uuid', $this->terminalUUID)->firstOrFail();
+      if(config('terminalkinds.'.$terminal->kind.'.deletable') == true) {
+          $terminal->delete();
+      } else {
+          session()->flash('error', 'Terminal with this kind can not be deleted!');
+      }
     }
 
     public function update() {

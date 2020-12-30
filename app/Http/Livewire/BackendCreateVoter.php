@@ -44,7 +44,7 @@ class BackendCreateVoter extends Component
             $this->classes = Schoolclass::where('form_id', $this->form)->get();
         }
         return view('livewire.backend-create-voter')
-            ->withForms(Form::orderBy('name')->get());
+            ->withForms(Form::where('election_id', Self::electionID($this->electionUUID))->orderBy('name')->get());
 
     }
 
@@ -70,5 +70,11 @@ class BackendCreateVoter extends Component
         $voter->save();
 
         return redirect()->route('voters.view', ['electionUUID' => $this->electionUUID]);
+    }
+
+    public function electionID($electionUUID1){
+       $id = Election::where('uuid', $electionUUID1)->firstOrFail()->id;
+
+        return $id;
     }
 }

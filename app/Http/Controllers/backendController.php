@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Terminal;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Election;
 use Illuminate\Support\Facades\Auth;

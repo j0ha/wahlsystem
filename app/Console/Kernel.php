@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         Commands\startElection::class,
         Commands\endElection::class,
         Commands\admin::class,
+        Commands\sendEmail::class,
     ];
 
     /**
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
     {
          $schedule->command('election:start')->everyMinute();
          $schedule->command('election:end')->everyMinute();
+         $schedule->command('election:sendEmail')->everyMinute();
     }
 
     /**

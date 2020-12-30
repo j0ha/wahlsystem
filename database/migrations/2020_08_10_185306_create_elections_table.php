@@ -29,6 +29,8 @@ class CreateElectionsTable extends Migration
             $table->datetime('realend')->nullable();
             $table->binary('logo')->nullable();
             $table->boolean('manual_voter_activation')->default(false);
+            $table->dateTime('email_send-time')->nullable();
+            $table->uuid('email_terminal')->nullable();
             $table->timestamps();
         });
     }

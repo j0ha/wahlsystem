@@ -63,7 +63,18 @@ class electionControlling extends Controller
                 ['election_id', '=', $electionProcessController->getId($request->eUUID, 'elections')],
                 ['got_email', '=', '0'],
             ])->get();
-            $emailController->sendBulkInvations($voters, '9a8bd8d4-2d07-45fc-8048-93563cf15671');
+            $emailController->sendBulkInvations($voters, $request->terminalUUID);
+        } else {
+            return abort(404);
+
+        }
+        return redirect()->route('election.Controlling', ['electionUUID' => $request->eUUID]);
+    }
+
+    public function planEmail(Request $request){
+        $user = Auth::user();
+        if($user->hasPermissionTo($request->eUUID)){
+            Election::where('uuid', $request->eUUID)->update(['email_send-time' => $request->starttimeEmail, 'email_terminal'=>$request->terminalUUID]);
         } else {
             return abort(404);
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Controllers\emailController;
+use App\Terminal;
 use App\Voter;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -25,6 +27,8 @@ class BackendVotersOverview extends Component
   public $surname;
   public $birth_year;
   public $email;
+  public $terminals;
+  public $terminal_sel;
 
   public $electionUUID;
 
@@ -66,7 +70,12 @@ class BackendVotersOverview extends Component
 
 
     public function viewVoter($voterUUID) {
+        $electionProcess = new electionProcessController($this->electionUUID);
             $voter = Voter::where('uuid', $voterUUID)->firstOrFail();
+            $this->terminals = Terminal::where([
+                ['election_id', '=', $electionProcess->getId($this->electionUUID, 'elections')],
+                ['kind', '=', config('terminalkinds.email.short')],
+            ])->get();
             $this->voterUUID = $voterUUID;
             $this->name = $voter->name;
             $this->surname = $voter->surname;
@@ -76,9 +85,8 @@ class BackendVotersOverview extends Component
 
     public function sendEmail() {
       $voter = Voter::where('uuid', $this->voterUUID)->firstOrFail();
-      $voter->got_email = true;
-      $voter->save();
-      Mail::to($voter->email)->send(new electionInvitation($voter->uuid));
+      $emailController = new emailController($this->electionUUID);
+      $emailController->sendSingelInvation($voter->uuid, $this->terminal_sel);
     }
     public function downloadSheet() {
       redirect()->route('download.singelInvitation', ['voterUUID' => $this->voterUUID, 'electionUUID'=>$this->electionUUID]);

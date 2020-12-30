@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Terminal;
 use Illuminate\Http\Request;
 use App\Election;
 use Illuminate\Support\Facades\Auth;
@@ -129,13 +130,18 @@ class backendController extends Controller
     }
 
     public function indexControlling($electionUUID){
+        $electionProcess = new electionProcessController($electionUUID);
         $user = Auth::user();
         $electionArray = Self::electionPermission($user);
         $selectedE = Election::where('uuid', $electionUUID)->get();
         $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
+        $terminals = Terminal::where([
+            ['election_id', '=', $electionProcess->getId($electionUUID, 'elections')],
+            ['kind', '=', config('terminalkinds.email.short')],
+        ])->get();
 
         if ($user->hasPermissionTo($electionUUID)) {
-            return view('backendviews.v2.electioncontrolling', ['electionUUID' => $electionUUID], compact('status','electionArray', 'user', 'selectedE'));
+            return view('backendviews.v2.electioncontrolling', ['electionUUID' => $electionUUID], compact('status','electionArray', 'user', 'selectedE', 'terminals'));
         } else {
             return redirect()->route('unauthorized');
         }

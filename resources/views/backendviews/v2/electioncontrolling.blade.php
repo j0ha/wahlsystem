@@ -135,6 +135,17 @@
                       <a href="" class="btn btn-primary" data-toggle="modal" data-target="#sendnow">Send now</a>
                       <a href="" class="btn btn-primary" data-toggle="modal" data-target="#sendplan">Plan a timetable</a>
                   </div>
+                  @if($terminals)
+                      <div class="form-group">
+                          <label for="input-select">E-Mail Terminal</label>
+                          <select wire:model="terminal_sel" class="form-control" id="input-select">
+                              <option>Choose Terminal for E-Mail sending</option>
+                              @foreach($terminals as $terminal)
+                                  <option value="{{$terminal->uuid}}">{{$terminal->name}}</option>
+                              @endforeach
+                          </select>
+                      </div>
+                  @endif
                   @if(\Session::has('activeError'))
                       <span class="error text-danger">{{\Session::get('activeError')}}</span>
                   @endif

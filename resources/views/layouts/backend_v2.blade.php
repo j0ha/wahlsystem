@@ -119,10 +119,13 @@
                                 <a class="nav-link" href="{{route('election.securityreporter', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fas fa-lock"></i>Security reporter</a>
                             </li>
                             @endif
+
+                            @if(\App\Election::where('uuid', $electionUUID)->firstOrFail()->manual_voter_activation == 1)
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('election.voteractivator', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fas fa-shekel-sign"></i>Voter activator</a>
                             </li>
-
+                            @endif
                           <li class="nav-divider">
                                 Wahlsteuerung
                             </li>
@@ -135,6 +138,7 @@
                                 <a class="nav-link" href="{{route('election.evaluation', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-balance-scale"></i>Evaluation</a>
                             </li>
                             @endif
+                            <!--
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fas fa-fw fa-chart-line"></i>Prediction</a>
                                 <div id="submenu-4" class="collapse submenu" style="">
@@ -148,6 +152,7 @@
                                     </ul>
                                 </div>
                             </li>
+                            -->
                                 @if($status == 'waiting')
                           <li class="nav-divider">
                                 Inhaltsverwaltung

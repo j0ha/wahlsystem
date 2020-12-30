@@ -21,6 +21,7 @@ class Multiform extends Component
   public $abstention;
   public $stats;
   public $mode;
+  public $manualVoter;
 
   public $step;
 
@@ -78,6 +79,12 @@ class Multiform extends Component
         } else {
             $e->statistics = 0;
         }
+
+      if(isset($this->manualVoter)){
+          $e->manual_voter_activation = 1;
+      } else {
+          $e->manual_voter_activation = 0;
+      }
         $e->status = "waiting";
         $e->uuid = $uuid;
         $e->type = $this->mode;

@@ -55,6 +55,14 @@
                   <label class="custom-control-label" for="statisticsCheckbox">If you want the admin to view the statistics during the election select this checkbox.</label>
               </div>
           </div>
+
+          <div class="form-group">
+              <label for="electionMode">Manual Voter activation:</label>
+              <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" wire:model.lazy="manualVoter" id="manualVoterCheckbox">
+                  <label class="custom-control-label" for="manualVoterCheckbox">If you want to allow that voters can be released manually for voting.</label>
+              </div>
+          </div>
           <br>
 @endif
 @if($step > 0 && $step <= 1)

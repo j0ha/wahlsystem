@@ -39,7 +39,7 @@ class backendController extends Controller
     public function indexDashboard($electionUUID){
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
-        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
+      $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
 
       $electionProcess = new electionProcessController($electionUUID);
       $statsController = new statsController($electionUUID);

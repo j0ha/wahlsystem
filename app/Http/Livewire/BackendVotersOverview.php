@@ -66,12 +66,12 @@ class BackendVotersOverview extends Component
 
 
     public function viewVoter($voterUUID) {
-      $voter = Voter::where('uuid', $voterUUID)->firstOrFail();
-      $this->voterUUID = $voterUUID;
-      $this->name = $voter->name;
-      $this->surname = $voter->surname;
-      $this->birth_year = $voter->birth_year;
-      $this->email = $voter->email;
+            $voter = Voter::where('uuid', $voterUUID)->firstOrFail();
+            $this->voterUUID = $voterUUID;
+            $this->name = $voter->name;
+            $this->surname = $voter->surname;
+            $this->birth_year = $voter->birth_year;
+            $this->email = $voter->email;
     }
 
     public function sendEmail() {

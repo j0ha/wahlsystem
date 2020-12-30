@@ -4,8 +4,8 @@
             <div class="col-sm-12 col-md-6">
                 <div class="dt-buttons">
                     <button wire:click.lazy="downloadList()" class="btn btn-outline-light buttons-export buttons-html5" tabindex="0" aria-controls="example" type="button"><span>Export</span></button>
-                    <button wire:click.lazy="downloadPDF()"class="btn btn-outline-light buttons-pdf buttons-html5" tabindex="0" aria-controls="example" type="button"><span>PDF</span></button>
-                    <button wire:click.lazy="print()"class="btn btn-outline-light buttons-print" tabindex="0" aria-controls="example" type="button"><span>Print</span></button>
+                    <button wire:click.lazy="downloadPDF()" class="btn btn-outline-light buttons-pdf buttons-html5" tabindex="0" aria-controls="example" type="button"><span>PDF</span></button>
+                    <button wire:click.lazy="print()" class="btn btn-outline-light buttons-print" tabindex="0" aria-controls="example" type="button"><span>Print</span></button>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6">
@@ -83,7 +83,7 @@
 
 
 
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editeModalLabel" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editeModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -112,12 +112,12 @@
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
-                    <button wire:click="update()" class="btn btn-primary" data-dismiss="modal">Save changes</a>
+                    <button wire:click="update()" class="btn btn-primary" data-dismiss="modal">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="editeModalLabel" aria-hidden="true">
+    <div wire:ignore.self class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="editeModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -127,10 +127,10 @@
                     </a>
                 </div>
                 <div class="modal-body">
-                    <button wire:click.lazy="sendEmail()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Send E-Mail</a>
-                        <button wire:click.lazy="downloadSheet()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Download the Page</a>
-                            <button wire:click.lazy="copyDirect()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Copy Direkt-Link</a>
-                                <button wire:click.lazy="deleteVoter()" class="btn btn-danger mx-2 my-2" data-dismiss="modal">Delete</a>
+                    <button wire:click.lazy="sendEmail()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Send E-Mail</button>
+                        <button wire:click.lazy="downloadSheet()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Download the Page</button>
+                            <button wire:click.lazy="copyDirect()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Copy Direkt-Link</button>
+                                <button wire:click.lazy="deleteVoter()" class="btn btn-danger mx-2 my-2" data-dismiss="modal">Delete</button>
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>

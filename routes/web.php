@@ -168,6 +168,7 @@ Route::post('/electionActivate', 'App\Http\Controllers\electionControlling@activ
 Route::post('/electionActivateWithTime', 'App\Http\Controllers\electionControlling@activateWithTime')->name('e.activateWithTime');
 Route::post('/electionEnding', 'App\Http\Controllers\electionControlling@endElection')->name('e.end');
 Route::post('/electionEmail', 'App\Http\Controllers\electionControlling@sendEmails')->name('e.email');
+Route::post('/electionPlanEmail', 'App\Http\Controllers\electionControlling@planEmail')->name('e.planEmail');
 
 
 Route::namespace('App\Http\Controllers')->group(function () {

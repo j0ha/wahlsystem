@@ -135,17 +135,6 @@
                       <a href="" class="btn btn-primary" data-toggle="modal" data-target="#sendnow">Send now</a>
                       <a href="" class="btn btn-primary" data-toggle="modal" data-target="#sendplan">Plan a timetable</a>
                   </div>
-                  @if($terminals)
-                      <div class="form-group">
-                          <label for="input-select">E-Mail Terminal</label>
-                          <select wire:model="terminal_sel" class="form-control" id="input-select">
-                              <option>Choose Terminal for E-Mail sending</option>
-                              @foreach($terminals as $terminal)
-                                  <option value="{{$terminal->uuid}}">{{$terminal->name}}</option>
-                              @endforeach
-                          </select>
-                      </div>
-                  @endif
                   @if(\Session::has('activeError'))
                       <span class="error text-danger">{{\Session::get('activeError')}}</span>
                   @endif
@@ -261,6 +250,17 @@
                   <a href="" class="btn btn-secondary" data-dismiss="modal">Cancek</a>
                   <form action="{{route('e.email')}}" method="post">
                       @csrf
+                      @if($terminals)
+                          <div class="form-group">
+                              <label for="input-select">E-Mail Terminal</label>
+                              <select name="terminalUUID" class="form-control" id="input-select">
+                                  <option>Choose Terminal for E-Mail sending</option>
+                                  @foreach($terminals as $terminal)
+                                      <option value="{{$terminal->uuid}}">{{$terminal->name}}</option>
+                                  @endforeach
+                              </select>
+                          </div>
+                      @endif
                       <button class="btn btn-primary">Send</button>
                       <input type="hidden" name="eUUID" value="{{$selectedE[0]->uuid}}">
                   </form>
@@ -280,11 +280,22 @@
               </div>
               <div class="modal-body">
                   <p>Möchtest du die Wahl wirklich für folgende Zeit planen?</p>
-                  <form class="" action="{{route('e.activateWithTime')}}" method="post">
+                  <form class="" action="{{route('e.planEmail')}}" method="post">
                       @csrf
+                      @if($terminals)
+                          <div class="form-group">
+                              <label for="input-select">E-Mail Terminal</label>
+                              <select name="terminalUUID" class="form-control" id="input-select">
+                                  <option>Choose Terminal for E-Mail sending</option>
+                                  @foreach($terminals as $terminal)
+                                      <option value="{{$terminal->uuid}}">{{$terminal->name}}</option>
+                                  @endforeach
+                              </select>
+                          </div>
+                      @endif
                       <div class="form-group">
                           <label for="inputText6" class="col-form-label">Send-Time</label>
-                          <input name="starttime" type="datetime-local" class="form-control">
+                          <input name="starttimeEmail" type="datetime-local" class="form-control">
                           <input type="hidden" name="eUUID" value="{{$selectedE[0]->uuid}}">
                       </div>
 

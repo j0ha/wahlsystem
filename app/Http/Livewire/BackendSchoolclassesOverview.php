@@ -74,7 +74,7 @@ class BackendSchoolclassesOverview extends Component
     }
 
     public function downloadPDF() {
-
+        redirect()->route('download.schoolclasses', ['electionUUID'=>$this->electionUUID]);
     }
 
     public function print() {

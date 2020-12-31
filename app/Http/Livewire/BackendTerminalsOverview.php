@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Controllers\paperController;
 use App\Terminal;
 use Bugsnag;
 use Livewire\Component;
@@ -149,11 +150,10 @@ class BackendTerminalsOverview extends Component
     }
 
     public function downloadList() {
-        dd(config('terminalkinds'));
     }
 
     public function downloadPDF() {
-
+       redirect()->route('download.terminals', ['electionUUID'=>$this->electionUUID]);
     }
 
     public function print() {

@@ -3,9 +3,7 @@
         <div class="row">
             <div class="col-sm-12 col-md-6">
                 <div class="dt-buttons">
-                    <button wire:click.lazy="downloadList()" class="btn btn-outline-light buttons-export buttons-html5" tabindex="0" aria-controls="example" type="button"><span>Export</span></button>
                     <button wire:click.lazy="downloadPDF()" class="btn btn-outline-light buttons-pdf buttons-html5" tabindex="0" aria-controls="example" type="button"><span>PDF</span></button>
-                    <button wire:click.lazy="print()" class="btn btn-outline-light buttons-print" tabindex="0" aria-controls="example" type="button"><span>Print</span></button>
                 </div>
             </div>
             <div class="col-sm-12 col-md-6">

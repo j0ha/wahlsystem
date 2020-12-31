@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use App\Candidate;
+use App\Form;
+use App\Schoolclass;
+use App\Terminal;
 use Illuminate\Http\Request;
 use App\Voter;
 use App\Election;
@@ -13,12 +17,14 @@ class paperController extends Controller
     private $electionUUID;
     private $electionProcess;
     private $statsController;
+    private $election;
 
     public function __construct($electionUUID)
     {
         $this->electionUUID = $electionUUID;
         $this->electionProcess = new electionProcessController($this->electionUUID);
         $this->statsController = new statsController($this->electionUUID);
+        $this->election = Election::where('uuid', $electionUUID)->firstOrFail();
     }
 
     public function downloadSingelInvitation($voterUUID) {
@@ -29,6 +35,39 @@ class paperController extends Controller
 
         $pdf = PDF::loadView('pdf.invitation', ['voter'=>$voter, 'election' =>$election, 'route'=>$route]);
         return $pdf->download($voter->name.$voter->surname.'_VoteInvitation_'.time().'.pdf');
+    }
+
+    public function downloadTerminals() {
+        $terminals = Terminal::where('election_id', $this->election->id)->get();
+        $pdf = PDF::loadView('pdf.terminals', ['terminals'=>$terminals, 'election' =>$this->election])->setOrientation('landscape');
+        return $pdf->download($this->election->name.'_terminals_'.time().'.pdf');
+
+    }
+
+    public function downloadVoters() {
+        $voters = Voter::where('election_id', $this->election->id)->get();
+        $pdf = PDF::loadView('pdf.voters', ['voters'=>$voters, 'election' =>$this->election]);
+        return $pdf->download($this->election->name.'_voters_'.time().'.pdf');
+
+    }
+
+    public function downloadCandidates() {
+        $candidates = Candidate::where('election_id', $this->election->id)->get();
+        $pdf = PDF::loadView('pdf.candidates', ['candidates'=>$candidates, 'election' =>$this->election]);
+        return $pdf->download($this->election->name.'_candidates_'.time().'.pdf');
+
+    }
+    public function downloadSchoolclasses() {
+        $schoolclasses = Schoolclass::where('election_id', $this->election->id)->get();
+        $pdf = PDF::loadView('pdf.schoolclasses', ['schoolclasses'=>$schoolclasses, 'election' =>$this->election]);
+        return $pdf->download($this->election->name.'_schoolclasses_'.time().'.pdf');
+
+    }
+    public function downloadForms() {
+        $forms = Form::where('election_id', $this->election->id)->get();
+        $pdf = PDF::loadView('pdf.forms', ['forms'=>$forms, 'election' =>$this->election]);
+        return $pdf->download($this->election->name.'_forms_'.time().'.pdf');
+
     }
 
     public function downloadEvaluation() {

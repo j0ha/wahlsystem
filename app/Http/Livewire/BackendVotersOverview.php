@@ -91,16 +91,13 @@ class BackendVotersOverview extends Component
     public function downloadSheet() {
       redirect()->route('download.singelInvitation', ['voterUUID' => $this->voterUUID, 'electionUUID'=>$this->electionUUID]);
     }
-    public function copyDirect() {
-
-    }
 
     public function downloadList() {
 
     }
 
     public function downloadPDF() {
-
+        redirect()->route('download.voters', ['electionUUID'=>$this->electionUUID]);
     }
 
     public function print() {

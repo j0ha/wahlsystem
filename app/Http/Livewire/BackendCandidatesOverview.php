@@ -68,7 +68,7 @@ class BackendCandidatesOverview extends Component
     }
 
     public function downloadPDF() {
-
+        redirect()->route('download.candidates', ['electionUUID'=>$this->electionUUID]);
     }
 
     public function print() {

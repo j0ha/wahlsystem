@@ -135,6 +135,26 @@ Route::group(['prefix' => 'dvi'], function() {
           return $papercontroler->downloadSingelInvitation($voterUUID);
       })->name('download.singelInvitation');
         Route::get('/evaluation/{electionUUID}', 'App\Http\Controllers\paperController@downloadEvaluation')->name('download.evaluation');
+        Route::get('/terminals/{electionUUID}', function($electionUUID){
+            $papercontroler = new \App\Http\Controllers\paperController($electionUUID);
+            return $papercontroler->downloadTerminals();
+        })->name('download.terminals');
+        Route::get('/voters/{electionUUID}', function($electionUUID){
+            $papercontroler = new \App\Http\Controllers\paperController($electionUUID);
+            return $papercontroler->downloadVoters();
+        })->name('download.voters');
+        Route::get('/candidates/{electionUUID}', function($electionUUID){
+            $papercontroler = new \App\Http\Controllers\paperController($electionUUID);
+            return $papercontroler->downloadCandidates();
+        })->name('download.candidates');
+        Route::get('/schoolclasses/{electionUUID}', function($electionUUID){
+            $papercontroler = new \App\Http\Controllers\paperController($electionUUID);
+            return $papercontroler->downloadSchoolclasses();
+        })->name('download.schoolclasses');
+        Route::get('/forms/{electionUUID}', function($electionUUID){
+            $papercontroler = new \App\Http\Controllers\paperController($electionUUID);
+            return $papercontroler->downloadForms();
+        })->name('download.forms');
 
     });
   });

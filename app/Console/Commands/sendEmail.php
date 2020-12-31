@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Election;
 use App\Http\Controllers\electionProcessController;
 use App\Http\Controllers\emailController;
+use App\Voter;
 use Illuminate\Console\Command;
 
 class sendEmail extends Command
@@ -40,17 +42,17 @@ class sendEmail extends Command
     public function handle()
     {
         $time = date("Y-m-d H:i:00");
-        $elections = Election::where('email_send-time', '!=', null)->get();
+        $elections = Election::where('email_sendtime', '!=', null)->get();
 
         foreach($elections as $e){
-            if($e->activeby == $time){
+            if($e->email_sendtime == $time){
                 $electionProcessController = new electionProcessController($e->uuid);
                 $emailController = new emailController($e->uuid);
                 $voters = Voter::where([
                     ['election_id', '=', $electionProcessController->getId($e->uuid, 'elections')],
                     ['got_email', '=', '0'],
                 ])->get();
-                $emailController->sendBulkInvations($voters, $e->terminal);
+                $emailController->sendBulkInvations($voters, $e->email_terminal);
             }
         }
     }

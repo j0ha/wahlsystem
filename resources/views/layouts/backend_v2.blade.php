@@ -208,6 +208,10 @@
                         </ul>
                     </div>
                 </nav>
+                <div style="position: absolute; bottom: 5%; left: 3%;">
+                    <a href="www.google.de">Impressum</a> - Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>
+                </div>
+
             </div>
         </div>
         <!-- ============================================================== -->
@@ -228,26 +232,6 @@
                   You do not have selected an election at the moment. Firstly select your election or create a new one to have access to the dashboard.
             </div>
             @endif
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <div class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                             Copyright © 2018 Concept. All rights reserved. Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>.
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="text-md-right footer-links d-none d-sm-block">
-                                <a href="">Impresum</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- end footer -->
-            <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
         <!-- end wrapper  -->

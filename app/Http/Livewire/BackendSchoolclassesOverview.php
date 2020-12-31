@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Schoolclass;
 use App\Form;
+use App\Voter;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Http\Controllers\electionProcessController;
@@ -53,7 +54,13 @@ class BackendSchoolclassesOverview extends Component
       $this->name = $schoolclass->name;
     }
     public function delete($schoolclassUUID) {
-      $schoolclass = Schoolclass::where('uuid', $schoolclassUUID)->delete();
+      $schoolclass = Schoolclass::where('uuid', $schoolclassUUID)->firstOrFail();
+      $voters = Voter::where('schoolclass_id', $schoolclass->id)->get();
+      if($voters != null) {
+          session()->flash('error', 'Schoolclass can not be deleted with assigned students!');
+      } else {
+          $schoolclass->delete();
+      }
     }
 
     public function update() {

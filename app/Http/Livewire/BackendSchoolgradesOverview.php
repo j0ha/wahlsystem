@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Form;
+use App\Schoolclass;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -43,7 +44,12 @@ class BackendSchoolgradesOverview extends Component
       $this->name = $schoolgrade->name;
     }
     public function delete($schoolgradeUUID) {
-      $schoolgrade = Form::where('uuid', $schoolgradeUUID)->delete();
+      $schoolgrade = Form::where('uuid', $schoolgradeUUID)->firstOrFail();
+      $schoolclasses = Schoolclass::where('form_id', $schoolgrade->id)->get();
+
+      if($schoolclasses != null) {
+          session()->flash('error', 'Form can not be delteted with assigned schoolclasses!');
+      }
     }
 
     public function update() {

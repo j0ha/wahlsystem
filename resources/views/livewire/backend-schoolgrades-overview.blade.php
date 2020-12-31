@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-
+      @if(session()->has('error'))<div class="alert alert-danger" role="alert">{{session('error')}}</div></span>@endif
       <table id="example" class="table table-striped table-bordered second" style="width:100%">
           <thead>
               <tr>

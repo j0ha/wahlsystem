@@ -11091,3 +11091,7 @@ a.text-dark:focus {
 .eao-vote-alert-bg-light {
   background-color: rgb(255, 255, 255, 0.2);
 }
+
+.eao-vote-bg-lite {
+    background-color: #cccccc;
+}

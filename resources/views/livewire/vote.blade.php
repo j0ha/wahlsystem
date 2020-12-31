@@ -156,7 +156,7 @@
         @foreach($spv_candidates as $candidate)
         <div class="col h-100 px-0">
 
-          <div class="h-90 bg-secondary img-cover justify-content-center" style="background-image: url({{$candidate->image}})">
+          <div class="h-90 eao-vote-bg-lite img-cover justify-content-center" style="background-image: url({{$candidate->image}})">
               <div class="align-self-center w-75">
                 <h1 class="display-1">
                   {{$candidate->name}}

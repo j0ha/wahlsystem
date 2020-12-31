@@ -128,16 +128,16 @@
                 </div>
                 <div class="modal-body">
                     @if($terminals)
-                    <button wire:click.lazy="sendEmail()" class="btn btn-light mx-2 my-2" data-dismiss="modal" @if($terminal_sel == null) disabled @endif>Send E-Mail</button>
                     <div class="form-group">
                         <label for="input-select">E-Mail Terminal</label>
                         <select wire:model="terminal_sel" class="form-control" id="input-select">
-                            <option>Choose Terminal for E-Mail sending</option>
+                            <option value="">Choose Terminal for E-Mail sending</option>
                             @foreach($terminals as $terminal)
                                 <option value="{{$terminal->uuid}}">{{$terminal->name}}</option>
                             @endforeach
                         </select>
                     </div>
+                        <button wire:click.lazy="sendEmail()" class="btn btn-light mx-2 my-2" data-dismiss="modal" @if($terminal_sel == null) disabled @endif>Send E-Mail</button>
                     @endif
                         <button wire:click.lazy="downloadSheet()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Download the Page</button>
                             <button wire:click.lazy="copyDirect()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Copy Direkt-Link</button>

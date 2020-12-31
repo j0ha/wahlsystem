@@ -128,6 +128,7 @@
                             </div>
                         </div>
                     </div>
+                        @if($election->statistics == true)
                         <div class="card border-3 border-top border-top-primary">
                             <div class="card-body">
                                 <h5 class="text-muted">Active voters</h5>
@@ -135,7 +136,7 @@
                                     <h1 class="mb-1">{{$stat_active_voters}}</h1>
                                 </div>
                                 <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                    <span class="ml-1">{{round($stat_active_voters/$stat_voter, 2)*100}}%</span>
+                                    <span class="ml-1">@if($stat_voter > 0){{round($stat_active_voters/$stat_voter, 2)*100}}@else 0 @endif%</span>
                                 </div>
                             </div>
                         </div>
@@ -146,10 +147,11 @@
                                     <h1 class="mb-1">{{$stat_outcome}}</h1>
                                 </div>
                                 <div class="metric-label d-inline-block float-right text-success font-weight-bold">
-                                    <span class="ml-1">{{round($stat_outcome/$stat_voter, 2)*100}}%</span>
+                                    <span class="ml-1">@if($stat_voter > 0){{round($stat_outcome/$stat_voter, 2)*100}}@else 0 @endif%</span>
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

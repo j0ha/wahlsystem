@@ -15,6 +15,7 @@ use App\Http\Controllers\securityController;
 | contains the "web" middleware group. Now create something great!
 |$thing, $UUID, $electionUUID
 */
+Route::get('home', '\App\Http\Controllers\HomeController@index');
 
 Route::get('/', function () {
     return view('welcome');

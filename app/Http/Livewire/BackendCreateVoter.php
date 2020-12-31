@@ -28,8 +28,8 @@ class BackendCreateVoter extends Component
         'voterSurname' => 'required|max:255',
         'voterDate' => 'required|date',
         'voterEmail' => 'required|email',
-        'form' => 'numeric|exists:forms,id',
-        'class' => 'numeric|exists:classes,id',
+        'form' => 'required|numeric|exists:forms,id',
+        'class' => 'required|numeric|exists:classes,id',
 
     ];
 

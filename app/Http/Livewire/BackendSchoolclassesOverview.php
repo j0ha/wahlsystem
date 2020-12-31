@@ -25,6 +25,11 @@ class BackendSchoolclassesOverview extends Component
 
   public $electionUUID;
 
+    protected $rules = [
+        'name' => 'required|max:255',
+        'form_id' => 'required|numeric',
+    ];
+
   public function mount($electionUUID) {
     $this->electionUUID = $electionUUID;
     $electionProcess = new electionProcessController($this->electionUUID);
@@ -70,6 +75,8 @@ class BackendSchoolclassesOverview extends Component
     }
 
     public function create(){
+
+
       $this->schoolclassUUID = '';
       $this->name = '';
       $this->form_id = null;
@@ -77,6 +84,7 @@ class BackendSchoolclassesOverview extends Component
     }
 
     public function createSave(){
+      $this->validate();
       $schoolclass = new Schoolclass;
       $electionProcess = new electionProcessController($this->electionUUID);
       $schoolclass->name = $this->name;

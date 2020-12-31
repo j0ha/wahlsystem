@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Candidate;
 use App\Terminal;
 use App\Voter;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Election;
 use Illuminate\Support\Facades\Auth;
@@ -57,13 +58,21 @@ class electionControlling extends Controller
     public function sendEmails(Request $request) {
         $user = Auth::user();
         if($user->hasPermissionTo($request->eUUID)){
-            $electionProcessController = new electionProcessController($request->eUUID);
-            $emailController = new emailController($request->eUUID);
-            $voters = Voter::where([
-                ['election_id', '=', $electionProcessController->getId($request->eUUID, 'elections')],
-                ['got_email', '=', '0'],
-            ])->get();
-            $emailController->sendBulkInvations($voters, $request->terminalUUID);
+            $election = Election::where('uuid', $request->eUUID)->firstOrFail();
+            if($election->email_terminal == null) {
+                $electionProcessController = new electionProcessController($request->eUUID);
+                $emailController = new emailController($request->eUUID);
+                $voters = Voter::where([
+                    ['election_id', '=', $electionProcessController->getId($request->eUUID, 'elections')],
+                    ['got_email', '=', '0'],
+                ])->get();
+                $emailController->sendBulkInvations($voters, $request->terminalUUID);
+                $time = new Carbon(date('Y-m-d H:i:00'));
+                Election::where('uuid', $request->eUUID)->update(['email_sendtime' => $time, 'email_terminal'=>$request->terminalUUID]);
+            } else {
+                return back()->with('emailError', 'Error: The election already sent E-Mails to every Voter, you still can send them individualy');
+            }
+
         } else {
             return abort(404);
 
@@ -74,7 +83,15 @@ class electionControlling extends Controller
     public function planEmail(Request $request){
         $user = Auth::user();
         if($user->hasPermissionTo($request->eUUID)){
-            Election::where('uuid', $request->eUUID)->update(['email_send-time' => $request->starttimeEmail, 'email_terminal'=>$request->terminalUUID]);
+
+            $election = Election::where('uuid', $request->eUUID)->firstOrFail();
+            if($election->email_terminal == null) {
+                $time = new Carbon($request->starttimeEmail);
+                Election::where('uuid', $request->eUUID)->update(['email_sendtime' => $time, 'email_terminal'=>$request->terminalUUID]);
+            } else {
+                return back()->with('emailError', 'Error: The election already sent E-Mails to every Voter, you still can send them individualy');
+            }
+
         } else {
             return abort(404);
 

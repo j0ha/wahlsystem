@@ -132,11 +132,16 @@
               <div class="card-body">
                   <div class="">
                       <h4>Send E-Mail invitations to every voter</h4>
-                      <a href="" class="btn btn-primary" data-toggle="modal" data-target="#sendnow">Send now</a>
-                      <a href="" class="btn btn-primary" data-toggle="modal" data-target="#sendplan">Plan a timetable</a>
+                      <a href="" class="btn btn-primary @if($selectedE[0]->email_sendtime != null OR $selectedE[0]->email_terminal != null) disabled @endif" data-toggle="modal" data-target="#sendnow">Send now</a>
+                      <a href="" class="btn btn-primary @if($selectedE[0]->email_sendtime != null OR $selectedE[0]->email_terminal != null) disabled @endif" data-toggle="modal" data-target="#sendplan">Plan a timetable</a>
                   </div>
-                  @if(\Session::has('activeError'))
-                      <span class="error text-danger">{{\Session::get('activeError')}}</span>
+                  @if(\Session::has('emailError'))
+                      <span class="error text-danger">{{\Session::get('emailError')}}</span>
+                  @endif
+                  @if($selectedE[0]->email_sendtime != null OR $selectedE[0]->email_terminal != null)
+                  <div class="alert alert-secondary mt-3" role="alert">
+                      The scheduler is set to {{$selectedE[0]->email_sendtime}}.
+                  </div>
                   @endif
               </div>
           </div>
@@ -247,7 +252,7 @@
                   <p>Möchtest du wirklich eine E-Mail an alle Voter versenden?</p>
               </div>
               <div class="modal-footer">
-                  <a href="" class="btn btn-secondary" data-dismiss="modal">Cancek</a>
+
                   <form action="{{route('e.email')}}" method="post">
                       @csrf
                       @if($terminals)
@@ -261,7 +266,10 @@
                               </select>
                           </div>
                       @endif
-                      <button class="btn btn-primary">Send</button>
+                      <div class="form-group">
+                          <button class="btn btn-primary">Send</button>
+                          <a href="" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                      </div>
                       <input type="hidden" name="eUUID" value="{{$selectedE[0]->uuid}}">
                   </form>
 

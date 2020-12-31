@@ -72,7 +72,13 @@ class statsController extends Controller
 
       foreach($forms as $form) {
         $votersFormCount = Voter::where('form_id', $form->id)->count();
-        $formspreadStat[] = array($form->name, round($votersFormCount/$votersCount*100, 2));
+
+        if($votersFormCount > 0 AND $votersCount > 0) {
+            $formspreadStat[] = array($form->name, round($votersFormCount/$votersCount*100, 2));
+        } else {
+            $formspreadStat[] = array($form->name, 0);
+        }
+
 
       }
       return $formspreadStat;

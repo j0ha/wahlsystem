@@ -36,7 +36,7 @@ class BackendSecurityreporter extends Component
     public function render()
     {
         return view('livewire.backend-securityreporter', [
-            'reports' => Securityreport::search($this->search, $this->electionUUID)
+            'reports' => Securityreport::search($this->search)
                 ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
                 ->simplePaginate($this->perPage),
         ]);

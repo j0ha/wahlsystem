@@ -32,10 +32,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Securityreport extends Model
 {
-    public static function search($search, $electionUUID)
+    public static function search($search)
     {
-        return empty($search) ? static::query()->where('election_uuid', $electionUUID)
-            : static::query()->where('id', 'like', '%'.$search.'%')->where('election_uuid', $electionUUID)
-                ->orWhere('description', 'like', '%'.$search.'%')->where('election_uuid', $electionUUID);
+        return empty($search) ? static::query()->where('id', '>=', 1)
+            : static::query()->where('id', 'like', '%'.$search.'%')
+                ->orWhere('description', 'like', '%'.$search.'%');
     }
 }

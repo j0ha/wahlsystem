@@ -14,7 +14,7 @@ class BackendSecurityreporter extends Component
     public $perPage = 20;
     public $search = '';
     public $orderBy = 'id';
-    public $orderAsc = true;
+    public $orderAsc = false;
 
     public $report_id;
     public $report_importance;
@@ -44,25 +44,12 @@ class BackendSecurityreporter extends Component
 
     public function delete($id) {
         $report = Securityreport::find($id);
-
-        if($report->election_uuid == $this->electionUUID) {
            $report->delete();
-        } else {
-            $securityreporter = new securityreporterController($this->electionUUID);
-            $securityreporter->report('tried to delete forbidden security report',3, get_class(),'IP: '. \Request::getClientIp(), null);
-        }
-    }
-
-    public function downloadList() {
 
     }
 
-    public function downloadPDF() {
-
-    }
-
-    public function print() {
-
+    public function deleteAll() {
+        $reports = Securityreport::where('id', '!=', 1)->delete();
     }
 
     public function show($id) {

@@ -105,7 +105,11 @@ class BackendTerminalsOverview extends Component
       $this->start_time = $terminal->start_time;
       $this->end_time = $terminal->end_time;
       $this->ip_restriction = $terminal->ip_restriction;
-      $this->url = route('vote', ['electionUUID' => $this->electionUUID, 'terminalUUID' => $this->terminalUUID]);
+      if ($terminal->kind != config('terminalkinds.email.short')){
+          $this->url = route('vote', ['electionUUID' => $this->electionUUID, 'terminalUUID' => $this->terminalUUID]);
+      } else {
+          $this->url = null;
+      }
     }
 
     public function create(){

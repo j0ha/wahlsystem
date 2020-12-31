@@ -73,7 +73,7 @@ class Vote extends Component
               $this->redirect(route('escape'));
           }
         } else {
-          $securityreporter->report('directUUID does not fit to terminalUUID', 4, get_class(), 'IP: '.\Request::getClientIp(), null);
+          $securityreporter->report('try to access terminal with wrong attributs.', 4, get_class(), 'IP: '.\Request::getClientIp(). ' Possible: try to open E-Mail terminal without direct_uuid', null);
           $this->redirect(route('escape'));
       }
 

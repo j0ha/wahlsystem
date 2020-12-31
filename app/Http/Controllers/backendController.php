@@ -42,6 +42,7 @@ class backendController extends Controller
       $user = Auth::user();
       $electionArray = Self::electionPermission($user);
       $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
+      $statistics_boolean = Election::where('uuid', $electionUUID)->firstOrFail()->statistics;
 
       $electionProcess = new electionProcessController($electionUUID);
       $statsController = new statsController($electionUUID);
@@ -59,7 +60,7 @@ class backendController extends Controller
       $stat_schoolclassesVoteTurnout = $statsController->schoolclassesVoteTurnout();
 
       if($user->hasPermissionTo($electionUUID)){
-        return view('backendviews.v2.dashboard',['electionUUID' => $electionUUID] , compact('electionArray', 'user', 'stat_voters', 'stat_questions', 'stat_votes', 'stat_terminalUsage', 'stat_terminals', 'stat_schoolclassesSpread', 'stat_formVoterSpread', 'stat_schoolclassesVoteTurnout', 'status'));
+        return view('backendviews.v2.dashboard',['electionUUID' => $electionUUID] , compact('statistics_boolean','electionArray', 'user', 'stat_voters', 'stat_questions', 'stat_votes', 'stat_terminalUsage', 'stat_terminals', 'stat_schoolclassesSpread', 'stat_formVoterSpread', 'stat_schoolclassesVoteTurnout', 'status'));
 
       } else {
         return redirect()->route('unauthorized');
@@ -249,7 +250,7 @@ class backendController extends Controller
         'candidateName' => 'required|max:255',
         'candidateDescription' => 'required|max:255',
         'candidateLevel' => 'required|numeric',
-        'candidateImage' => '',
+        'candidateImage' => 'image|max:2048|mimes:jpeg,png',
 
       ]);
 

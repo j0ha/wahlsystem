@@ -24,6 +24,7 @@
           </div>
       </div>
   </div>
+  @if($statistics_boolean == 1)
   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
       <div class="card border-3 border-top border-top-primary">
           <div class="card-body">
@@ -48,7 +49,9 @@
           </div>
       </div>
   </div>
+    @endif
 </div>
+
 <div class="row">
   <div class="col-xl-18 col-lg-12 col-md-6 col-sm-12 col-12">
       <div class="card">
@@ -86,6 +89,7 @@
       </div>
   </div>
 </div>
+@if($statistics_boolean == 1)
 <div class="row">
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
       <div class="card">
@@ -123,7 +127,7 @@
       </div>
   </div>
 </div>
-
+@endif
 
 
 

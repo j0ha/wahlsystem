@@ -45,6 +45,19 @@
      <label class="form-control"><h5>@if($selectedE[0]->status === "active" ) Active @else Deactivated @endif</h5></label>
     </div>
 </div>
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label text-md-right" for="email"><h4>{{ __('Manual-Activation:') }}</h4></label>
+        <div class="col-md-6">
+            <label class="form-control bg-light"><h5>@if($selectedE[0]->manual_voter_activation === 0 ) Active @else Deactivated @endif</h5></label>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-md-4 col-form-label text-md-right" for="email"><h4>{{ __('Election-Statistics:') }}</h4></label>
+        <div class="col-md-6">
+            <label class="form-control bg-light"><h5>@if($selectedE[0]->statistics === 0 ) Active @else Deactivated @endif</h5></label>
+        </div>
+    </div>
 
 
 </div>

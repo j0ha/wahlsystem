@@ -87,10 +87,10 @@
         <!-- ============================================================== -->
         <!-- left sidebar -->
         <!-- ============================================================== -->
-        <div class="nav-left-sidebar sidebar-dark">
-            <div class="menu-list">
-                <nav class="navbar navbar-expand-lg navbar-light">
-                    <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="nav-left-sidebar sidebar-dark" style="overflow-y: scroll;">
+            <div class="menu-list" style="overflow-y: scroll;">
+                <nav class="navbar navbar-expand-lg navbar-light" style="overflow-y: scroll;">
+                    <div class="collapse navbar-collapse" id="navbarNav" style="overflow-y: scroll;">
                         <ul class="navbar-nav flex-column">
                           @if(!empty($electionUUID))
                           <li class="nav-divider">
@@ -208,7 +208,7 @@
                         </ul>
                     </div>
                 </nav>
-                <div style="position: absolute; bottom: 5%; left: 3%;">
+                <div style="position: absolute; bottom: 7%; left: 4%;">
                     <a href="www.google.de">Impressum</a> - Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>
                 </div>
 

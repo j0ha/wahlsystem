@@ -7,6 +7,8 @@ use App\Helper;
 use App\User;
 use Illuminate\Http\Request;
 use PHPUnit\TextUI\Help;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class helperActivator extends Controller
 {
@@ -31,7 +33,7 @@ class helperActivator extends Controller
 
         Helper::where('token', $request->token)->delete();
 
-        return redirect(route('election.Dashboard', ['electionUUID', $election->uuid]));
+        return redirect(route('election.Dashboard', ['electionUUID' => $election->uuid]));
     }
 
     public function helpDecline(Request $request){

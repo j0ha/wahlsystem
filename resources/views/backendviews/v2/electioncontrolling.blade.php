@@ -74,6 +74,18 @@
                 @if(\Session::has('activeError'))
                     <span class="error text-danger">{{\Session::get('activeError')}}</span>
                 @endif
+
+                @if($selectedE[0]->activeby != null OR $selectedE[0]->activeto != null)
+                    <div class="alert alert-secondary mt-3" role="alert">
+                        @php
+                            $start = \Carbon\Carbon::create($selectedE[0]->activeby);
+                            $end = \Carbon\Carbon::create($selectedE[0]->activeto);
+                            \Carbon\Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
+                        @endphp
+                        The election will be set <span class="badge badge-success">live</span> at the {{$start}} <br>
+                        The election will be set <span class="badge badge-danger">ended</span> at the {{$end}}
+                    </div>
+                @endif
             </div>
         </div>
     </div>
@@ -132,15 +144,19 @@
               <div class="card-body">
                   <div class="">
                       <h4>Send E-Mail invitations to every voter</h4>
-                      <a href="" class="btn btn-primary @if($selectedE[0]->email_sendtime != null OR $selectedE[0]->email_terminal != null) disabled @endif" data-toggle="modal" data-target="#sendnow">Send now</a>
-                      <a href="" class="btn btn-primary @if($selectedE[0]->email_sendtime != null OR $selectedE[0]->email_terminal != null) disabled @endif" data-toggle="modal" data-target="#sendplan">Plan a timetable</a>
+                      <a href="" class="btn btn-primary @if($selectedE[0]->email_sendtime != null AND $selectedE[0]->email_terminal != null) disabled @endif" data-toggle="modal" data-target="#sendnow">Send now</a>
+                      <a href="" class="btn btn-primary @if($selectedE[0]->email_sendtime != null AND $selectedE[0]->email_terminal != null) disabled @endif" data-toggle="modal" data-target="#sendplan">Plan a timetable</a>
                   </div>
                   @if(\Session::has('emailError'))
                       <span class="error text-danger">{{\Session::get('emailError')}}</span>
                   @endif
                   @if($selectedE[0]->email_sendtime != null OR $selectedE[0]->email_terminal != null)
                   <div class="alert alert-secondary mt-3" role="alert">
-                      The scheduler is set to {{$selectedE[0]->email_sendtime}}.
+                      @php
+                          $time = \Carbon\Carbon::create($selectedE[0]->email_sendtime);
+                          \Carbon\Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
+                      @endphp
+                      The scheduler is set to the {{$time}}.
                   </div>
                   @endif
               </div>
@@ -290,11 +306,11 @@
                   <p>Möchtest du die Wahl wirklich für folgende Zeit planen?</p>
                   <form class="" action="{{route('e.planEmail')}}" method="post">
                       @csrf
-                      @if($terminals)
+                      @if($terminals != null)
                           <div class="form-group">
                               <label for="input-select">E-Mail Terminal</label>
                               <select name="terminalUUID" class="form-control" id="input-select">
-                                  <option>Choose Terminal for E-Mail sending</option>
+                                  <option value="">Choose Terminal for E-Mail sending</option>
                                   @foreach($terminals as $terminal)
                                       <option value="{{$terminal->uuid}}">{{$terminal->name}}</option>
                                   @endforeach

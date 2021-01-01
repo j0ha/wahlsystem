@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Election;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class endElection extends Command
@@ -38,12 +39,12 @@ class endElection extends Command
      */
     public function handle()
     {
-        $time = date("Y-m-d H:i:00");
+        $time = new Carbon(Carbon::now(config('app.timezone'))->format('Y-m-d H:i:00'));
         $elections = Election::where('status', 'live')->get();
-
         foreach($elections as $e){
-            if($e->activeto == $time){
-                Election::where('uuid', $e->uuid)->update(['status' => 'ended']);
+            $time_election = new Carbon($e->activeto, config('app.timezone'));
+            if($time->equalTo($time_election)){
+                Election::where('uuid', $e->uuid)->update(['status' => 'ended', 'realend' => Carbon::now(config('app.timezone'))]);
             }
         }
     }

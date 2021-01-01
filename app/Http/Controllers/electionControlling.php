@@ -84,14 +84,17 @@ class electionControlling extends Controller
         $user = Auth::user();
         if($user->hasPermissionTo($request->eUUID)){
 
-            $election = Election::where('uuid', $request->eUUID)->firstOrFail();
-            if($election->email_terminal == null) {
-                $time = new Carbon($request->starttimeEmail, config('app.timezone'));
-                Election::where('uuid', $request->eUUID)->update(['email_sendtime' => $time, 'email_terminal'=>$request->terminalUUID]);
+            if($request->terminalUUID != null) {
+                $election = Election::where('uuid', $request->eUUID)->firstOrFail();
+                if($election->email_terminal == null) {
+                    $time = new Carbon($request->starttimeEmail, config('app.timezone'));
+                    Election::where('uuid', $request->eUUID)->update(['email_sendtime' => $time, 'email_terminal'=>$request->terminalUUID]);
+                } else {
+                    return back()->with('emailError', 'Error: The election already sent E-Mails to every Voter, you still can send them individualy');
+                }
             } else {
-                return back()->with('emailError', 'Error: The election already sent E-Mails to every Voter, you still can send them individualy');
+                return back()->with('emailError', 'Error: please select a terminal!');
             }
-
         } else {
             return abort(404);
 

@@ -18,8 +18,7 @@ use App\Voter;
 use App\Form;
 use App\Schoolclass;
 use App\Candidate;
-
-
+use function Sodium\add;
 
 
 class backendController extends Controller
@@ -91,9 +90,15 @@ class backendController extends Controller
         $user = Auth::user();
         $electionArray = Self::electionPermission($user);
         $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
+        $users = User::permission($electionUUID)->get();
+        $pendingHelper = Helper::where('election_id', Election::where('uuid', $electionUUID)->firstOrFail()->id)->get();
+
+        foreach($pendingHelper as $pH){
+            $pendingUser[] = User::where('email', $pH->email)->get();
+        }
 
         if($user->hasPermissionTo($electionUUID)){
-            return view('backendviews.v2.electionhelper', ['electionUUID' => $electionUUID], compact('electionArray', 'user', 'status'));
+            return view('backendviews.v2.electionhelper', ['electionUUID' => $electionUUID], compact('electionArray', 'user', 'status', 'users', 'pendingUser'));
         } else {
             return redirect()->route('unauthorized');
         }
@@ -130,7 +135,7 @@ class backendController extends Controller
 
                    Mail::to($request->helperEmail)->queue(new helperInvitation($user, $election, $token));
 
-                   return redirect(route('home.without.election'));
+                   return redirect(route('election.Helper', ['electionUUID' => $request->electionUUID]))->with('success', 'We have sent the email to your seleceted emailadress.');
                    //Eine email an den User schicken mit dem Link ++ eine neue Route für bauen
 
                    //Wenn der User auf den Link klickt kann er die Einladung akzeptieren/ablehnen
@@ -140,7 +145,7 @@ class backendController extends Controller
                return back()->with('ownEmail', 'The email you selected is your own!');
            }
         } else {
-            return back()->with('emailError', 'The email you selected does not exist in our database.');
+            return back()->with('success', 'We have sent the email to your seleceted emailadress.');
         }
 
     }

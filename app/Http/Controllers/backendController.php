@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 
+use App\Helper;
+use App\Mail\electionInvitation;
+use App\Mail\helperInvitation;
 use App\Terminal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Election;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\User;
 use App\Voter;
@@ -81,6 +85,64 @@ class backendController extends Controller
       } else {
         return redirect()->route('unauthorized');
       }
+    }
+
+    public function indexWahlhelfer($electionUUID){
+        $user = Auth::user();
+        $electionArray = Self::electionPermission($user);
+        $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
+
+        if($user->hasPermissionTo($electionUUID)){
+            return view('backendviews.v2.electionhelper', ['electionUUID' => $electionUUID], compact('electionArray', 'user', 'status'));
+        } else {
+            return redirect()->route('unauthorized');
+        }
+
+    }
+
+    public function sendWahlhelfer(Request $request){
+        $request->validate([
+            'helperEmail' => 'required|max:255|email',
+        ]);
+
+        $user = Auth::user();
+        $checkUser = User::where('email',  $request->helperEmail)->first();
+
+        if(User::where('email', $request->helperEmail)->count() != 0){
+           if(User::where('email', $request->helperEmail)->firstOrFail()->email != $user->email) {
+               if ($checkUser->hasPermissionTo($request->electionUUID)) {
+
+                   return back()->with('permissionError', 'The user you selected does already have the permission.');
+
+               } else {
+                   $election = Election::where('uuid', $request->electionUUID)->firstOrFail();
+                   $h = new Helper();
+
+                   $h->uuid = Str::uuid();
+                   $h->token = $token = Str::uuid();
+                   $h->election_id = $election->id;
+                   $h->email = $request->helperEmail;
+
+                   $h->save();
+
+
+                   $user = User::where('email', $request->helperEmail)->firstOrFail();
+
+                   Mail::to($request->helperEmail)->queue(new helperInvitation($user, $election, $token));
+
+                   return redirect(route('home.without.election'));
+                   //Eine email an den User schicken mit dem Link ++ eine neue Route für bauen
+
+                   //Wenn der User auf den Link klickt kann er die Einladung akzeptieren/ablehnen
+                   //Datenbankeintrag wird wieder gelöscht und die Permission wird erteilt/einfach gelassen
+               }
+           } else {
+               return back()->with('ownEmail', 'The email you selected is your own!');
+           }
+        } else {
+            return back()->with('emailError', 'The email you selected does not exist in our database.');
+        }
+
     }
 
     public function indexElectionStats($electionUUID){

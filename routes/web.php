@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\helperInvitation;
 use Illuminate\Support\Facades\Route;
 use App\Mail\electionInvitation;
 use Illuminate\Support\Facades\Mail;
@@ -15,11 +16,9 @@ use App\Http\Controllers\securityController;
 | contains the "web" middleware group. Now create something great!
 |$thing, $UUID, $electionUUID
 */
-Route::get('home', '\App\Http\Controllers\HomeController@index');
+Route::get('/', '\App\Http\Controllers\HomeController@index')->name('home');
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+
 
 Route::get('/escape', function () {
     return view('welcome');
@@ -38,8 +37,7 @@ Route::get('/test/email/send', function(){
   Mail::to('taylor@example.com')->send(new electionInvitation('71c34c0b-1c7b-4396-a601-c0d1fa6b74eb'));
 });
 Route::get('/test/email', function(){
- $email = new \App\Http\Controllers\emailController('39dd732f-8e44-42a7-bdb3-96187f8c5846');
- $email->sendSingelInvation('164dbd5f-50ec-4ec9-ab05-24a5bf510d70', '196e6137-b5e2-4968-8d76-c42d40598e61');
+    Mail::to('lennard3010@gmail.com')->queue(new helperInvitation($user, $election, $token));
 });
 Route::get('/test/view', function(){
  return view('vote.spv.schoolforms');
@@ -63,6 +61,14 @@ Route::group(['prefix' => 'vote'], function(){
 
 });
 
+Route::group(['prefix' => 'invite'], function(){
+    Route::get('/{token}', '\App\Http\Controllers\helperActivator@helperActivate')->name('invite.election');
+    Route::post('/helpAccept', '\App\Http\Controllers\helperActivator@helpAccept')->name('helper.Accept');
+    Route::post('/helpDecline', '\App\Http\Controllers\helperActivator@helpDecline')->name('helper.Decline');
+});
+
+
+
 //ROUTES FOR BACKEND
 Route::group(['middleware' => ['auth', '2fa']], function (){
 Route::group(['prefix' => 'dvi'], function() {
@@ -76,6 +82,8 @@ Route::group(['prefix' => 'dvi'], function() {
     //Opens the electionBackend with an election selected
     Route::get('/{electionUUID}/Informations', 'App\Http\Controllers\backendController@indexInformations')->name('election.Informations');
 
+    Route::get('/{electionUUID}/ElectionHelper', 'App\Http\Controllers\backendController@indexWahlhelfer')->name('election.Helper');
+    Route::post('/ElectionHelper', 'App\Http\Controllers\backendController@sendWahlhelfer')->name('electionHelper');
 
     Route::get('/{electionUUID}/schoolclass', 'App\Http\Controllers\backendController@indexSchoolclass')->name('election.schoolclasses.overview');
 

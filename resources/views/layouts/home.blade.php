@@ -16,7 +16,7 @@
 
     <!-- Custom fonts for this template -->
     <link href="{{asset('backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('vendor/simple-line-icons/css/simple-line-icons.css')}}">
+    <link rel="stylesheet" href="{{asset('backend/vendor/simple-line-icons/css/simple-line-icons.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{{asset('device-mockups/device-mockups.min.css')}}">
 
     <!-- Custom styles for this template -->
-    <link href="{{asset('css/new-age.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/new-age.css')}}" rel="stylesheet">
 
 
 </head>
@@ -42,15 +42,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#download">Download</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#features">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
-                </li>
+
+
+
             </ul>
         </div>
 
@@ -78,7 +72,7 @@
         <div class="row h-100">
             <div class="col-lg-7 my-auto">
                 <div class="header-content mx-auto">
-                    <h1 class="mb-5">Einfachabstimmen.online is an election host that supports school speaker elections.</h1>
+                    <h1 class="mb-5">Einfachabstimmen.online is your host for school speaker elections.</h1>
                     @if (Route::has('login'))
 
                         @auth
@@ -97,7 +91,7 @@
             </div>
             <div class="col-lg-5 my-auto">
                 <div class="device-container">
-                    <div class="device-mockup iphone6_plus portrait white">
+                    <div class="device-mockup imac portrait">
                         <div class="device">
                             <div class="screen">
                                 <!-- Demo image for screen mockup, you can put an image here, some HTML, an animation, video, or anything else! -->
@@ -114,20 +108,7 @@
     </div>
 </header>
 
-<section class="download bg-primary text-center" id="download">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 mx-auto">
-                <h2 class="section-heading">Discover what all the buzz is about!</h2>
-                <p>Our app is available on any mobile device! Download now to get started!</p>
-                <div class="badges">
-                    <a class="badge-link" href="#"><img src="img/google-play-badge.svg" alt=""></a>
-                    <a class="badge-link" href="#"><img src="img/app-store-badge.svg" alt=""></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 
 <section class="features" id="features">
     <div class="container">
@@ -202,30 +183,7 @@
     <div class="overlay"></div>
 </section>
 
-<section class="contact bg-primary" id="contact">
-    <div class="container">
-        <h2>Look for us on social media!
-            <i class="fas fa-heart"></i>
-           </h2>
-        <ul class="list-inline list-social">
-            <li class="list-inline-item social-twitter">
-                <a href="#">
-                    <i class="fab fa-instagram"></i>
-                </a>
-            </li>
-            <li class="list-inline-item social-facebook">
-                <a href="#">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-            </li>
-            <li class="list-inline-item social-google-plus">
-                <a href="#">
-                    <i class="fab fa-google-plus-g"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
-</section>
+
 
 <footer>
     <div class="container">

@@ -103,7 +103,7 @@
                                 <a class="nav-link" href="{{route('election.Informations', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-info"></i>Basic-Informations</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fas fa-fw fa-hands-helping"></i>Wahlhelfer</a>
+                                <a class="nav-link" href="{{route('election.Helper', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-hands-helping"></i>Wahlhelfer</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('election.terminals.overview', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fas fa-desktop"></i>Terminals</a>

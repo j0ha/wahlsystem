@@ -6,6 +6,7 @@ use App\Election;
 use App\Http\Controllers\electionProcessController;
 use App\Http\Controllers\emailController;
 use App\Voter;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class sendEmail extends Command
@@ -41,11 +42,12 @@ class sendEmail extends Command
      */
     public function handle()
     {
-        $time = date("Y-m-d H:i:00");
+        $time = new Carbon(Carbon::now(config('app.timezone'))->format('Y-m-d H:i:00'));
         $elections = Election::where('email_sendtime', '!=', null)->get();
 
         foreach($elections as $e){
-            if($e->email_sendtime == $time){
+            $time_election = new Carbon($e->activeto, config('app.timezone'));
+            if($time->equalTo($time_election)){
                 $electionProcessController = new electionProcessController($e->uuid);
                 $emailController = new emailController($e->uuid);
                 $voters = Voter::where([

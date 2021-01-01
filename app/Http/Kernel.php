@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'planned' => \App\Http\Middleware\planned::class,
         'waiting' => \App\Http\Middleware\waiting::class,
         'admin' => \App\Http\Middleware\AdminRole::class,
+        '2fa' => \PragmaRX\Google2FALaravel\Middleware::class,
     ];
 }

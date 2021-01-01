@@ -64,7 +64,7 @@ Route::group(['prefix' => 'vote'], function(){
 });
 
 //ROUTES FOR BACKEND
-Route::group(['middleware' => 'auth'], function (){
+Route::group(['middleware' => ['auth', '2fa']], function (){
 Route::group(['prefix' => 'dvi'], function() {
   Route::group(['prefix' => 'home'], function(){
     /*==============================================================
@@ -161,9 +161,9 @@ Route::group(['prefix' => 'dvi'], function() {
 
     Route::group(['prefix' => 'profil'],  function() {
         //Lists up all of the data, some fields maybe changeable?
-        Route::get('/data', 'App\Http\Controllers\backendController@indexProfile')->name('profile.Data')->middleware('auth');
-        Route::post('/profileUpdate', 'App\Http\Controllers\backendController@updateProfile')->name('profile.Data.Update')->middleware('auth');
-        Route::post('/profileDelete', 'App\Http\Controllers\backendController@deleteProfile')->name('profile.Data.DeleteProfile')->middleware('auth');
+        Route::get('/data', 'App\Http\Controllers\backendController@indexProfile')->name('profile.Data')->middleware(['auth', '2fa']);
+        Route::post('/profileUpdate', 'App\Http\Controllers\backendController@updateProfile')->name('profile.Data.Update')->middleware(['auth', '2fa']);
+        Route::post('/profileDelete', 'App\Http\Controllers\backendController@deleteProfile')->name('profile.Data.DeleteProfile')->middleware(['auth', '2fa']);
         //Open for everything
         Route::get('/', function(){return 'user profil setting site';});
 
@@ -195,6 +195,11 @@ Route::post('/electionPlanEmail', 'App\Http\Controllers\electionControlling@plan
 Route::namespace('App\Http\Controllers')->group(function () {
     Auth::routes();
 });
+
+Route::get('/complete-registration', 'App\Http\Controllers\Auth\RegisterController@completeRegistration')->name('complete.2fa');
+Route::post('/2fa', function () {
+    return redirect(URL()->previous());
+})->name('2fa')->middleware('2fa');
 
 
 Route::get('/ade', function () {

@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->boolean('approved')->default(1);
             $table->rememberToken();
             $table->timestamps();
+            $table->text('google2fa_secret');
         });
     }
 

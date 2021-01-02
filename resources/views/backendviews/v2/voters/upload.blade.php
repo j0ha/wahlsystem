@@ -34,6 +34,14 @@
                         <label for="switch16"></label></span>
                         </div>
                   </div>
+                    <div class="form-group">
+                        <label class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" name="directly" class="custom-control-input" value="true"><span class="custom-control-label">Create direct access</span>
+                        </label>
+                        <label class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" name="directly" class="custom-control-input" value="false"><span class="custom-control-label">Do not create direct access</span>
+                        </label>
+                    </div>
 
                   <div class="form-group">
                       <input type="submit" name="submit" placeholder="Upload" class="btn btn-primary">

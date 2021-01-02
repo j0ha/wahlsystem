@@ -45,6 +45,14 @@
                             @error('class') <span class="error text-danger"> {{ $message }} </span> @enderror
                         </div>
                         <div class="form-group">
+                            <label class="custom-control custom-radio custom-control-inline">
+                                <input wire:model="directly" type="radio" name="radio-inline" class="custom-control-input" value="true"><span class="custom-control-label">Create direct access</span>
+                            </label>
+                            <label class="custom-control custom-radio custom-control-inline">
+                                <input wire:model="directly" type="radio" name="radio-inline" class="custom-control-input" value="false"><span class="custom-control-label">Do not create direct access</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
 

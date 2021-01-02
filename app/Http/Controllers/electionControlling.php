@@ -65,6 +65,7 @@ class electionControlling extends Controller
                 $voters = Voter::where([
                     ['election_id', '=', $electionProcessController->getId($request->eUUID, 'elections')],
                     ['got_email', '=', '0'],
+                    ['direct_uuid', '!=', null],
                 ])->get();
                 $emailController->sendBulkInvations($voters, $request->terminalUUID);
                 $time = new Carbon(Carbon::now(), config('app.timezone'));

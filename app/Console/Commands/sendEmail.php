@@ -53,6 +53,7 @@ class sendEmail extends Command
                 $voters = Voter::where([
                     ['election_id', '=', $electionProcessController->getId($e->uuid, 'elections')],
                     ['got_email', '=', '0'],
+                    ['direct_uuid', '!=', null],
                 ])->get();
                 $emailController->sendBulkInvations($voters, $e->email_terminal);
             }

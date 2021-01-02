@@ -48,6 +48,8 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSurname($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $google2fa_secret
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGoogle2faSecret($value)
  */
 class User extends Authenticatable
 {

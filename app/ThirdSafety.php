@@ -11,6 +11,18 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|ThirdSafety newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ThirdSafety query()
  * @mixin \Eloquent
+ * @property int $id
+ * @property string $election_uuid
+ * @property string $candidate_uuid
+ * @property int $candidate_value
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|ThirdSafety whereCandidateUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ThirdSafety whereCandidateValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ThirdSafety whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ThirdSafety whereElectionUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ThirdSafety whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ThirdSafety whereUpdatedAt($value)
  */
 class ThirdSafety extends Model
 {

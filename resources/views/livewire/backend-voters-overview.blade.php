@@ -39,7 +39,11 @@
                     @endphp
                     <td>{{$className[0]->name}}</td>
 
-                    <td>@if($voter->voted_via_email)<span class="badge badge-pill badge-success mx-1">voted directly</span>@elseif ($voter->voted_via_terminal)<span class="badge badge-pill badge-success mx-1">voted via terminal</span>@else<span class="badge badge-pill badge-light mx-1">not voted</span>@endif @if($voter->direct_uuid)<span class="badge badge-pill badge-success mx-1">created directly</span>@else<span class="badge badge-pill badge-light mx-1">created directly</span>@endif @if($voter->got_email == true)<span class="badge badge-pill badge-success mx-1">E-Mail sent</span>@else<span class="badge badge-pill badge-light mx-1">E-Mail sent</span>@endif</td>
+                    <td>@if($voter->voted_via_email)<span class="badge badge-pill badge-success mx-1">voted directly</span>@elseif ($voter->voted_via_terminal)<span class="badge badge-pill badge-success mx-1">voted via terminal</span>@else<span class="badge badge-pill badge-light mx-1">not voted</span>@endif
+                        @if($voter->direct_uuid)<span class="badge badge-pill badge-success mx-1">created directly</span>@else<span class="badge badge-pill badge-light mx-1">created directly</span>@endif
+                        @if($voter->got_email == true)<span class="badge badge-pill badge-success mx-1">E-Mail sent</span>@else<span class="badge badge-pill badge-light mx-1">E-Mail sent</span>@endif
+                        @if($voter->activated == true)<span class="badge badge-pill badge-success mx-1">activated</span>@else<span class="badge badge-pill badge-warning mx-1">activated</span>@endif
+                    </td>
                     <td>
                         <button wire:click.lazy="editVoter('{{$voter->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Edit</button>
                         <button wire:click.lazy="viewVoter('{{$voter->uuid}}')" data-toggle="modal" data-target="#viewModal" type="button" class="btn btn-primary mx-1">View</button>
@@ -125,7 +129,7 @@
                     </a>
                 </div>
                 <div class="modal-body">
-                    @if($terminals)
+                    @if($terminals AND $hasDirectly == true)
                     <div class="form-group">
                         <label for="input-select">E-Mail Terminal</label>
                         <select wire:model="terminal_sel" class="form-control" id="input-select">
@@ -136,9 +140,9 @@
                         </select>
                     </div>
                         <button wire:click.lazy="sendEmail()" class="btn btn-light mx-2 my-2" data-dismiss="modal" @if($terminal_sel == null) disabled @endif>Send E-Mail</button>
+                        <button wire:click.lazy="downloadSheet()" class="btn btn-light mx-2 my-2" data-dismiss="modal" @if($terminal_sel == null) disabled @endif>Download the Page</button>
                     @endif
-                        <button wire:click.lazy="downloadSheet()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Download the Page</button>
-                            <button wire:click.lazy="copyDirect()" class="btn btn-light mx-2 my-2" data-dismiss="modal">Copy Direkt-Link</button>
+                            <button wire:click.lazy="direct()" class="btn btn-light mx-2 my-2" data-dismiss="modal" @if($hasDirectly == true) disabled @endif>Generate directly</button>
                                 <button wire:click.lazy="deleteVoter()" class="btn btn-danger mx-2 my-2" data-dismiss="modal">Delete</button>
                 </div>
                 <div class="modal-footer">

@@ -44,6 +44,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Voter whereVotedViaEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Voter whereVotedViaTerminal($value)
  * @mixin \Eloquent
+ * @property int $activated
+ * @method static \Illuminate\Database\Eloquent\Builder|Voter whereActivated($value)
  */
 class Voter extends Model
 {

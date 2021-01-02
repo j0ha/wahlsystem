@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Http\Controllers\emailController;
 use App\Terminal;
 use App\Voter;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Http\Controllers\electionProcessController;
@@ -29,6 +30,7 @@ class BackendVotersOverview extends Component
   public $email;
   public $terminals;
   public $terminal_sel;
+  public $hasDirectly;
 
   public $electionUUID;
 
@@ -81,6 +83,13 @@ class BackendVotersOverview extends Component
             $this->surname = $voter->surname;
             $this->birth_year = $voter->birth_year;
             $this->email = $voter->email;
+            if($voter->direct_uuid == null) {
+                $this->hasDirectly = false;
+            } else {
+                $this->hasDirectly = true;
+            }
+
+
     }
 
     public function sendEmail() {
@@ -92,15 +101,15 @@ class BackendVotersOverview extends Component
       redirect()->route('download.singelInvitation', ['voterUUID' => $this->voterUUID, 'electionUUID'=>$this->electionUUID]);
     }
 
-    public function downloadList() {
-
+    public function direct() {
+        $voter = Voter::where('uuid', $this->voterUUID)->firstOrFail();
+        if($voter->direct_uuid == null) {
+            $voter->direct_uuid = Str::uuid();
+            $voter->update();
+        }
     }
 
     public function downloadPDF() {
         redirect()->route('download.voters', ['electionUUID'=>$this->electionUUID]);
-    }
-
-    public function print() {
-
     }
 }

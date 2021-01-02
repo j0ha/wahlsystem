@@ -416,7 +416,7 @@ class backendController extends Controller
 
     public function votersAddMany(Request $request){
 
-        $electionID = Election::where('uuid', $request->electionUUID)->firstOrFail()->id;
+        $election = Election::where('uuid', $request->electionUUID)->firstOrFail();
 
 
         if ($request->input('submit') != null ){
@@ -451,7 +451,7 @@ class backendController extends Controller
                     foreach($importData_arr as $importData){
 
                         //Query holt sich den Jahrgang
-                        $jahrgang  = Form::where('election_id', $electionID)->where('name', $importData[4])->first();
+                        $jahrgang  = Form::where('election_id', $election->id)->where('name', $importData[4])->first();
 
                         //Abfrage ob es einen Jahrgang gibt wenn nein wird ein neuer erstellt + der Voter wird diesem Jahrgang zugeordnet
 
@@ -460,7 +460,7 @@ class backendController extends Controller
                                 $formUUID=Str::uuid();
                                 $form = new Form();
                                 $form->name = $importData[4];
-                                $form->election_id = $electionID;
+                                $form->election_id = $election->id;
                                 $form->uuid = $formUUID;
                                 $form->save();
 
@@ -470,7 +470,7 @@ class backendController extends Controller
 
 
                         //Query holt sich die Klasse
-                        $schoolclass  = Schoolclass::where('election_id', $electionID)->where('name', $importData[5])->first();
+                        $schoolclass  = Schoolclass::where('election_id', $election->id)->where('name', $importData[5])->first();
 
                         //Abfrage ob es einen Jahrgang gibt wenn nein wird ein neuer erstellt + der Voter wird diesem Jahrgang zugeordnet
 
@@ -479,7 +479,7 @@ class backendController extends Controller
 
                                 $class = new Schoolclass();
                                 $class->name = $importData[5];
-                                $class->election_id = $electionID;
+                                $class->election_id = $election->id;
                                 $class->form_id = Form::where('uuid', $formUUID)->firstOrFail()->id;
                                 $class->uuid = $schoolclassUUID=Str::uuid();
                                 $class->save();
@@ -492,9 +492,16 @@ class backendController extends Controller
                         $v->surname = $importData[1];
                         $v->birth_year = $importData[2];
                         $v->uuid = Str::uuid();
-                        $v->direct_uuid = Str::uuid();
+                        if($request->directly == 'true') {
+                            $v->direct_uuid = Str::uuid();
+                        }
                         $v->email = $importData[3];
-                        $v->election_id = $electionID;
+                        $v->election_id = $election->id;
+                        if($election->manual_voter_activation == true) {
+                            $v->activated = false;
+                        } else {
+                            $v->activated = true;
+                        }
 
                         if(!(empty($jahrgang))){
                             $v->form_id = $jahrgang->id;

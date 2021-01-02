@@ -16,6 +16,7 @@ class BackendCreateVoter extends Component
     public $voterSurname;
     public $voterDate;
     public $voterEmail;
+    public $directly;
 
     public $form;
     public $classes=[];
@@ -49,6 +50,7 @@ class BackendCreateVoter extends Component
     }
 
     public function submit(){
+        $election = Election::where('uuid', $this->electionUUID)->firstOrFail();
         $this->validate();
 
         $voter = new Voter;
@@ -57,7 +59,9 @@ class BackendCreateVoter extends Component
         $voter->name = $this->voterName;
         $voter->birth_year = $this->voterDate;
         $voter->uuid = Str::uuid();
-        $voter->direct_uuid = Str::uuid();
+        if($this->directly == 'true') {
+            $voter->direct_uuid = Str::uuid();
+        }
         $voter->email = $this->voterEmail;
         $voter->election_id = Election::where('uuid', $this->electionUUID)->firstOrFail()->id;
         if(Schoolclass::where('id', $this->class)->firstOrFail()->form_id == $this->form){
@@ -66,6 +70,12 @@ class BackendCreateVoter extends Component
             return "Error: The ID's are not correct!";
         }
         $voter->form_id = $this->form;
+
+        if($election->manual_voter_activation == true) {
+            $voter->activated = false;
+        } else {
+            $voter->activated = true;
+        }
 
         $voter->save();
 

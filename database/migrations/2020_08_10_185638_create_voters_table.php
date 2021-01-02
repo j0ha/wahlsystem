@@ -22,7 +22,7 @@ class CreateVotersTable extends Migration
             $table->boolean('voted_via_terminal')->default(false);
             $table->boolean('got_email')->default(false);
             $table->uuid('uuid');
-            $table->uuid('direct_uuid');
+            $table->uuid('direct_uuid')->nullable();
             $table->char('direct_token')->nullable();
             $table->string('email')->nullable();
             $table->integer('election_id');

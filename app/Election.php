@@ -43,6 +43,18 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Election whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Election whereUuid($value)
  * @mixin \Eloquent
+ * @property int $statistics
+ * @property string|null $realstart
+ * @property string|null $realend
+ * @property int $manual_voter_activation
+ * @property string|null $email_sendtime
+ * @property string|null $email_terminal
+ * @method static \Illuminate\Database\Eloquent\Builder|Election whereEmailSendtime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Election whereEmailTerminal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Election whereManualVoterActivation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Election whereRealend($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Election whereRealstart($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Election whereStatistics($value)
  */
 class Election extends Model
 {

@@ -11098,8 +11098,3 @@ a.text-dark:focus {
     background-color: #cccccc;
 }
 
-@media screen and (max-width: 600px){
-  .eao-vote-body {
-    -webkit-flex-direction: row;
-    flex-direction: row;
-  }

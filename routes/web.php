@@ -27,29 +27,6 @@ Route::get('/impressum', '\App\Http\Controllers\HomeController@indexImpressum')-
                             BEGIN VOTING
  *********************************************************************/
 
-Route::get('/escape', function () {
-    return view('welcome');
-})->name('escape');
-
-//TESTROUTE
-Route::get('/testRoute/{thing}/{uuid}/{elctionUUID}', 'App\Http\Controllers\securityController@verifyToElection', ['thing' => 'thing'], ['uuid' => 'UUID'], ['electionUUID' => 'electionUUID']);
-Route::get('/tesA/{voterUUID}', 'App\Http\Controllers\securityController@voteVerification', ['voterUUID' => 'voterUUID']);
-Route::get('/testy', 'App\Http\Controllers\electiontypes\spv@getThem');
-
-
-
-Route::get('/testRoute/candidates/{electionUUID}', 'App\Http\Controllers\electionProcessController@querryElectionCandidates', ['electionUUID' => 'electionUUID']);
-Route::get('/testRoute/stat/{electionUUID}', 'App\Http\Controllers\statsController@schoolclassesVoteTurnout', ['electionUUID' => 'electionUUID']);
-Route::get('/test/email/send', function(){
-  Mail::to('taylor@example.com')->send(new electionInvitation('71c34c0b-1c7b-4396-a601-c0d1fa6b74eb'));
-});
-
-Route::get('/test/view', function(){
- return view('vote.spv.schoolforms');
-});
-
-Route::get('/test/{userUUID}', 'App\Http\Controllers\paperController@downloadSingelInvitation', ['userUUID' => 'userUUID']);
-
 //ROUTES FOR TERMINAL
 Route::group(['prefix' => 'vote'], function(){
   //STANDARD ROUTE
@@ -231,3 +208,9 @@ Route::group(['prefix' => 'invite'], function(){
     Route::post('/helpDecline', '\App\Http\Controllers\helperActivator@helpDecline')->name('helper.Decline');
 });
 
+/*==============================================================
+                         UNAUTHORIZED ROUTES
+  ==============================================================*/
+Route::get('/escape', function () {
+    return view('welcome');
+})->name('escape');

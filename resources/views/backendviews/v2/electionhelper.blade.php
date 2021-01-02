@@ -68,6 +68,7 @@
 
                                 </tr>
                             @endforeach
+                            @if(!empty($pendingUser))
                             @foreach($pendingUser as $p)
                                 <tr>
                                     <td>{{$p[0]->name}}</td>
@@ -77,6 +78,7 @@
 
                                 </tr>
                             @endforeach
+                                @endif
                             </tbody>
 
                         </table>

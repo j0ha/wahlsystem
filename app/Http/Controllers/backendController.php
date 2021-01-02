@@ -92,10 +92,14 @@ class backendController extends Controller
         $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
         $users = User::permission($electionUUID)->get();
         $pendingHelper = Helper::where('election_id', Election::where('uuid', $electionUUID)->firstOrFail()->id)->get();
-
-        foreach($pendingHelper as $pH){
-            $pendingUser[] = User::where('email', $pH->email)->get();
+        if(!empty($pendingUser)){
+            foreach($pendingHelper as $pH){
+                $pendingUser[] = User::where('email', $pH->email)->get();
+            }
+        } else {
+            $pendingUser = null;
         }
+
 
         if($user->hasPermissionTo($electionUUID)){
             return view('backendviews.v2.electionhelper', ['electionUUID' => $electionUUID], compact('electionArray', 'user', 'status', 'users', 'pendingUser'));

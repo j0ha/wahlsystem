@@ -54,7 +54,7 @@ class BackendCandidatesOverview extends Component
     public function deleteCandidate($candidateUUID) {
       $candidate = Candidate::where('uuid', $candidateUUID)->firstOrFail();
 
-      if($candidate->deleteable == true) {
+      if($candidate->deletable == true) {
           $candidate->delete();
       }
     }

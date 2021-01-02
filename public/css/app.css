@@ -623,6 +623,8 @@ pre code {
   }
 }
 
+
+
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -11095,3 +11097,9 @@ a.text-dark:focus {
 .eao-vote-bg-lite {
     background-color: #cccccc;
 }
+
+@media screen and (max-width: 600px){
+  .eao-vote-body {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+  }

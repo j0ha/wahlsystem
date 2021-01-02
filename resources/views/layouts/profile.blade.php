@@ -83,24 +83,12 @@
     <div class="container bootstrap snippet">
 
     <div class="row">
-  	<div class="col-sm-3"><!--left col-->
-
-
-    <ul class="list-group">
-     <li class="list-group-item text-muted">Usage table: <i class="fa fa-dashboard fa-1x"></i></li>
-     <li class="list-group-item text-right"><span class="pull-left"><strong>Alltime Elections: </strong></span> 125</li>
-     <li class="list-group-item text-right"><span class="pull-left"><strong>Active Elections: </strong></span> 13</li>
-     <li class="list-group-item text-right"><span class="pull-left"><strong>Participated: </strong></span> 37</li>
-     <li class="list-group-item text-right"><span class="pull-left"><strong>IDK: </strong></span> 78</li>
-    </ul>
-
-    </div><!--/col-3-->
 
     <div class="col-sm-9">
       <ul class="nav nav-tabs">
 
         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Profile</a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#permissions">Permissions</a></li>
+
         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#privacy">Privacy</a></li>
 
       </ul>
@@ -240,37 +228,7 @@
     </div>
       <!--Ending of Profile Tab-->
 
-      <!--Starting of Permission Tab-->
 
-      <div class="tab-pane" id="permissions">
-        <br>
-        <div class="container">
-        <div class="row justify-content-center">
-        <div class="col-md-12">
-        <div class="card">
-        <div class="card-header">{{ __('Profile-RegisterCard') }}</div>
-
-        <div class="card-body">
-          <h5>Roles:</h5>
-
-          <h5>Permissions:</h5>
-
-          <ul>
-            @foreach($allPermissions as $perms)
-            @if(strlen($perms) != 36)
-            <li>{{$perms->name}}</li>
-            @endif
-            @endforeach
-          </ul>
-
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-
-      </div>
-      <!--Ending of Permisson Tab-->
 
       <!--Starting of Privacy Tab-->
       <div class="tab-pane" id="privacy">

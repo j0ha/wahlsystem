@@ -1,6 +1,7 @@
 @extends('layouts.backend_v2')
 
 @section('backendcontent')
+
 <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="section-block" id="basicform">
@@ -46,6 +47,10 @@
                   <div class="form-group">
                       <input type="submit" name="submit" placeholder="Upload" class="btn btn-primary">
                   </div>
+
+                    @if(\Session::has('successUpload'))
+                        <span class="error text-success">{{\Session::get('successUpload')}}</span>
+                    @endif
 
                 </form>
             </div>

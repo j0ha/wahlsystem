@@ -436,10 +436,13 @@ class backendController extends Controller
                         $num = count($filedata );
 
                         // Skip first row (Remove below comment if you want to skip the first row)
-                        if($i == 0){
-                           $i++;
-                           continue;
+                        if(isset($request->header)){
+                            if($i == 0){
+                                $i++;
+                                continue;
+                            }
                         }
+
                         for ($c=0; $c < $num; $c++) {
                             $importData_arr[$i][] = $filedata [$c];
                         }
@@ -523,7 +526,7 @@ class backendController extends Controller
 
         }
         // Redirect to index
-        return "Success";
+        return back()->with('successUpload', 'The file has been uploaded successfully!');
     }
 
       /*==============================================================

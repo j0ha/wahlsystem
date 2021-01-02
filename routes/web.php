@@ -16,9 +16,16 @@ use App\Http\Controllers\securityController;
 | contains the "web" middleware group. Now create something great!
 |$thing, $UUID, $electionUUID
 */
+
+/*==============================================================
+                           HOMEROUTE
+    ==============================================================*/
 Route::get('/', '\App\Http\Controllers\HomeController@index')->name('home');
 
 
+/********************************************************************
+                            BEGIN VOTING
+ *********************************************************************/
 
 Route::get('/escape', function () {
     return view('welcome');
@@ -36,9 +43,7 @@ Route::get('/testRoute/stat/{electionUUID}', 'App\Http\Controllers\statsControll
 Route::get('/test/email/send', function(){
   Mail::to('taylor@example.com')->send(new electionInvitation('71c34c0b-1c7b-4396-a601-c0d1fa6b74eb'));
 });
-Route::get('/test/email', function(){
-    Mail::to('lennard3010@gmail.com')->queue(new helperInvitation($user, $election, $token));
-});
+
 Route::get('/test/view', function(){
  return view('vote.spv.schoolforms');
 });
@@ -61,15 +66,11 @@ Route::group(['prefix' => 'vote'], function(){
 
 });
 
-Route::group(['prefix' => 'invite'], function(){
-    Route::get('/{token}', '\App\Http\Controllers\helperActivator@helperActivate')->name('invite.election');
-    Route::post('/helpAccept', '\App\Http\Controllers\helperActivator@helpAccept')->name('helper.Accept');
-    Route::post('/helpDecline', '\App\Http\Controllers\helperActivator@helpDecline')->name('helper.Decline');
-});
 
+/********************************************************************
+                           BEGIN BACKEND
+ *********************************************************************/
 
-
-//ROUTES FOR BACKEND
 Route::group(['middleware' => ['auth', '2fa']], function (){
 Route::group(['prefix' => 'dvi'], function() {
   Route::group(['prefix' => 'home'], function(){
@@ -77,9 +78,9 @@ Route::group(['prefix' => 'dvi'], function() {
                            BEGIN INDEXPAGES
     ==============================================================*/
     Route::get('/', 'App\Http\Controllers\backendController@indexHomeWithoutElection')->name('home.without.election');
-    //Election Dashboard
+
     Route::get('/{electionUUID}', 'App\Http\Controllers\backendController@indexDashboard')->name('election.Dashboard');
-    //Opens the electionBackend with an election selected
+
     Route::get('/{electionUUID}/Informations', 'App\Http\Controllers\backendController@indexInformations')->name('election.Informations');
 
     Route::get('/{electionUUID}/ElectionHelper', 'App\Http\Controllers\backendController@indexWahlhelfer')->name('election.Helper');
@@ -91,7 +92,9 @@ Route::group(['prefix' => 'dvi'], function() {
     Route::get('/{electionUUID}/schoolgrade', 'App\Http\Controllers\backendController@indexSchoolgrade')->name('election.schoolgrades.overview');
 
     Route::get('/{electionUUID}/controlling', 'App\Http\Controllers\backendController@indexControlling')->name('election.Controlling');
-
+    /*==============================================================
+                            Security Reporter ROUTES
+    ==============================================================*/
     Route::group(['middleware' => 'admin'], function (){
     Route::get('/{electionUUID}/securityreporter', 'App\Http\Controllers\backendController@indexSecurityreporter')->name('election.securityreporter');
     });
@@ -102,7 +105,6 @@ Route::group(['prefix' => 'dvi'], function() {
 
     Route::get('/{electionUUID}/terminals', 'App\Http\Controllers\backendController@indexTerminals')->name('election.terminals.overview');
 
-    //Show the stats of the actual electionUUID
     Route::get('/{electionUUID}/stats', 'App\Http\Controllers\backendController@indexElectionStats')->name('election.Stats');
 
     Route::get('/{electionUUID}/voteractivator', 'App\Http\Controllers\backendController@indexVoteractivator')->name('election.voteractivator');
@@ -166,6 +168,9 @@ Route::group(['prefix' => 'dvi'], function() {
 
     });
   });
+    /*==============================================================
+                         PROFILE ROUTES
+    ==============================================================*/
 
     Route::group(['prefix' => 'profil'],  function() {
         //Lists up all of the data, some fields maybe changeable?
@@ -199,17 +204,30 @@ Route::post('/electionEnding', 'App\Http\Controllers\electionControlling@endElec
 Route::post('/electionEmail', 'App\Http\Controllers\electionControlling@sendEmails')->name('e.email');
 Route::post('/electionPlanEmail', 'App\Http\Controllers\electionControlling@planEmail')->name('e.planEmail');
 
+/*==============================================================
+                         AUTH ROUTES
+  ==============================================================*/
 
 Route::namespace('App\Http\Controllers')->group(function () {
     Auth::routes();
 });
+
+/*==============================================================
+                         2FA ROUTES
+  ==============================================================*/
 
 Route::get('/complete-registration', 'App\Http\Controllers\Auth\RegisterController@completeRegistration')->name('complete.2fa');
 Route::post('/2fa', function () {
     return redirect(URL()->previous());
 })->name('2fa')->middleware('2fa');
 
+/*==============================================================
+                         BEGIN Electionhelper ROUTES
+  ==============================================================*/
 
-Route::get('/ade', function () {
-    return view('backendviews.v2.electioncontrolling');
+Route::group(['prefix' => 'invite'], function(){
+    Route::get('/{token}', '\App\Http\Controllers\helperActivator@helperActivate')->name('invite.election');
+    Route::post('/helpAccept', '\App\Http\Controllers\helperActivator@helpAccept')->name('helper.Accept');
+    Route::post('/helpDecline', '\App\Http\Controllers\helperActivator@helpDecline')->name('helper.Decline');
 });
+

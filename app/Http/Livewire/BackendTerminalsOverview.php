@@ -147,6 +147,7 @@ class BackendTerminalsOverview extends Component
       }
       $terminal->ip_restriction = $this->ip_restriction;
       $terminal->save();
+      return back();
     }
 
     public function copyDirect() {

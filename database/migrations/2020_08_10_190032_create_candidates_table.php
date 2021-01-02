@@ -23,6 +23,7 @@ class CreateCandidatesTable extends Migration
             $table->uuid('uuid');
             $table->char('type');
             $table->integer('level');
+            $table->boolean('deletable')->default(true);
             $table->timestamps();
         });
     }

@@ -32,9 +32,10 @@
                   <td>{{$candidate->level}}</td>
                   <td><img src="{{$candidate->image}}" alt="" style="height:7%;"></td>
                   <td>
-
+                      @if($candidate->deleteable == true)
                     <button wire:click.lazy="editCandidate('{{$candidate->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Edit</button>
-                    <button wire:click.lazy="deleteCandidate('{{$candidate->uuid}}')" type="button" class="btn btn-danger mx-1">Delete</button>
+                     <button wire:click.lazy="deleteCandidate('{{$candidate->uuid}}')" type="button" class="btn btn-danger mx-1">Delete</button>
+                      @endif
                   </td>
               </tr>
             @endforeach

@@ -42,15 +42,21 @@ class BackendCandidatesOverview extends Component
 
     public function editCandidate($candidateUUID) {
       $candidate = Candidate::where('uuid', $candidateUUID)->firstOrFail();
-      $this->candidateUUID = $candidateUUID;
-      $this->name = $candidate->name;
-      $this->description = $candidate->description;
-      $this->type = $candidate->type;
-      $this->level = $candidate->level;
-      $this->image = $candidate->image;
+        if($candidate->deleteable == true) {
+            $this->candidateUUID = $candidateUUID;
+            $this->name = $candidate->name;
+            $this->description = $candidate->description;
+            $this->type = $candidate->type;
+            $this->level = $candidate->level;
+            $this->image = $candidate->image;
+        }
     }
     public function deleteCandidate($candidateUUID) {
-      $candidate = Candidate::where('uuid', $candidateUUID)->delete();
+      $candidate = Candidate::where('uuid', $candidateUUID)->firstOrFail();
+
+      if($candidate->deleteable == true) {
+          $candidate->delete();
+      }
     }
 
     public function update() {

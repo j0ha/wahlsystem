@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Candidate;
 use Livewire\Component;
 use App\Election;
 use Illuminate\Http\Request;
@@ -90,6 +91,19 @@ class Multiform extends Component
         $e->type = $this->mode;
         $e->permission_id = $permission->id;
         $e->save();
+
+      if(isset($this->abstention)){
+          $c = new Candidate();
+          $c->name = 'Abstention';
+          $c->description = '';
+          $c->type = 'spt';
+          $c->election_id = $e->id;
+          $c->uuid = Str::uuid();
+          $c->level = 1;
+          $c->deletable = false;
+          $c->save();
+      }
+
 
       return redirect()->route('election.Dashboard', ['electionUUID' => $uuid]);
   }

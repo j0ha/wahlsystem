@@ -18,7 +18,10 @@ class electionControlling extends Controller
         $electionID = Election::where('uuid', $request->eUUID)->firstOrFail()->id;
         if($user->hasPermissionTo($request->eUUID)){
             if(Candidate::where('election_id', $electionID)->count() != 0 AND Voter::where('election_id', $electionID)->count() != 0 AND Terminal::where('election_id', $electionID)->count() != 0){
-                Election::where('uuid', $request->eUUID)->update(['status' => config('votestates.live.short'), 'realstart' => Carbon::now(config('app.timezone'))]);
+                $e = Election::where('uuid', $request->eUUID)->firstOrFail();
+                $e->status = config('votestates.live.short');
+                $e->realstart = Carbon::now(config('app.timezone'));
+                $e->save();
             } else {
                 return back()->with('activeError', 'Error: You have to create: Candidates, Voters and Terminals before you can start the election!');
             }

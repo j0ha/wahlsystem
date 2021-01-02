@@ -15,10 +15,10 @@ class CreateHelpersTable extends Migration
     {
         Schema::create('helpers', function (Blueprint $table) {
             $table->id();
-            $table->String('uuid');
-            $table->String('token');
+            $table->text('uuid');
+            $table->text('token');
             $table->integer('election_id');
-            $table->string('email');
+            $table->text('email');
             $table->timestamps();
         });
     }

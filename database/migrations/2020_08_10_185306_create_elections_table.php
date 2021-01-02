@@ -15,22 +15,22 @@ class CreateElectionsTable extends Migration
     {
         Schema::create('elections', function (Blueprint $table) {
             $table->id();
-            $table->String('name');
-            $table->String('description');
+            $table->text('name');
+            $table->text('description');
             $table->boolean('abstention');
             $table->boolean('statistics');
-            $table->char('status', 16)->default(0);
-            $table->uuid('uuid');
-            $table->char('type');
+            $table->text('status');
+            $table->text('uuid');
+            $table->text('type');
             $table->integer('permission_id')->nullable();
-            $table->datetime('activeby')->nullable();
-            $table->datetime('activeto')->nullable();
-            $table->datetime('realstart')->nullable();
-            $table->datetime('realend')->nullable();
-            $table->binary('logo')->nullable();
+            $table->text('activeby')->nullable();
+            $table->text('activeto')->nullable();
+            $table->text('realstart')->nullable();
+            $table->text('realend')->nullable();
+            $table->text('logo')->nullable();
             $table->boolean('manual_voter_activation')->default(false);
-            $table->dateTime('email_sendtime')->nullable();
-            $table->uuid('email_terminal')->nullable();
+            $table->text('email_sendtime')->nullable();
+            $table->text('email_terminal')->nullable();
             $table->timestamps();
         });
     }

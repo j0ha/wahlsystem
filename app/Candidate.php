@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Casts\Encrypted;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -36,6 +37,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Candidate extends Model
 {
+
+    protected $casts = [
+        'name' => Encrypted::class,
+        'description' => Encrypted::class,
+        'image' => Encrypted::class,
+        'type' => Encrypted::class,
+    ];
+
   public static function search($search, $electionId)
     {
         return empty($search) ? static::query()->where('election_id', $electionId)

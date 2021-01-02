@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Casts\Encrypted;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -31,6 +32,10 @@ use Illuminate\Support\Facades\DB;
  */
 class Form extends Model
 {
+    protected $casts = [
+        'name' => Encrypted::class,
+    ];
+
   public function voters() {
     return $this->hasMany('App\Voter');
   }

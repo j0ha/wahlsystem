@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Casts\Encrypted;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -49,7 +50,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Voter extends Model
 {
-  public $fillable = ['surname', 'name', 'birth_year', 'email', 'election_id', 'schoolclass_id', 'schoolclass_id'];
+  public $fillable = ['surname', 'name', 'birth_year', 'email', 'election_id', 'schoolclass_id', 'form_id'];
+
+    protected $casts = [
+        'name' => Encrypted::class,
+        'surname' => Encrypted::class,
+        'email' => Encrypted::class,
+        'birth_year' => Encrypted::class,
+    ];
 
   public static function search($search, $electionId)
     {

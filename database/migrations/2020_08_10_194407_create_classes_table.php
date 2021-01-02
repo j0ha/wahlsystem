@@ -15,10 +15,10 @@ class CreateClassesTable extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->text('name');
             $table->integer('election_id');
             $table->integer('form_id');
-            $table->uuid('uuid');
+            $table->text('uuid');
             $table->timestamps();
         });
     }

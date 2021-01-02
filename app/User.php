@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Casts\Encrypted;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -80,6 +81,12 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'name' => Encrypted::class,
+        'surname' => Encrypted::class,
+        'email' => Encrypted::class,
+        'location' => Encrypted::class,
+        'city' => Encrypted::class,
+        'institution' => Encrypted::class,
     ];
 
     public function setGoogle2faSecretAttribute($value)

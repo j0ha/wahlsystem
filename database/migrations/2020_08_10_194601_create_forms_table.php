@@ -15,9 +15,9 @@ class CreateFormsTable extends Migration
     {
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->text('name');
             $table->integer('election_id');
-            $table->uuid('uuid');
+            $table->text('uuid');
             $table->timestamps();
         });
     }

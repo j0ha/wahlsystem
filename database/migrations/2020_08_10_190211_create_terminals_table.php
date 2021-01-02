@@ -15,15 +15,15 @@ class CreateTerminalsTable extends Migration
     {
         Schema::create('terminals', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('kind');
+            $table->text('name');
+            $table->text('kind');
             $table->text('description');
-            $table->string('position');
-            $table->string('status')->default('active');
-            $table->dateTime('start_time')->nullable();
-            $table->dateTime('end_time')->nullable();
-            $table->ipAddress('ip_restriction')->nullable();
-            $table->uuid('uuid');
+            $table->text('position');
+            $table->text('status');
+            $table->text('start_time')->nullable();
+            $table->text('end_time')->nullable();
+            $table->text('ip_restriction')->nullable();
+            $table->text('uuid');
             $table->integer('election_id');
             $table->integer('hits')->default(0);
             $table->timestamps();

@@ -15,16 +15,16 @@ class CreateVotersTable extends Migration
     {
         Schema::create('voters', function (Blueprint $table) {
             $table->id();
-            $table->string('surname')->nullable();
-            $table->string('name')->nullable();
-            $table->date('birth_year')->default('1111-11-11')->nullable();
+            $table->text('surname')->nullable();
+            $table->text('name')->nullable();
+            $table->text('birth_year')->nullable();
             $table->boolean('voted_via_email')->default(false);
             $table->boolean('voted_via_terminal')->default(false);
             $table->boolean('got_email')->default(false);
-            $table->uuid('uuid');
-            $table->uuid('direct_uuid')->nullable();
-            $table->char('direct_token')->nullable();
-            $table->string('email')->nullable();
+            $table->text('uuid');
+            $table->text('direct_uuid')->nullable();
+            $table->text('direct_token')->nullable();
+            $table->text('email')->nullable();
             $table->integer('election_id');
             $table->integer('schoolclass_id')->nullable();
             $table->integer('form_id')->nullable();

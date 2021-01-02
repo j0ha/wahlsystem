@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Casts\Encrypted;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -32,6 +33,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Securityreport extends Model
 {
+
+    protected $casts = [
+        'description' => Encrypted::class,
+        'error' => Encrypted::class,
+        'file' => Encrypted::class,
+        'election_uuid' => Encrypted::class,
+        'importance' => Encrypted::class,
+        'additional_info' => Encrypted::class,
+    ];
+
     public static function search($search)
     {
         return empty($search) ? static::query()->where('id', '>=', 1)

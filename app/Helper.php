@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Casts\Encrypted;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -28,5 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Helper extends Model
 {
-    //
+    protected $casts = [
+        'token' => Encrypted::class,
+        'email' => Encrypted::class,
+    ];
 }

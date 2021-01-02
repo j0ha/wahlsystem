@@ -15,13 +15,13 @@ class CreateCandidatesTable extends Migration
     {
         Schema::create('candidates', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->text('name');
             $table->text('description')->nullable();
-            $table->binary('image')->nullable();
+            $table->text('image')->nullable();
             $table->integer('election_id');
             $table->integer('votes')->default(0);
-            $table->uuid('uuid');
-            $table->char('type');
+            $table->text('uuid');
+            $table->text('type');
             $table->integer('level');
             $table->boolean('deletable')->default(true);
             $table->timestamps();

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Casts\Encrypted;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -27,4 +28,9 @@ use Illuminate\Database\Eloquent\Model;
 class ThirdSafety extends Model
 {
     protected $table = 'third_safety';
+
+    protected $casts = [
+        'election_uuid' => Encrypted::class,
+        'candidate_uuid' => Encrypted::class,
+    ];
 }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Casts\Encrypted;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -58,6 +59,20 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Election extends Model
 {
+    protected $casts = [
+        'name' => Encrypted::class,
+        'description' => Encrypted::class,
+        'status' => Encrypted::class,
+        'type' => Encrypted::class,
+        'activeby' => Encrypted::class,
+        'activeto' => Encrypted::class,
+        'realstart' => Encrypted::class,
+        'realend' => Encrypted::class,
+        'logo' => Encrypted::class,
+        'email_sendtime' => Encrypted::class,
+        'email_terminal' => Encrypted::class,
+    ];
+
     public function terminals()
     {
       return $this->hasMany('App\Terminal');

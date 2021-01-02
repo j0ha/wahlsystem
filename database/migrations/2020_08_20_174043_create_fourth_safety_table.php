@@ -15,8 +15,8 @@ class CreateFourthSafetyTable extends Migration
     {
         Schema::connection('mysql_backup')->create('fourth_safety', function (Blueprint $table) {
             $table->id();
-            $table->uuid('election_uuid');
-            $table->uuid('candidate_uuid');
+            $table->text('election_uuid');
+            $table->text('candidate_uuid');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Casts\Encrypted;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -42,6 +43,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Terminal extends Model
 {
+    protected $casts = [
+        'name' => Encrypted::class,
+        'kind' => Encrypted::class,
+        'decription' => Encrypted::class,
+        'position' => Encrypted::class,
+        'status' => Encrypted::class,
+        'start_time' => Encrypted::class,
+        'end_time' => Encrypted::class,
+        'ip_restriction' => Encrypted::class,
+    ];
+
   public static function search($search, $electionId)
     {
         return empty($search) ? static::query()->where('election_id', $electionId)

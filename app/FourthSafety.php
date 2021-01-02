@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Casts\Encrypted;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -26,4 +27,9 @@ class FourthSafety extends Model
 {
     protected $connection = 'mysql_backup';
     protected $table = 'fourth_safety';
+
+    protected $casts = [
+        'election_uuid' => Encrypted::class,
+        'candidate_uuid' => Encrypted::class,
+    ];
 }

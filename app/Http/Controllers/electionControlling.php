@@ -37,7 +37,13 @@ class electionControlling extends Controller
         $electionID = Election::where('uuid', $request->eUUID)->firstOrFail()->id;
         if($user->hasPermissionTo($request->eUUID)){
             if(Candidate::where('election_id', $electionID)->count() != 0 AND Voter::where('election_id', $electionID)->count() != 0 AND Terminal::where('election_id', $electionID)->count() != 0){
-                Election::where('uuid', $request->eUUID)->update(['status' => config('votestates.planned.short'), 'activeby' => new Carbon($request->starttime, config('app.timezone')), 'activeto' => new Carbon($request->endtime, config('app.timezone'))]);
+                $e = Election::where('uuid', $request->eUUID)->firstOrFail();
+                $e->status = config('votestates.planned.short');
+                $e->realstart = Carbon::now(config('app.timezone'));
+                $e->activeby = new Carbon($request->starttime, config('app.timezone'));
+                $e->activeto = new Carbon($request->endtime, config('app.timezone'));
+                $e->save();
+
             } else {
                 return back()->with('activeError', 'Error: You have to create: Candidates, Voters and Terminals before you can start the election!');
             }
@@ -72,7 +78,11 @@ class electionControlling extends Controller
                 ])->get();
                 $emailController->sendBulkInvations($voters, $request->terminalUUID);
                 $time = new Carbon(Carbon::now(), config('app.timezone'));
-                Election::where('uuid', $request->eUUID)->update(['email_sendtime' => $time, 'email_terminal'=>$request->terminalUUID]);
+
+                $e = Election::where('uuid', $request->eUUID)->firstOrFail();
+                $e->email_sendtime = $time;
+                $e->email_terminal = $request->terminalUUID;
+                $e->save();
             } else {
                 return back()->with('emailError', 'Error: The election already sent E-Mails to every Voter, you still can send them individualy');
             }
@@ -92,7 +102,11 @@ class electionControlling extends Controller
                 $election = Election::where('uuid', $request->eUUID)->firstOrFail();
                 if($election->email_terminal == null) {
                     $time = new Carbon($request->starttimeEmail, config('app.timezone'));
-                    Election::where('uuid', $request->eUUID)->update(['email_sendtime' => $time, 'email_terminal'=>$request->terminalUUID]);
+                    
+                    $e = Election::where('uuid', $request->eUUID)->firstOrFail();
+                    $e->email_sendtime = $time;
+                    $e->email_terminal = $request->terminalUUID;
+                    $e->save();
                 } else {
                     return back()->with('emailError', 'Error: The election already sent E-Mails to every Voter, you still can send them individualy');
                 }

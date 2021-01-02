@@ -25,4 +25,9 @@ class HomeController extends Controller
     {
         return view('layouts.home');
     }
+
+    public function indexImpressum()
+    {
+        return view('impressum');
+    }
 }

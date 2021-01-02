@@ -209,7 +209,7 @@
                     </div>
                 </nav>
                 <div style="position: absolute; bottom: 7%; left: 4%;">
-                    <a href="www.google.de">Impressum</a> - Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>
+                    <a href="{{route('impressum')}}">Impressum</a> - Dashboard by <a href="https://colorlib.com/wp/">Colorlib</a>
                 </div>
 
             </div>

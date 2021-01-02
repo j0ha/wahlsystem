@@ -21,7 +21,7 @@ use App\Http\Controllers\securityController;
                            HOMEROUTE
     ==============================================================*/
 Route::get('/', '\App\Http\Controllers\HomeController@index')->name('home');
-
+Route::get('/impressum', '\App\Http\Controllers\HomeController@indexImpressum')->name('impressum');
 
 /********************************************************************
                             BEGIN VOTING

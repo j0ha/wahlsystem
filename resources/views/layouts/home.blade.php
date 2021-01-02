@@ -196,10 +196,7 @@
                 <a href="#">Terms</a>
             </li>
             <li class="list-inline-item">
-                <a href="#">FAQ</a>
-            </li>
-            <li class="list-inline-item">
-                <a href="#">Impressum</a>
+                <a href="{{route('impressum')}}">Impressum</a>
             </li>
         </ul>
     </div>

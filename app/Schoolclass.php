@@ -32,10 +32,6 @@ class Schoolclass extends Model
 {
     protected $table = 'classes';
 
-    protected $casts = [
-        'name' => Encrypted::class,
-    ];
-
     public function voters() {
       return $this->hasMany('App\Voters');
     }

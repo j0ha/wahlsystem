@@ -35,13 +35,13 @@
            <span>Vielen Dank für deine Stimme!</span>
          </div>
          <div class="row justify-content-center">
-           @if($directUUID == null AND $election->kind == 'spv')<span>Bitte verlasse nun die Wahlkabine!</span>@endif
+           @if($election->type == config('electionmodes.spv.short')) <span>Bitte verlasse nun die Wahlkabine!</span>@endif
            @if($directUUID != null)<span>Du kannst diese Seite nun schießen</span>@endif
          </div>
       </div>
     </div>
   </div>
-          @if($directUUID != null)
+          @if($directUUID == null AND $election->type == config('electionmodes.spv.short'))
               <script type="text/javascript">
                 window.setTimeout(function(){
                     window.location.href = "{{$spv_terminal_route}}";
@@ -78,7 +78,7 @@
           </script>
       @endif
 
-  @if($state == 'forms' AND $election->type == 'spv' AND $spv_forms != null)
+  @if($state == 'forms' AND $election->type == config('electionmodes.spv.short') AND $spv_forms != null)
   <div class="d-flex eao-vote-header">
     <span class="display-4">Bitte wähle deinen Jahrgang!</span>
   </div>
@@ -89,7 +89,7 @@
     </div>
   @endif
 
-  @if($state == 'schoolclasses' AND $election->type == 'spv' AND $spv_schoolclasses != null)
+  @if($state == 'schoolclasses' AND $election->type == config('electionmodes.spv.short') AND $spv_schoolclasses != null)
   <div class="d-flex eao-vote-header">
     <span class="display-4">Bitte wähle deine Klasse!</span>
   </div>
@@ -99,7 +99,7 @@
       @endforeach
     </div>
   @endif
-  @if($state == 'voters' AND $election->type == 'spv' AND $spv_voters != null)
+  @if($state == 'voters' AND $election->type == config('electionmodes.spv.short') AND $spv_voters != null)
   <div class="d-flex eao-vote-header">
     <span class="display-4">Bitte wähle deinen Namen!</span>
   </div>
@@ -110,7 +110,7 @@
     </div>
   @endif
 
-  @if($state == 'birth_verification' AND $election->type == 'spv')
+  @if($state == 'birth_verification' AND $election->type == config('electionmodes.spv.short'))
   <div class="d-flex eao-vote-header">
     <span class="display-4">Bitte verifiziere Dich!</span>
   </div>
@@ -146,7 +146,7 @@
 
   @endif
 
-  @if($state == 'vote' AND $election->type == 'spv')
+  @if($state == 'vote' AND $election->type == config('electionmodes.spv.short'))
   <div class="d-flex eao-vote-header">
     <span class="display-4">Bitte stimme ab!</span>
   </div>

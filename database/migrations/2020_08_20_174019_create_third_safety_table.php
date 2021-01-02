@@ -18,6 +18,7 @@ class CreateThirdSafetyTable extends Migration
             $table->uuid('election_uuid');
             $table->uuid('candidate_uuid');
             $table->integer('candidate_value');
+            $table->timestamps();
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Bugsnag;
 use Illuminate\Http\Request;
 use App\ThirdSafety;
 use App\FourthSafety;
@@ -81,25 +82,41 @@ class securityController extends Controller
     }
 
     public function safetyTables($candidateUUID) {
-      Self::thirdSafetyTableUpdate($candidateUUID);
-      Self::fourthSafetyTableUpdate($this->electionUUID, $candidateUUID);
+//        Self::thirdSafetyTableUpdate($candidateUUID);
+        Self::fourthSafetyTableUpdate($candidateUUID);
     }
 
     private function thirdSafetyTableUpdate($candidateUUID) {
-      $candidate = thirdSafety::where('candidate_uuid', $candidateUUID)->firstOrFail();
-      $candidate->candidate_value = $candidate->candidate_value + 1;
-      $candidate->save();
+        try {
+            $candidate = ThirdSafety::where('candidate_uuid', $candidateUUID)->get();
+            if($candidate != null) {
+                $candidate->candidate_value = $candidate->candidate_value + 1;
+                $candidate->update();
+            } else {
+                $candidate = new ThirdSafety();
+                $candidate->candidate_value = 1;
+                $candidate->election_uuid = $this->electionUUID;
+                $candidate->candidate_uuid = $candidateUUID;
+                $candidate->save();
+            }
+
+        } catch(\Exception $e) {
+            $this->securityreporter->report('third safety failed',1, get_class(),'CandidateUUID: '. $candidateUUID, $e);
+            Bugsnag::notifyException($e);
+        }
+
     }
 
     private function fourthSafetyTableUpdate($candidateUUID) {
-      $result = new FourthSafety;
-      $result->election_id = $this->electionUUID;
-      $result->candidate_uuid = $candidateUUID;
-      $result->save();
-    }
-
-    public function initializeSafety($candidatesUUID) {
-      Self::initializeThirdSafety($this->electionUUID, $candidatesUUID);
+        try {
+            $result = new FourthSafety;
+            $result->election_uuid = $this->electionUUID;
+            $result->candidate_uuid = $candidateUUID;
+            $result->save();
+        } catch(\Exception $e){
+            $this->securityreporter->report('fourth safety failed',1, get_class(),'CandidateUUID: '. $candidateUUID, $e);
+            Bugsnag::notifyException($e);
+        }
     }
 
     private function initializeThirdSafety($candidatesUUID) {

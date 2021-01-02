@@ -58,11 +58,11 @@ class electionProcessController extends Controller
             Self::voteAgent($candidateUUID);
             $this->terminalController->hit($terminalUUID);
           } else {
-              $this->securityreporter->report('vote failed',3, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID. ' given terminalUUID: '.$terminalUUID.' CandidateUUID: '. $candidateUUID, null);
+              $this->securityreporter->report('vote failed point 1',3, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID. ' given terminalUUID: '.$terminalUUID.' CandidateUUID: '. $candidateUUID, null);
           }
           // TODO: Add security things
         } catch (\Exception $e) {
-            $this->securityreporter->report('vote failed',3, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID. ' given terminalUUID: '.$terminalUUID.' CandidateUUID: '. $candidateUUID, $e);
+            $this->securityreporter->report('vote failed point 2',3, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID. ' given terminalUUID: '.$terminalUUID.' CandidateUUID: '. $candidateUUID, $e);
             Bugsnag::notifyException($e);
         }
 
@@ -74,9 +74,9 @@ class electionProcessController extends Controller
         $candidate->votes = $candidate->votes + 1;
         $candidate->save();
 
-        // TODO: safeties!!!
+        $this->securityController->safetyTables($candidateUUID);
       } catch (\Exception $e) {
-          $this->securityreporter->report('vote failed',1, get_class(),'CandidateUUID: '. $candidateUUID, $e);
+          $this->securityreporter->report('vote failed point 3',1, get_class(),'CandidateUUID: '. $candidateUUID, $e);
           Bugsnag::notifyException($e);
       }
     }

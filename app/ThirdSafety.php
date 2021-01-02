@@ -14,5 +14,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ThirdSafety extends Model
 {
-    //
+    protected $table = 'third_safety';
 }

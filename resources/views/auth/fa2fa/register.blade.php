@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">{{ __('Register - Set up Google Authenticator') }}</div>
 
@@ -19,11 +19,18 @@
                             </div>
                             <!-- Regristrieren "Name"-->
                             <div class="form-group row">
-                                <label for="QR" class="col-md-4 col-form-label text-md-right">{{ __('QR-Code') }}</label>
 
-                                <div class="col-md-6">
-                                    {{ QrCode::size(200)->generate($QR_URL) }}
-                                </div>
+                                    <label for="QR" class="col-md-4 col-form-label text-md-right">{{ __('QR-Code') }}</label>
+
+                                    <div class="col-md-8">
+                                        {{ QrCode::size(200)->generate($QR_URL) }}
+                                        <a href="https://apps.apple.com/de/app/microsoft-authenticator/id983156458" target="_blank"><img src="{{asset('img/app-store-badge.svg')}}" alt="" ></a>
+                                        <a href="https://play.google.com/store/apps/details?id=com.azure.authenticator&hl=de&gl=US" target="_blank"><img src="{{asset('img/google-play-badge.png')}}" alt="" style="width:26%;"></a>
+                                    </div>
+
+
+
+                                
                             </div>
 
 
@@ -34,6 +41,13 @@
                                     </a>
                                 </div>
                             </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-4">
+                            
+                        </div>
                     </div>
                 </div>
             </div>

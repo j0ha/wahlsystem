@@ -83,7 +83,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'name' => Encrypted::class,
         'surname' => Encrypted::class,
-        'email' => Encrypted::class,
         'location' => Encrypted::class,
         'city' => Encrypted::class,
         'institution' => Encrypted::class,

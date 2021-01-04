@@ -62,7 +62,6 @@ class Election extends Model
     protected $casts = [
         'name' => Encrypted::class,
         'description' => Encrypted::class,
-        'status' => Encrypted::class,
         'type' => Encrypted::class,
         'activeby' => Encrypted::class,
         'activeto' => Encrypted::class,

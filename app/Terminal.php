@@ -45,7 +45,6 @@ class Terminal extends Model
 {
     protected $casts = [
         'name' => Encrypted::class,
-        'kind' => Encrypted::class,
         'decription' => Encrypted::class,
         'position' => Encrypted::class,
         'status' => Encrypted::class,

@@ -30,7 +30,6 @@ class ThirdSafety extends Model
     protected $table = 'third_safety';
 
     protected $casts = [
-        'election_uuid' => Encrypted::class,
         'candidate_uuid' => Encrypted::class,
     ];
 }

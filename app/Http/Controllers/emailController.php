@@ -54,8 +54,12 @@ class emailController extends Controller
         foreach ($voters as $voter) {
             if ($this->securityController->verifyToElection('voter', $voter->uuid) == true AND $terminal->kind == config('terminalkinds.email.short') AND $this->terminalController->verifyTruthiness($terminalUUID) == true) {
                 $voter = Voter::where('uuid', $voter->uuid)->firstOrFail();
-                Mail::to($voter->email)->queue(new electionInvitation($this->election, $terminalUUID, $voter));
-                $voter->got_email = true;
+                try {
+                    Mail::to($voter->email)->queue(new electionInvitation($this->election, $terminalUUID, $voter));
+                    $voter->got_email = true;
+                } catch(\Exception $e) {
+                    $this->securityreporer->report('email sending failed', 1, get_class(), 'maybe the email is not working email: '.$voter->email, $e);
+                }
                 $voter->save();
             } else {
                 $this->securityreporer->report('tried to send email to voter who does not fit to election or with wrong terminal', 4, get_class(), null, null);

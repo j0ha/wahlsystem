@@ -4,7 +4,6 @@ namespace App;
 
 use App\Casts\Encrypted;
 use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Voter
  *
@@ -50,6 +49,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Voter extends Model
 {
+
   public $fillable = ['surname', 'name', 'birth_year', 'email', 'election_id', 'schoolclass_id', 'form_id'];
 
     protected $casts = [

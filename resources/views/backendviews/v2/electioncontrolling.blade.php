@@ -78,12 +78,10 @@
                 @if($selectedE[0]->activeby != null OR $selectedE[0]->activeto != null)
                     <div class="alert alert-secondary mt-3" role="alert">
                         @php
-                            $start = \Carbon\Carbon::create($selectedE[0]->activeby);
-                            $end = \Carbon\Carbon::create($selectedE[0]->activeto);
                             \Carbon\Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
                         @endphp
-                        The election will be set <span class="badge badge-success">live</span> at the {{$start}} <br>
-                        The election will be set <span class="badge badge-danger">ended</span> at the {{$end}}
+                        The election will be set <span class="badge badge-success">live</span> at the {{$selectedE[0]->activeby}} <br>
+                        The election will be set <span class="badge badge-danger">ended</span> at the {{$selectedE[0]->activeto}}
                     </div>
                 @endif
             </div>
@@ -153,10 +151,9 @@
                   @if($selectedE[0]->email_sendtime != null OR $selectedE[0]->email_terminal != null)
                   <div class="alert alert-secondary mt-3" role="alert">
                       @php
-                          $time = \Carbon\Carbon::create($selectedE[0]->email_sendtime);
-                          \Carbon\Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
+                            \Carbon\Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
                       @endphp
-                      The scheduler is set to the {{$time}}.
+                      The scheduler is set to the {{$selectedE[0]->email_sendtime}}.
                   </div>
                   @endif
               </div>

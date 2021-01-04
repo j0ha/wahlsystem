@@ -55,8 +55,8 @@ class BackendSchoolclassesOverview extends Component
     }
     public function delete($schoolclassUUID) {
       $schoolclass = Schoolclass::where('uuid', $schoolclassUUID)->firstOrFail();
-      $voters = Voter::where('schoolclass_id', $schoolclass->id)->get();
-      if($voters != null) {
+      $voters = Voter::where('schoolclass_id', $schoolclass->id)->count();
+      if($voters != 0) {
           session()->flash('error', 'Schoolclass can not be deleted with assigned students!');
       } else {
           $schoolclass->delete();

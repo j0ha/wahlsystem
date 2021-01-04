@@ -45,10 +45,12 @@ class BackendSchoolgradesOverview extends Component
     }
     public function delete($schoolgradeUUID) {
       $schoolgrade = Form::where('uuid', $schoolgradeUUID)->firstOrFail();
-      $schoolclasses = Schoolclass::where('form_id', $schoolgrade->id)->get();
+      $schoolclasses = Schoolclass::where('form_id', $schoolgrade->id)->count();
 
-      if($schoolclasses != null) {
+      if($schoolclasses != 0) {
           session()->flash('error', 'Form can not be delteted with assigned schoolclasses!');
+      } else {
+          $schoolgrade->delete();
       }
     }
 

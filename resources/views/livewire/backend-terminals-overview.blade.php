@@ -20,6 +20,10 @@
     @error('end_time') <div class="alert alert-danger" role="alert">{{$message}}</div></span> @enderror
     @error('ip_restriction') <div class="alert alert-danger" role="alert">{{$message}}</div></span> @enderror
       @if(session()->has('error'))<div class="alert alert-danger" role="alert">{{session('error')}}</div></span>@endif
+      {{$terminals}}
+      @if($terminals == null)
+          <span><div class="alert alert-info" role="alert">There are no existing terminals.</div></span>
+      @endif
 
       <table id="example" class="table table-striped table-bordered second" style="width:100%">
           <thead>

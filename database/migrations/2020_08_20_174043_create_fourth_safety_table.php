@@ -13,7 +13,7 @@ class CreateFourthSafetyTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_backup')->create('fourth_safety', function (Blueprint $table) {
+        Schema::create('fourth_safety', function (Blueprint $table) {
             $table->id();
             $table->text('election_uuid');
             $table->text('candidate_uuid');
@@ -28,6 +28,6 @@ class CreateFourthSafetyTable extends Migration
      */
     public function down()
     {
-        Schema::connection('mysql_backup')->dropIfExists('fourth_safety');
+        Schema::dropIfExists('fourth_safety');
     }
 }

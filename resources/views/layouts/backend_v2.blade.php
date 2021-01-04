@@ -153,7 +153,7 @@
                                 </div>
                             </li>
                             -->
-                                @if($status == 'waiting')
+
                           <li class="nav-divider">
                                 Inhaltsverwaltung
                             </li>
@@ -169,12 +169,14 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{route('voters.view', ['electionUUID' => $electionUUID])}}">Overview</a>
                                         </li>
+                                        @if($status == 'waiting')
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{route('voters.add.single', ['electionUUID' => $electionUUID])}}">Add Single</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{{route('voters.add.many', ['electionUUID' => $electionUUID])}}">Upload File</a>
                                         </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </li>
@@ -182,8 +184,7 @@
                             <!-- ============================================================== -->
                             <!-- CANDIDATE MENUE FOR SSPW -->
                             <!-- ============================================================== -->
-
-                            <?php // TODO: HIER MÜSSEN WIR NOCH DIE VARIABLE ÜBERGEBEN WELCHE ART VON ELECTION ES IST UM RICHTIG ZUZUORDNEN ?>
+                                    @if($status == 'waiting')
                             <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-question"></i>Candidates</a>
                                 <div id="submenu-3" class="collapse submenu" style="">

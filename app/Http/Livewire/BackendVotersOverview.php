@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Election;
 use App\Http\Controllers\emailController;
 use App\Terminal;
 use App\Voter;
@@ -46,19 +47,26 @@ class BackendVotersOverview extends Component
             'voters' => Voter::search($this->search, $electionProcess->getId($this->electionUUID, 'elections'))
                 ->orderBy($this->orderBy, $this->orderAsc ? 'asc' : 'desc')
                 ->simplePaginate($this->perPage),
+            'state' => Election::where('uuid', $this->electionUUID)->firstOrFail()->status,
         ]);
     }
 
     public function editVoter($voterUUID) {
-      $voter = Voter::where('uuid', $voterUUID)->firstOrFail();
-      $this->voterUUID = $voterUUID;
-      $this->name = $voter->name;
-      $this->surname = $voter->surname;
-      $this->birth_year = $voter->birth_year;
-      $this->email = $voter->email;
+        $election = Election::where('uuid', $this->electionUUID)->firstOrFail();
+        if($election->status != config('votestates.live.short') AND $election->status != config('votestates.planned.short')) {
+            $voter = Voter::where('uuid', $voterUUID)->firstOrFail();
+            $this->voterUUID = $voterUUID;
+            $this->name = $voter->name;
+            $this->surname = $voter->surname;
+            $this->birth_year = $voter->birth_year;
+            $this->email = $voter->email;
+        }
     }
     public function deleteVoter() {
-      $voter = voter::where('uuid', $this->voterUUID)->delete();
+      $election = Election::where('uuid', $this->electionUUID)->firstOrFail();
+      if($election->status != config('votestates.live.short') AND $election->status != config('votestates.planned.short')) {
+          Voter::where('uuid', $this->voterUUID)->delete();
+      }
     }
 
     public function update() {

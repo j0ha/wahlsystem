@@ -69,6 +69,12 @@ Route::group(['prefix' => 'dvi'], function() {
     Route::get('/{electionUUID}/schoolgrade', 'App\Http\Controllers\backendController@indexSchoolgrade')->name('election.schoolgrades.overview');
 
     Route::get('/{electionUUID}/controlling', 'App\Http\Controllers\backendController@indexControlling')->name('election.Controlling');
+
+      /*==============================================================
+                             BEGIN VOTERS ROUTES
+      ==============================================================*/
+      Route::get('/{electionUUID}/voters', 'App\Http\Controllers\backendController@indexVoters')->name('voters.view');
+
     /*==============================================================
                             Security Reporter ROUTES
     ==============================================================*/
@@ -90,7 +96,6 @@ Route::group(['prefix' => 'dvi'], function() {
     /*==============================================================
                            BEGIN VOTERS ROUTES
     ==============================================================*/
-    Route::get('/{electionUUID}/voters', 'App\Http\Controllers\backendController@indexVoters')->name('voters.view');
     //Ein Datensatz kann hinzugefügt werden
     Route::get('/{electionUUID}/voters/add', 'App\Http\Controllers\backendController@indexVotersAddSingle')->name('voters.add.single');
     Route::post('/electionVotersAddSingle', 'App\Http\Controllers\backendController@votersAddSingleInsert')->name('votersAddSingle');

@@ -45,7 +45,7 @@
                         @if($voter->activated == true)<span class="badge badge-pill badge-success mx-1">activated</span>@else<span class="badge badge-pill badge-warning mx-1">activated</span>@endif
                     </td>
                     <td>
-                        <button wire:click.lazy="editVoter('{{$voter->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Edit</button>
+                        @if($state == config('votestates.live.short') OR $state == config('votestates.planned.short')) <button disabled class="btn btn-primary mx-1">Edit</button> @else<button wire:click.lazy="editVoter('{{$voter->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Edit</button>@endif
                         <button wire:click.lazy="viewVoter('{{$voter->uuid}}')" data-toggle="modal" data-target="#viewModal" type="button" class="btn btn-primary mx-1">View</button>
                     </td>
                 </tr>
@@ -143,7 +143,7 @@
                         <button wire:click.lazy="downloadSheet()" class="btn btn-light mx-2 my-2" data-dismiss="modal" @if($terminal_sel == null) disabled @endif>Download the Page</button>
                     @endif
                             <button wire:click.lazy="direct()" class="btn btn-light mx-2 my-2" data-dismiss="modal" @if($hasDirectly == true) disabled @endif>Generate directly</button>
-                                <button wire:click.lazy="deleteVoter()" class="btn btn-danger mx-2 my-2" data-dismiss="modal">Delete</button>
+                        @if($state == config('votestates.live.short') OR $state == config('votestates.planned.short')) <button class="btn btn-danger mx-2 my-2" disabled>Delete</button> @else <button wire:click.lazy="deleteVoter()" class="btn btn-danger mx-2 my-2" data-dismiss="modal">Delete</button> @endif
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>

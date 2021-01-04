@@ -57,6 +57,7 @@ class BackendSchoolgradesOverview extends Component
     public function update() {
       $schoolgrade = Form::where('uuid', $this->schoolgradeUUID)->firstOrFail();
       $schoolgrade->name = $this->name;
+      $schoolclass->name_h = hash('sha256',$this->name);
       $schoolgrade->save();
     }
 
@@ -82,6 +83,7 @@ class BackendSchoolgradesOverview extends Component
       $schoolclass = new Form;
       $electionProcess = new electionProcessController($this->electionUUID);
       $schoolclass->name = $this->name;
+      $schoolclass->name_h = hash('sha256',$this->name);
       $schoolclass->uuid = Str::uuid();
       $schoolclass->election_id = $electionProcess->getId($this->electionUUID, 'elections');
       $schoolclass->save();

@@ -62,6 +62,7 @@ class BackendCandidatesOverview extends Component
     public function update() {
       $candidate = Candidate::where('uuid', $this->candidateUUID)->firstOrFail();
       $candidate->name = $this->name;
+      $candidate->name_h = hash('sha256',$this->name);
       $candidate->description = $this->description;
       $candidate->type = $this->type;
       $candidate->level = $this->level;

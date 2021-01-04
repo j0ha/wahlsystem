@@ -18,7 +18,10 @@ class CreateTerminalsTable extends Migration
             $table->text('name');
             $table->text('kind');
             $table->text('description');
+            $table->text('name_h');
+            $table->text('description_h');
             $table->text('position');
+            $table->text('position_h');
             $table->text('status');
             $table->text('start_time')->nullable();
             $table->text('end_time')->nullable();

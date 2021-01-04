@@ -72,7 +72,9 @@ class BackendVotersOverview extends Component
     public function update() {
       $voter = Voter::where('uuid', $this->voterUUID)->firstOrFail();
       $voter->name = $this->name;
+      $voter->name_h = hash('sha256',$this->name);
       $voter->surname = $this->surname;
+      $voter->surname_h = hash('sha256',$this->surname);
       $voter->birth_year = $this->birth_year;
       $voter->email = $this->email;
       $voter->save();

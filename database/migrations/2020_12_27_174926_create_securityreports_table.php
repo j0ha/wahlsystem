@@ -17,6 +17,7 @@ class CreateSecurityreportsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->text('description');
+            $table->text('description_h');
             $table->text('error')->nullable();
             $table->text('file')->nullable();
             $table->text('election_uuid');

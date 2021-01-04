@@ -45,8 +45,9 @@ class Securityreport extends Model
 
     public static function search($search)
     {
+        $search2 = hash('sha256', $search);
         return empty($search) ? static::query()->where('id', '>=', 1)
             : static::query()->where('id', 'like', '%'.$search.'%')
-                ->orWhere('description', 'like', '%'.$search.'%');
+                ->orWhere('description_h', 'like', '%'.$search2.'%');
     }
 }

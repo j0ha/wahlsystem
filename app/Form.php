@@ -43,9 +43,10 @@ class Form extends Model
 
   public static function search($search, $electionId)
     {
+        $search2 = hash('sha256', $search);
         return empty($search) ? static::query()->where('election_id', $electionId)
             : static::query()->where('id', 'like', '%'.$search.'%')->where('election_id', $electionId)
-                ->orWhere('name', 'like', '%'.$search.'%')->where('election_id', $electionId);
+                ->orWhere('name_h', 'like', '%'.$search2.'%')->where('election_id', $electionId);
     }
 
     public static function getWithActive($electionId) {

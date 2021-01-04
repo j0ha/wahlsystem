@@ -90,6 +90,9 @@ class BackendTerminalsOverview extends Component
       $terminal->start_time = $this->start_time;
       $terminal->end_time = $this->end_time;
       $terminal->ip_restriction = $this->ip_restriction;
+      $terminal->position_h = hash('sha256',$this->position);
+      $terminal->description_h = hash('sha256',$this->description);
+      $terminal->name_h = hash('sha256',$this->name);
       $terminal->save();
     }
 
@@ -128,12 +131,15 @@ class BackendTerminalsOverview extends Component
       $electionProcess = new electionProcessController($this->electionUUID);
       $terminal = new Terminal;
       $terminal->name = $this->name;
+      $terminal->name_h = hash('sha256',$this->name);
       $terminal->uuid = Str::uuid();
       $terminal->status = false;
       $terminal->election_id = $electionProcess->getId($this->electionUUID, 'elections');
       $terminal->description = $this->description;
+      $terminal->description_h = hash('sha256',$this->description);
       $terminal->kind = $this->kind;
       $terminal->position = $this->position;
+      $terminal->position_h = hash('sha256',$this->position);
       if($this->start_time == ''){
         $terminal->start_time = null;
       } else {

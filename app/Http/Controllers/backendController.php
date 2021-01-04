@@ -340,6 +340,7 @@ class backendController extends Controller
       $candidate = new Candidate;
 
       $candidate->name = $request->candidateName;
+      $candidate->name_h = hash('sha256',$request->candidateName);
       $candidate->description = $request->candidateDescription;
       if(!empty($request->candidateImage)){
       $candidate->image = '/storage/'.$path;
@@ -472,6 +473,7 @@ class backendController extends Controller
                                 $formUUID=Str::uuid();
                                 $form = new Form();
                                 $form->name = $importData[4];
+                                $form->name_h = hash('sha256', $importData[4]);
                                 $form->election_id = $election->id;
                                 $form->uuid = $formUUID;
                                 $form->save();
@@ -491,6 +493,7 @@ class backendController extends Controller
 
                                 $class = new Schoolclass();
                                 $class->name = $importData[5];
+                                $class->name_h = hash('sha256', $importData[5]);
                                 $class->election_id = $election->id;
                                 $class->form_id = Form::where('uuid', $formUUID)->firstOrFail()->id;
                                 $class->uuid = $schoolclassUUID=Str::uuid();
@@ -502,6 +505,8 @@ class backendController extends Controller
                         $v = new Voter();
                         $v->name = $importData[0];
                         $v->surname = $importData[1];
+                        $v->name_h = hash('sha256', $importData[0]);
+                        $v->surname_h = hash('sha256', $importData[1]);
                         $v->birth_year = $importData[2];
                         $v->uuid = Str::uuid();
                         if($request->directly == 'true') {

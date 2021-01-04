@@ -66,6 +66,7 @@ class BackendSchoolclassesOverview extends Component
     public function update() {
       $schoolclass = Schoolclass::where('uuid', $this->schoolclassUUID)->firstOrFail();
       $schoolclass->name = $this->name;
+      $schoolclass->name_h = hash('sha256',$this->name);
       $schoolclass->save();
     }
 
@@ -95,6 +96,7 @@ class BackendSchoolclassesOverview extends Component
       $schoolclass = new Schoolclass;
       $electionProcess = new electionProcessController($this->electionUUID);
       $schoolclass->name = $this->name;
+      $schoolclass->name_h = hash('sha256',$this->name);
       $schoolclass->uuid = Str::uuid();
       $schoolclass->form_id = $this->form_id;
       $schoolclass->election_id = $electionProcess->getId($this->electionUUID, 'elections');

@@ -95,6 +95,7 @@ class Multiform extends Component
       if(isset($this->abstention)){
           $c = new Candidate();
           $c->name = 'Abstention';
+          $c->name_h = hash('sha256', 'Abstention');
           $c->description = '';
           $c->type = 'spt';
           $c->election_id = $e->id;

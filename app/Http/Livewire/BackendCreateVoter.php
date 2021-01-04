@@ -56,7 +56,9 @@ class BackendCreateVoter extends Component
         $voter = new Voter;
 
         $voter->surname = $this->voterSurname;
+        $voter->surname_h = hash('sha256', $this->voterSurname);
         $voter->name = $this->voterName;
+        $voter->name_h = hash('sha256', $this->voterName);
         $voter->birth_year = $this->voterDate;
         $voter->uuid = Str::uuid();
         if($this->directly == 'true') {

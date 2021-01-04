@@ -16,7 +16,9 @@ class CreateVotersTable extends Migration
         Schema::create('voters', function (Blueprint $table) {
             $table->id();
             $table->text('surname')->nullable();
+            $table->text('surname_h')->nullable();
             $table->text('name')->nullable();
+            $table->text('name_h')->nullable();
             $table->text('birth_year')->nullable();
             $table->boolean('voted_via_email')->default(false);
             $table->boolean('voted_via_terminal')->default(false);

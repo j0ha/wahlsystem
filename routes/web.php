@@ -159,6 +159,7 @@ Route::group(['prefix' => 'dvi'], function() {
         Route::get('/data', 'App\Http\Controllers\backendController@indexProfile')->name('profile.Data')->middleware(['auth', '2fa']);
         Route::post('/profileUpdate', 'App\Http\Controllers\backendController@updateProfile')->name('profile.Data.Update')->middleware(['auth', '2fa']);
         Route::post('/profileDelete', 'App\Http\Controllers\backendController@deleteProfile')->name('profile.Data.DeleteProfile')->middleware(['auth', '2fa']);
+        Route::post('/electionDelete', 'App\Http\Controllers\backendController@deleteElection')->name('profile.Data.DeleteElection')->middleware(['auth', '2fa']);
         //Open for everything
         Route::get('/', function(){return 'user profil setting site';});
 

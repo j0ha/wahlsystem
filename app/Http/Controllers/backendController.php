@@ -237,7 +237,7 @@ class backendController extends Controller
         //number_of_abstention
         if($abstention == 1){
             $number_abstention = Candidate::where('election_id', $electionID)->where('deletable', 0)->firstOrFail()->votes;
-            
+
         }
 
         //Wahlbeteiligung in %
@@ -565,8 +565,9 @@ class backendController extends Controller
 
       $user = Auth::user();
       $allPermissions = $user->getAllPermissions();
+      $electionArray = Self::electionPermission($user);
 
-      return view('layouts.profile', compact('allPermissions'))->withLocations($locations)->withUser($user);
+      return view('layouts.profile', compact('allPermissions', 'electionArray'))->withLocations($locations)->withUser($user);
     }
 
     //Function that inserts the updated data
@@ -605,6 +606,20 @@ class backendController extends Controller
       $user->delete();
 
       return redirect('home');
+    }
+
+    public function deleteElection(Request $request) {
+        $user = Auth::user();
+        if($user->hasPermissionTo($request->electionUUID)) {
+            $election = Election::where('uuid', $request->electionUUID)->firstOrFail();
+            Terminal::where('id', $election->id)->delete();
+            Voter::where('election_id', $election->id)->delete();
+            Form::where('election_id', $election->id)->delete();
+            Schoolclass::where('election_id', $election->id)->delete();
+            Candidate::where('election_id', $election->id)->delete();
+            $election->delete();
+        }
+        return redirect(route('profile.Data'));
     }
 
     /*==============================================================

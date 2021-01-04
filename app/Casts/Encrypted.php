@@ -7,7 +7,7 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 class Encrypted implements CastsAttributes
 {
     /**
-     * Cast the given value.
+     * Entschlüsselt die Daten aus der Datenbank und übergibt sie an das Model
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @param  string  $key
@@ -21,7 +21,7 @@ class Encrypted implements CastsAttributes
     }
 
     /**
-     * Prepare the given value for storage.
+     * Verschlüsselt die durch das Model greichen Daten und übergibt sie an die Funktionen für den Datenbankeintrag
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @param  string  $key

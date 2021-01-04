@@ -44,7 +44,9 @@ class endElection extends Command
         foreach($elections as $e){
             $time_election = new Carbon($e->activeto, config('app.timezone'));
             if($time->equalTo($time_election)){
-                Election::where('uuid', $e->uuid)->update(['status' => 'ended', 'realend' => Carbon::now(config('app.timezone'))]);
+                $e->status = config('votestates.ended.short');
+                $e->realend = Carbon::now(config('app.timezone'));
+                $e->save();
             }
         }
     }

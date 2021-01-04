@@ -20,7 +20,6 @@ class electionControlling extends Controller
             if(Candidate::where('election_id', $electionID)->count() != 0 AND Voter::where('election_id', $electionID)->count() != 0 AND Terminal::where('election_id', $electionID)->count() != 0){
                 $e = Election::where('uuid', $request->eUUID)->firstOrFail();
                 $e->status = config('votestates.live.short');
-                $e->realstart = Carbon::now(config('app.timezone'));
                 $e->save();
             } else {
                 return back()->with('activeError', 'Error: You have to create: Candidates, Voters and Terminals before you can start the election!');
@@ -39,7 +38,6 @@ class electionControlling extends Controller
             if(Candidate::where('election_id', $electionID)->count() != 0 AND Voter::where('election_id', $electionID)->count() != 0 AND Terminal::where('election_id', $electionID)->count() != 0){
                 $e = Election::where('uuid', $request->eUUID)->firstOrFail();
                 $e->status = config('votestates.planned.short');
-                $e->realstart = Carbon::now(config('app.timezone'));
                 $e->activeby = new Carbon($request->starttime, config('app.timezone'));
                 $e->activeto = new Carbon($request->endtime, config('app.timezone'));
                 $e->save();
@@ -56,7 +54,10 @@ class electionControlling extends Controller
     public function endElection(Request $request){
         $user = Auth::user();
         if($user->hasPermissionTo($request->eUUID)){
-           Election::where('uuid', $request->eUUID)->update(['status' => config('votestates.ended.short'), 'realend' => Carbon::now(config('app.timezone'))]);
+          $election = Election::where('uuid', $request->eUUID)->firstOrFail();
+          $election->status = config('votestates.ended.short');
+          $election->realend = Carbon::now(config('app.timezone'));
+          $election->save();
         } else {
             return abort(404);
         }
@@ -102,7 +103,7 @@ class electionControlling extends Controller
                 $election = Election::where('uuid', $request->eUUID)->firstOrFail();
                 if($election->email_terminal == null) {
                     $time = new Carbon($request->starttimeEmail, config('app.timezone'));
-                    
+
                     $e = Election::where('uuid', $request->eUUID)->firstOrFail();
                     $e->email_sendtime = $time;
                     $e->email_terminal = $request->terminalUUID;

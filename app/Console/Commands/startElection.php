@@ -44,7 +44,10 @@ class startElection extends Command
         foreach($elections as $e){
             $time_election = new Carbon($e->activeby, config('app.timezone'));
             if($time->equalTo($time_election)){
-                Election::where('uuid', $e->uuid)->update(['status' => 'live', 'realstart' => Carbon::now(config('app.timezone'))]);
+
+                $e->status = config('votestates.live.short');
+                $e->realstart = Carbon::now(config('app.timezone'));
+                $e->save();
             }
         }
 

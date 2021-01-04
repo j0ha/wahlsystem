@@ -38,8 +38,12 @@ class electionInvitation extends Mailable
     public function build()
     {
 
-      $pdf = PDF::loadView('pdf.invitation', ['voter'=>$this->voter, 'election' =>$this->election, 'route'=>$this->route]);
 
-      return $this->markdown('emails.electionInvitation')->attachData($pdf->inline(), 'Invitation.pdf');
+      if(config('system.INVITATION_PDF') == 1) {
+          $pdf = PDF::loadView('pdf.invitation', ['voter'=>$this->voter, 'election' =>$this->election, 'route'=>$this->route]);
+          return $this->markdown('emails.electionInvitation')->attachData($pdf->inline(), 'Invitation.pdf');
+      } else {
+          return $this->markdown('emails.electionInvitation');
+      }
     }
 }

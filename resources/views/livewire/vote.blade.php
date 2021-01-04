@@ -35,8 +35,8 @@
            <span>Vielen Dank für deine Stimme!</span>
          </div>
          <div class="row justify-content-center">
-           @if($election->type == config('electionmodes.spv.short')) <span>Bitte verlasse nun die Wahlkabine!</span>@endif
-           @if($directUUID != null)<span>Du kannst diese Seite nun schießen</span>@endif
+           @if($election->type == config('electionmodes.spv.short') AND $directUUID == null) <span>Bitte verlasse nun die Wahlkabine!</span>@endif
+           @if($directUUID != null)<span>Du kannst diese Seite nun schließen</span>@endif
          </div>
       </div>
     </div>

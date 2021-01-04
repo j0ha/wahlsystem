@@ -224,6 +224,7 @@ class backendController extends Controller
         $user = Auth::user();
         $electionArray = Self::electionPermission($user);
         $status = Election::where('uuid', $electionUUID)->firstOrFail()->status;
+        $abstention = Election::where('uuid', $electionUUID)->firstOrFail()->abstention;
         //Erzeuge neue Objekte
         $electionProcess = new electionProcessController($electionUUID);
         $statsController = new statsController($electionUUID);
@@ -234,6 +235,10 @@ class backendController extends Controller
         $number_voters = Candidate::where('election_id', $electionID)->sum('votes');
         $number_voters_unpolled = Voter::where('election_id', $electionID)->where('voted_via_email', 0)->where('voted_via_terminal', 0)->count();
         //number_of_abstention
+        if($abstention == 1){
+            $number_abstention = Candidate::where('election_id', $electionID)->where('deletable', 0)->firstOrFail()->votes;
+            
+        }
 
         //Wahlbeteiligung in %
         $stat_votes = Voter::where('election_id',  $electionProcess->getId($electionUUID, 'elections'))->where(function ($query){
@@ -251,7 +256,7 @@ class backendController extends Controller
 
 
         if ($user->hasPermissionTo($electionUUID)) {
-            return view('backendviews.v2.evaluation', ['electionUUID' => $electionUUID], compact('status','electionArray', 'user', 'number_voters', 'number_voters_unpolled', 'votedistribution_candidates', 'stat_schoolclassesVoteTurnout', 'stat_terminalUsage', 'stat_votes', 'stat_voters', 'stat_formVoterSpread'));
+            return view('backendviews.v2.evaluation', ['electionUUID' => $electionUUID], compact('number_abstention','abstention', 'status','electionArray', 'user', 'number_voters', 'number_voters_unpolled', 'votedistribution_candidates', 'stat_schoolclassesVoteTurnout', 'stat_terminalUsage', 'stat_votes', 'stat_voters', 'stat_formVoterSpread'));
         } else {
             return redirect()->route('unauthorized');
         }

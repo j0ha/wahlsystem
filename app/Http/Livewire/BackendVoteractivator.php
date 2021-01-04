@@ -48,12 +48,15 @@ class BackendVoteractivator extends Component
         $voter = $voteractivatorController->returnVoter($this->search_url);
 
         if($voter != false) {
-            if($securitycontroller->voteVerification($voter->uuid) == true) {
+            if($securitycontroller->voteVerification($voter->uuid) == true AND $voter->activated == true) {
                 $this->voter = $voter;
-                $this->state = 'allow';
-            } elseif ($securitycontroller->voteVerification($voter->uuid) == false){
+                $this->state = 'activated';
+            }  elseif ($securitycontroller->voteVerification($voter->uuid) == false){
                 $this->voter = $voter;
                 $this->state = 'voted';
+            } elseif($securitycontroller->voteVerification($voter->uuid) == true) {
+                $this->voter = $voter;
+                $this->state = 'allow';
             } else {
                 $this->state = 'error';
             }
@@ -62,13 +65,21 @@ class BackendVoteractivator extends Component
             $this->state = 'error';
         }
     }
+    public function tada() {
+        dd("es geht");
+    }
 
-    public function activate($voterUUID) {
+    public function aa() {
+            $voteractivatorController = new voteractivatorController($this->electionUUID);
+            $voteractivatorController->activateVoter($this->voter->uuid);
+            $this->search_url = '';
+            $this->state = 'error';
+    }
+
+    public function hello() {
         $voteractivatorController = new voteractivatorController($this->electionUUID);
-
-        $voteractivatorController->activateVoter($voterUUID);
-        $this->search_url = null;
+        $voteractivatorController->activateVoter($this->voter->uuid);
+        $this->search_url = '';
         $this->state = 'error';
-
     }
 }

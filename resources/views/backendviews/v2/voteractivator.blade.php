@@ -21,6 +21,15 @@
             @livewire('backend-voteractivator', ['electionUUID' => $electionUUID])
         </div>
     </div>
+    <script type="text/javascript">
+        focusMethod = function work() {
+            document.getElementById("search").focus();
+        }
+        resetMethod = function work() {
+            document.getElementById('search').value = '';
+            document.getElementById("search").focus();
+        }
+    </script>
 @endsection
 
 

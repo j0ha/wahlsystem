@@ -44,6 +44,7 @@ class electionProcessController extends Controller
             switch ($terminal->kind) {
               case config('terminalkinds.normal.short'):
                 $voter->voted_via_terminal = true;
+                $voter->activated = false;
                 break;
               case config('terminalkinds.email.short'):
                 $voter->voted_via_email = true;
@@ -60,7 +61,6 @@ class electionProcessController extends Controller
           } else {
               $this->securityreporter->report('vote failed point 1',3, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID. ' given terminalUUID: '.$terminalUUID.' CandidateUUID: '. $candidateUUID, null);
           }
-          // TODO: Add security things
         } catch (\Exception $e) {
             $this->securityreporter->report('vote failed point 2',3, get_class(),'IP: '. \Request::getClientIp().'given VoterUUID: '. $voterUUID. ' given terminalUUID: '.$terminalUUID.' CandidateUUID: '. $candidateUUID, $e);
             Bugsnag::notifyException($e);

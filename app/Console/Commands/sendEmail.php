@@ -46,7 +46,7 @@ class sendEmail extends Command
         $elections = Election::where('email_sendtime', '!=', null)->get();
 
         foreach($elections as $e){
-            $time_election = new Carbon($e->activeto, config('app.timezone'));
+            $time_election = new Carbon($e->email_sendtime, config('app.timezone'));
             if($time->equalTo($time_election)){
                 $electionProcessController = new electionProcessController($e->uuid);
                 $emailController = new emailController($e->uuid);

@@ -21,10 +21,10 @@
                 <strong>Wahlname</strong> {{$election->name}}
               </div>
               <div class="">
-                <strong>Wahlzeitraum</strong> @if($election->activeby == null)Steinzeit @else {{$election->activeby}}@endif bis @if($election->activeto == null)Trumpszweitepräsidentschaft @else {{$election->activeto}}@endif
+                <strong>Wahlzeitraum</strong> @if($election->activeby == null)Open Start @else {{$election->activeby}}@endif bis @if($election->activeto == null)Open End @else {{$election->activeto}}@endif
               </div>
               <div class="">
-                <strong>Wahlbeaufsichtigung:</strong> {{$election->permission_id}}
+                <strong>Wahlbeaufsichtigung:</strong> @foreach($users as $user){{$user->name}} {{$user->surname}}, @endforeach
               </div>
               <hr>
               <h4>Wähler</h4>
@@ -32,10 +32,16 @@
                 <strong>Name:</strong> {{$voter->name}} {{$voter->surname}}
               </div>
               <div class="">
-                <strong>Klasse:</strong> {{$voter->schoolclass_id}}
+                  @php
+                      $className = App\Schoolclass::where('id', $voter->schoolclass_id)->get('name');
+                  @endphp
+                <strong>Klasse:</strong> {{$className[0]->name}}
               </div>
               <div class="">
-                <strong>Jahrgang:</strong> {{$voter->form_id}}
+                  @php
+                      $formName = App\Form::where('id', $voter->form_id)->get('name');
+                  @endphp
+                <strong>Jahrgang:</strong> {{$formName[0]->name}}
               </div>
               <div class="">
                 <strong>Teilname via:</strong>Email, Dierekt, Terminal

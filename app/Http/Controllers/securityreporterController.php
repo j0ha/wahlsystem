@@ -21,6 +21,7 @@ class securityreporterController extends Controller
         try {
             $report = new Securityreport();
             $report->description = $describtion;
+            $report->description_h = hash('sha256', $describtion);
             $report->importance = $importance;
             $report->file = $file;
             $report->election_uuid = $this->electionUUID;

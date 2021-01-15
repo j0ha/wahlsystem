@@ -80,7 +80,7 @@
 
   @if($state == 'forms' AND $election->type == config('electionmodes.spv.short') AND $spv_forms != null)
   <div class="d-flex eao-vote-header">
-    <span class="display-4">Bitte wähle deinen Jahrgang!</span>
+    <span class="display-4 display-4-mobile">Bitte wähle deinen Jahrgang!</span>
   </div>
     <div class="d-flex flex-column eao-vote-btn-list">
       @foreach($spv_forms as $form)
@@ -91,7 +91,7 @@
 
   @if($state == 'schoolclasses' AND $election->type == config('electionmodes.spv.short') AND $spv_schoolclasses != null)
   <div class="d-flex eao-vote-header">
-    <span class="display-4">Bitte wähle deine Klasse!</span>
+    <span class="display-4 display-4-mobile">Bitte wähle deine Klasse!</span>
   </div>
     <div class="d-flex flex-column eao-vote-btn-list">
       @foreach($spv_schoolclasses as $schoolclass)
@@ -101,7 +101,7 @@
   @endif
   @if($state == 'voters' AND $election->type == config('electionmodes.spv.short') AND $spv_voters != null)
   <div class="d-flex eao-vote-header">
-    <span class="display-4">Bitte wähle deinen Namen!</span>
+    <span class="display-4 display-4-mobile">Bitte wähle deinen Namen!</span>
   </div>
     <div class="d-flex flex-column eao-vote-btn-list">
       @foreach($spv_voters as $voter)
@@ -112,10 +112,10 @@
 
   @if($state == 'birth_verification' AND $election->type == config('electionmodes.spv.short'))
   <div class="d-flex eao-vote-header">
-    <span class="display-4">Bitte verifiziere Dich!</span>
+    <span class="display-4 display-4-mobile">Bitte verifiziere Dich!</span>
   </div>
 
-    <div class="eao-vote-content">
+    <div class="eao-vote-content eao-vote-content-h">
       <div class="container-fluid h-100 w-100 d-inline-block px-0 mx-0">
         <div class="row h-90 w-100 px-0 mx-0">
           <div class="col d-flex">
@@ -148,17 +148,17 @@
 
   @if($state == 'vote' AND $election->type == config('electionmodes.spv.short'))
   <div class="d-flex eao-vote-header">
-    <span class="display-4">Bitte stimme ab!</span>
+    <span class="display-4 display-4-mobile">Bitte stimme ab!</span>
   </div>
-  <div class="h-90 w-100">
-    <div class="container-fluid h-100 w-100 d-inline-block px-0 mx-0">
-      <div class="row h-90 w-100 px-0 mx-0">
+  <div class="eao-vote-content">
+      <div class="eao-vote-candidatescontainer">
+          <div class="eao-vote-candidatesrow">
         @foreach($spv_candidates as $candidate)
-        <div class="col h-100 px-0">
+          <div class="col eao-vote-candiate px-0">
 
           <div class="h-90 eao-vote-bg-lite img-cover justify-content-center" style="background-image: url({{$candidate->image}})">
-              <div class="align-self-center w-75">
-                <h1 class="display-1">
+              <div class="align-self-center w-75 eao-magictext">
+                <h1 class="display-1 display-1-mobile">
                   {{$candidate->name}}
                 </h1>
                 <p>{{$candidate->description}}</p>

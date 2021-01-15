@@ -10951,6 +10951,7 @@ a.text-dark:focus {
  background-position: center;
  background-repeat: no-repeat;
  display: flex;
+    mix-blend-mode: normal;
 }
 
 .form-less {
@@ -10969,10 +10970,6 @@ a.text-dark:focus {
 .eao-vote-btn-list {
   height: 90%;
   overflow-y: scroll;
-}
-.eao-vote-content {
-  height: 90% !important;
-  width: 100%;
 }
 
 .eao-vote-btn-list-item {
@@ -11096,5 +11093,108 @@ a.text-dark:focus {
 
 .eao-vote-bg-lite {
     background-color: #cccccc;
+}
+/* Mobile Design */
+@media (max-width: 767.98px) {
+    .eao-vote-content {
+        width: 100%; !important;
+    }
+
+    .eao-vote-content-h {
+        height: 90% !important;
+    }
+
+    .eao-vote-candiate {
+        height: 70% !important;
+    }
+
+    .display-1-mobile {
+        font-size: 2em;
+    }
+
+    .display-4-mobile {
+        font-size: 2em;
+    }
+
+    p {
+        font-size: 1.1em;
+    }
+
+    .eao-vote-candidatescontainer {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        height: 100% !important;
+        width: 100% !important;
+        display: inline-block !important;
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .eao-vote-candidatesrow {
+        display: flex;
+        flex-wrap: wrap;
+        flex-flow: column;
+        margin-right: -15px;
+        margin-left: -15px;
+        width: 100% !important;
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .eao-magictext {
+        margin-top: 25%;
+        margin-bottom: 25%;
+    }
+
+}
+/*Desktop Desgin */
+@media (min-width: 768px) {
+    .eao-vote-content {
+        height: 90% !important;
+        width: 100%; !important;
+    }
+
+    .eao-vote-candidatescontainer {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        height: 100% !important;
+        width: 100% !important;
+        display: inline-block !important;
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .eao-vote-candidatesrow {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+        height: 90% !important;
+        width: 100% !important;
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .eao-vote-candiate {
+        height: 100% !important;
+    }
+}
+.eao-magictext {
+    color: white;
+    mix-blend-mode: exclusion;
 }
 

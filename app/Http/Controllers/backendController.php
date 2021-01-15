@@ -426,6 +426,11 @@ class backendController extends Controller
 
     public function votersAddMany(Request $request){
 
+        $request->validate([
+            'electionUUID' => 'required',
+            'votersFile' => 'required',
+        ]);
+
         $election = Election::where('uuid', $request->electionUUID)->firstOrFail();
 
 

@@ -16,7 +16,7 @@
                   @csrf
 
                   <div class="custom-file mb-3">
-                      <input type="file" name="votersFile" class="custom-file-input" id="customFile">
+                      <input type="file" name="votersFile" class="custom-file-input" id="customFile" required>
                       <input type="hidden" name="electionUUID" value="{{$electionUUID}}">
                       @if ($errors->has('votersFile'))
                           <span class="help-block">

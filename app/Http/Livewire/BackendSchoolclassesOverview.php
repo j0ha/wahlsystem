@@ -64,6 +64,7 @@ class BackendSchoolclassesOverview extends Component
     }
 
     public function update() {
+      $this->validate();
       $schoolclass = Schoolclass::where('uuid', $this->schoolclassUUID)->firstOrFail();
       $schoolclass->name = $this->name;
       $schoolclass->name_h = hash('sha256',$this->name);

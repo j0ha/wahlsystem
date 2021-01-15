@@ -12,6 +12,8 @@
         </div>
       </div>
     </div>
+      @error('name') <div class="alert alert-danger" role="alert">{{$message}}</div></span> @enderror
+      @error('form_id') <div class="alert alert-danger" role="alert">{{$message}}</div></span> @enderror
       @if(session()->has('error'))<div class="alert alert-danger" role="alert">{{session('error')}}</div></span>@endif
       <table id="example" class="table table-striped table-bordered second" style="width:100%">
           <thead>

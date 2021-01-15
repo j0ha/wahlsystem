@@ -23,6 +23,10 @@ class BackendSchoolgradesOverview extends Component
 
   public $electionUUID;
 
+    protected $rules = [
+        'name' => 'required|max:255',
+    ];
+
   public function mount($electionUUID) {
     $this->electionUUID = $electionUUID;
   }
@@ -55,6 +59,7 @@ class BackendSchoolgradesOverview extends Component
     }
 
     public function update() {
+      $this->validate();
       $schoolgrade = Form::where('uuid', $this->schoolgradeUUID)->firstOrFail();
       $schoolgrade->name = $this->name;
       $schoolclass->name_h = hash('sha256',$this->name);
@@ -80,6 +85,7 @@ class BackendSchoolgradesOverview extends Component
     }
 
     public function createSave(){
+      $this->validate();
       $schoolclass = new Form;
       $electionProcess = new electionProcessController($this->electionUUID);
       $schoolclass->name = $this->name;

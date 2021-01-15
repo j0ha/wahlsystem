@@ -16,13 +16,13 @@ class CreateSecurityreportsTable extends Migration
         Schema::create('securityreports', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->text('description');
-            $table->text('description_h');
+            $table->text('description')->nullable();
+            $table->text('description_h')->nullable();
             $table->text('error')->nullable();
             $table->text('file')->nullable();
-            $table->text('election_uuid');
-            $table->text('importance');
-            $table->text('additional_info');
+            $table->text('election_uuid')->nullable();
+            $table->text('importance')->nullable();
+            $table->text('additional_info')->nullable();
 
         });
     }

@@ -5,7 +5,7 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
                         <div class="card-body">
-                            <input type="text" wire:model="search_url" wire:keydown.enter="search()" id="search" class="form-control form-control-lg" placeholder="Direct link" @if($state != 'allow') autofocus="autofocus" @endif>
+                            <input type="text" wire:model="search_url" wire:keydown.enter="search()" id="search" class="form-control form-control-lg" placeholder="Direct link or Name/Surname" @if($state != 'allow') autofocus="autofocus" @endif>
                             <button wire:click="search()" class="btn btn-primary search-btn">Search</button>
 
                         </div>

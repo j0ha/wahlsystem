@@ -52,7 +52,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string $google2fa_secret
  * @method static \Illuminate\Database\Eloquent\Builder|User whereGoogle2faSecret($value)
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     use HasRoles;

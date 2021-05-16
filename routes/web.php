@@ -48,7 +48,7 @@ Route::group(['prefix' => 'vote'], function(){
                            BEGIN BACKEND
  *********************************************************************/
 
-Route::group(['middleware' => ['auth', '2fa']], function (){
+Route::group(['middleware' => ['auth', '2fa', 'verified']], function (){
 Route::group(['prefix' => 'dvi'], function() {
   Route::group(['prefix' => 'home'], function(){
     /*==============================================================
@@ -156,10 +156,10 @@ Route::group(['prefix' => 'dvi'], function() {
 
     Route::group(['prefix' => 'profil'],  function() {
         //Lists up all of the data, some fields maybe changeable?
-        Route::get('/data', 'App\Http\Controllers\backendController@indexProfile')->name('profile.Data')->middleware(['auth', '2fa']);
-        Route::post('/profileUpdate', 'App\Http\Controllers\backendController@updateProfile')->name('profile.Data.Update')->middleware(['auth', '2fa']);
-        Route::post('/profileDelete', 'App\Http\Controllers\backendController@deleteProfile')->name('profile.Data.DeleteProfile')->middleware(['auth', '2fa']);
-        Route::post('/electionDelete', 'App\Http\Controllers\backendController@deleteElection')->name('profile.Data.DeleteElection')->middleware(['auth', '2fa']);
+        Route::get('/data', 'App\Http\Controllers\backendController@indexProfile')->name('profile.Data')->middleware(['auth', '2fa', 'verified']);
+        Route::post('/profileUpdate', 'App\Http\Controllers\backendController@updateProfile')->name('profile.Data.Update')->middleware(['auth', '2fa', 'verified']);
+        Route::post('/profileDelete', 'App\Http\Controllers\backendController@deleteProfile')->name('profile.Data.DeleteProfile')->middleware(['auth', '2fa', 'verified']);
+        Route::post('/electionDelete', 'App\Http\Controllers\backendController@deleteElection')->name('profile.Data.DeleteElection')->middleware(['auth', '2fa', 'verified']);
         //Open for everything
         Route::get('/', function(){return 'user profil setting site';});
 
@@ -192,7 +192,7 @@ Route::post('/electionPlanEmail', 'App\Http\Controllers\electionControlling@plan
   ==============================================================*/
 
 Route::namespace('App\Http\Controllers')->group(function () {
-    Auth::routes();
+    Auth::routes(['verify' => true]);
 });
 
 /*==============================================================

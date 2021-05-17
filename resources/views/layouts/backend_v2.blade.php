@@ -39,7 +39,7 @@
                           <a class="nav-link nav-icons" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">Elections <i class="fas fa-fw fa-bars"></i></a>
                           <ul class="dropdown-menu dropdown-menu-right notification-dropdown">
                               <li>
-                                  <div class="notification-title"> Deine Wahlen</div>
+                                  <div class="notification-title"> Your elections</div>
                                   <div class="notification-list">
                                       <div class="list-group">
                                           @foreach($electionArray as $e)
@@ -59,12 +59,12 @@
                                   </div>
                               </li>
                               <li>
-                                  <div class="list-footer"> <a href="{{route('create.new.election')}}">Neue Wahl erstellen</a></div>
+                                  <div class="list-footer"> <a href="{{route('create.new.election')}}">Create new election</a></div>
                               </li>
                           </ul>
                       </li>
                         <li class="nav-item dropdown nav-user">
-                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('backend/images/avatar-1.jpg')}}" alt="" class="user-avatar-md rounded-circle"></a>
+                            <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('img/setting_icon.png')}}" alt="" class="user-avatar-md rounded-circle"></a>
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
                                     <h5 class="mb-0 text-white nav-user-name">{{$user->name.', '.$user->surname}} </h5>
@@ -94,7 +94,7 @@
                         <ul class="navbar-nav flex-column">
                           @if(!empty($electionUUID))
                           <li class="nav-divider">
-                                Allgemeines
+                                General
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('election.Dashboard', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-chart-pie"></i>Dashboard</a>
@@ -103,7 +103,7 @@
                                 <a class="nav-link" href="{{route('election.Informations', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-info"></i>Basic-Informations</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('election.Helper', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-hands-helping"></i>Wahlhelfer</a>
+                                <a class="nav-link" href="{{route('election.Helper', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-hands-helping"></i>Election helper</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('election.terminals.overview', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fas fa-desktop"></i>Terminals</a>
@@ -127,7 +127,7 @@
                             </li>
                             @endif
                           <li class="nav-divider">
-                                Wahlsteuerung
+                                Controlling
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('election.Controlling', ['electionUUID' => $electionUUID])}}"><i class="fas fa-fw fa-power-off"></i>Controlling</a>
@@ -155,7 +155,7 @@
                             -->
 
                           <li class="nav-divider">
-                                Inhaltsverwaltung
+                                Content management
                             </li>
 
                             <!-- ============================================================== -->

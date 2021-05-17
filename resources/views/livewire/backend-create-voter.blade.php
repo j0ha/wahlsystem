@@ -15,12 +15,12 @@
                             @error('voterSurname') <span class="error text-danger"> {{ $message }} </span> @enderror
                         </div>
                         <div class="form-group">
-                            <label for="voterDate" class="col-form-label">Geburtsdatum</label>
+                            <label for="voterDate" class="col-form-label">Date of Birth</label>
                             <input wire:model="voterDate" name="voterDate" id="voterDate" type="date" class="form-control">
                             @error('voterDate') <span class="error text-danger"> {{ $message }} </span> @enderror
                         </div>
                         <div class="form-group">
-                            <label for="voterEmail">E-Mail Adresse</label>
+                            <label for="voterEmail">E-Mail Adress</label>
                             <input wire:model="voterEmail" name="voterEmail" id="voterEmail" type="email" placeholder="name@beispiel.de" class="form-control">
                             @error('voterEmail') <span class="error text-danger"> {{ $message }} </span> @enderror
                         </div>

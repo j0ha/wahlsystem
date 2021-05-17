@@ -5,8 +5,8 @@
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
       <div class="card">
           <div class="card-header">
-              <h5 class="mb-0">Schulklassen der Wahl</h5>
-              <p>Diese Tabelle zeigt alle Schulklassen der Wahl an und dient zur Verwaltung dieser.</p>
+              <h5 class="mb-0">School classes in the survey</h5>
+              <p>This table shows all school classes of choice and is used to manage them.</p>
           </div>
           <div class="card-body">
               @livewire('backend-schoolclasses-overview', ['electionUUID' => $electionUUID])

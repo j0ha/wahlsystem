@@ -28,7 +28,7 @@
     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
         <div class="card border-3 border-top border-top-primary">
             <div class="card-body">
-                <h5 class="card-title border-bottom">Status-Möglichkeiten:</h5>
+                <h5 class="card-title border-bottom">Status:</h5>
                 <p class="card-text"><span class="badge badge-light">Waiting</span>
                     <br>The election has been created and could be possibly started now. Voting is not possible at this status.</p>
                 <p class="card-text"><span class="badge badge-primary">Planned</span>
@@ -52,8 +52,8 @@
   <div class="row">
     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
         <div class="section-block" id="modal">
-            <h3 class="section-title">Modus steuern</h3>
-            <p>Den Status der Wahl steuern</p>
+            <h3 class="section-title">Change mode</h3>
+            <p>Change the mode of the survey</p>
         </div>
         <div class="card">
             <h5 class="card-header">Activating tool</h5>
@@ -95,15 +95,15 @@
   <!-- Infocard - What is the status of the election -->
 
   <div class="card">
-      <h5 class="card-header">Beenden</h5>
+      <h5 class="card-header">Set end</h5>
       <div class="card-body">
             <div class="">
-                    <h4>Wahl beenden</h4>
+                    <h4>End survery</h4>
                     <!-- Button trigger modal -->
                     @if($selectedE[0]->status == "live")
-                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#changetoend">Jetzt beenden</a>
+                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#changetoend">End now</a>
                     @else
-                    <a href="" class="btn btn-primary disabled" data-toggle="modal" data-target="#changetoend">Jetzt beenden</a>
+                    <a href="" class="btn btn-primary disabled" data-toggle="modal" data-target="#changetoend">End now</a>
                     @endif
 
             </div>
@@ -115,17 +115,17 @@
   <!-- Infocard - What is the status of the election -->
 
   <div class="card">
-      <h5 class="card-header">Auswertung</h5>
+      <h5 class="card-header">Evaluate</h5>
             <div class="card-body">
                 <div class="">
-                    <h4>Wahl beenden</h4>
+                    <h4>End Survey</h4>
                     <!-- Button trigger modal -->
                     @if($selectedE[0]->status == "ended")
-                    <a href="{{route('election.evaluation', ['electionUUID' => $selectedE[0]->uuid])}}" class="btn btn-primary">Auswertung anzeigen</a>
-                    <a href="" class="btn btn-primary">Auswertung downloaden</a>
+                    <a href="{{route('election.evaluation', ['electionUUID' => $selectedE[0]->uuid])}}" class="btn btn-primary">Show evaluation</a>
+{{--                    <a href="" class="btn btn-primary">Download evaluation</a>--}}
                     @else
-                    <a href="" class="btn btn-primary disabled" >Auswertung anzeigen</a>
-                    <a href="" class="btn btn-primary disabled" >Auswertung downloaden</a>
+                    <a href="" class="btn btn-primary disabled" >Show evaluation</a>
+{{--                    <a href="" class="btn btn-primary disabled" >Download evaluation</a>--}}
                     @endif
                 </div>
             </div>
@@ -134,8 +134,8 @@
   <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
           <div class="section-block" id="modal">
-              <h3 class="section-title">E-Mails steuern</h3>
-              <p>Den E-Mail versand steuern</p>
+              <h3 class="section-title">E-Mail Controll</h3>
+              <p>Controll the E-Mail service</p>
           </div>
           <div class="card">
               <h5 class="card-header">Send tool</h5>
@@ -179,7 +179,7 @@
                         </a>
             </div>
             <div class="modal-body">
-                <p>Möchtest du die Wahl wirklich aktivieren?</p>
+                <p>Do you really want to activate the election?</p>
             </div>
             <div class="modal-footer">
                 <a href="" class="btn btn-secondary" data-dismiss="modal">Break</a>
@@ -203,7 +203,7 @@
                         </a>
             </div>
             <div class="modal-body">
-                <p>Möchtest du die Wahl wirklich für folgende Zeit planen?</p>
+                <p>Do you really want to plan the election for the following time?</p>
                 <form class="" action="{{route('e.activateWithTime')}}" method="post">
                     @csrf
                   <div class="form-group">
@@ -217,8 +217,8 @@
 
             </div>
             <div class="modal-footer">
-                <a href="" class="btn btn-secondary" data-dismiss="modal">Abbrechen</a>
-                <button class="btn btn-primary">Planen</button>
+                <a href="" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                <button class="btn btn-primary">Plan!</button>
                 </form>
             </div>
         </div>
@@ -235,7 +235,7 @@
                         </a>
             </div>
             <div class="modal-body">
-                <p>Möchtest du die Wahl wirklich beenden?</p>
+                <p>Do you really want to end the election?</p>
             </div>
             <div class="modal-footer">
                 <a href="" class="btn btn-secondary" data-dismiss="modal">Break</a>
@@ -262,7 +262,7 @@
                   </a>
               </div>
               <div class="modal-body">
-                  <p>Möchtest du wirklich eine E-Mail an alle Voter versenden?</p>
+                  <p>Do you really want to send an email to all voters?</p>
               </div>
               <div class="modal-footer">
 
@@ -300,7 +300,7 @@
                   </a>
               </div>
               <div class="modal-body">
-                  <p>Möchtest du die Wahl wirklich für folgende Zeit planen?</p>
+                  <p>Do you really want to plan the election for the following time?</p>
                   <form class="" action="{{route('e.planEmail')}}" method="post">
                       @csrf
                       @if($terminals != null)
@@ -324,7 +324,7 @@
               </div>
               <div class="modal-footer">
                   <a href="" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
-                  <button class="btn btn-primary">Planen</button>
+                  <button class="btn btn-primary">Plan</button>
                   </form>
               </div>
           </div>

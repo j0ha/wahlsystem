@@ -29,9 +29,9 @@
                                                     $formName = App\Form::where('id', $voter->form_id)->get('name');
                                                     $className = App\Schoolclass::where('id', $voter->schoolclass_id)->get('name');
                                                 @endphp
-                                                <p class="mb-2"><b>Klasse: </b>{{$className[0]->name}}<span class="m-l-10"><b>Jahrgang: </b>{{$formName[0]->name}}</span>
+                                                <p class="mb-2"><b>Class: </b>{{$className[0]->name}}<span class="m-l-10"><b>Grade: </b>{{$formName[0]->name}}</span>
                                                 </p>
-                                                <p>{{$voter->uuid}}</p>
+                                                <p>UUID: {{$voter->uuid}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -61,7 +61,7 @@
                                                     $formName = App\Form::where('id', $voter->form_id)->get('name');
                                                     $className = App\Schoolclass::where('id', $voter->schoolclass_id)->get('name');
                                                 @endphp
-                                                <p class="mb-2"><b>Klasse: </b>{{$className[0]->name}}<span class="m-l-10"><b>Jahrgang: </b>{{$formName[0]->name}}</span>
+                                                <p class="mb-2"><b>Class: </b>{{$className[0]->name}}<span class="m-l-10"><b>Grade: </b>{{$formName[0]->name}}</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -91,7 +91,7 @@
                                                     $formName = App\Form::where('id', $voter->form_id)->get('name');
                                                     $className = App\Schoolclass::where('id', $voter->schoolclass_id)->get('name');
                                                 @endphp
-                                                <p class="mb-2"><b>Klasse: </b>{{$className[0]->name}}<span class="m-l-10"><b>Jahrgang: </b>{{$formName[0]->name}}</span>
+                                                <p class="mb-2"><b>Class: </b>{{$className[0]->name}}<span class="m-l-10"><b>Grade: </b>{{$formName[0]->name}}</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -136,7 +136,7 @@
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12 col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="font-16" id="demo">Wahldaten</h3>
+                            <h3 class="font-16" id="demo">Survey data</h3>
                             <p><b>Name: </b>{{$election->name}}</p>
                             <p><b>Description: </b>{{$election->description}}</p>
                             <p><b>Status: </b>@if($election->status == config('votestates.waiting.short'))

@@ -3,12 +3,12 @@
     <div class="row">
       <div class="col-sm-12 col-md-6">
         <div class="dt-buttons">
-          <button wire:click.lazy="create()" data-toggle="modal" data-target="#createModal" class="btn btn-outline-primary buttons-print" tabindex="0" aria-controls="example" type="button"><span>Neuer Jahrgang</span></button>
+          <button wire:click.lazy="create()" data-toggle="modal" data-target="#createModal" class="btn btn-outline-primary buttons-print" tabindex="0" aria-controls="example" type="button"><span>New Grade</span></button>
           <button wire:click.lazy="downloadPDF()" class="btn btn-outline-light buttons-pdf buttons-html5" tabindex="0" aria-controls="example" type="button"><span>PDF</span></button>
         </div>
       </div>
       <div class="col-sm-12 col-md-6">
-        <div id="example_filter" class="dataTables_filter"><label>Suche:<input wire:model.debounce.300ms="search" type="search" class="form-control form-control-sm" placeholder="" aria-controls="example"></label>
+        <div id="example_filter" class="dataTables_filter"><label>Search:<input wire:model.debounce.300ms="search" type="search" class="form-control form-control-sm" placeholder="" aria-controls="example"></label>
         </div>
       </div>
     </div>
@@ -18,7 +18,7 @@
           <thead>
               <tr>
                   <th>Name</th>
-                  <th>Aktion</th>
+                  <th>Action</th>
               </tr>
           </thead>
           <tbody>
@@ -26,8 +26,8 @@
               <tr>
                   <td>{{$schoolgrade->name}}</td>
                   <td>
-                    <button wire:click.lazy="edit('{{$schoolgrade->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Bearbeiten</button>
-                    <button wire:click.lazy="delete('{{$schoolgrade->uuid}}')" type="button" class="btn btn-danger mx-1">Löschen</button>
+                    <button wire:click.lazy="edit('{{$schoolgrade->uuid}}')" data-toggle="modal" data-target="#editModal" type="button" class="btn btn-primary mx-1">Edit</button>
+                    <button wire:click.lazy="delete('{{$schoolgrade->uuid}}')" type="button" class="btn btn-danger mx-1">Delete</button>
                   </td>
               </tr>
             @endforeach
@@ -35,7 +35,7 @@
           <tfoot>
               <tr>
                 <th>Name</th>
-                <th>Aktion</th>
+                <th>Action</th>
               </tr>
           </tfoot>
       </table>
@@ -60,7 +60,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">{{$name}} bearbeiten</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Edit {{$name}}</h5>
                         <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </a>
@@ -72,8 +72,8 @@
                       </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-secondary" data-dismiss="modal">Schießen</a>
-                        <button wire:click="update()" class="btn btn-primary" data-dismiss="modal">Änderung speichern</a>
+                        <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                        <button wire:click="update()" class="btn btn-primary" data-dismiss="modal">Save changes</a>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Neuen Jahrgang erstellen</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Create new grade</h5>
                         <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </a>
@@ -94,8 +94,8 @@
                       </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="#" class="btn btn-secondary" data-dismiss="modal">Schießen</a>
-                        <button wire:click="createSave()" class="btn btn-primary" data-dismiss="modal">Erstellen</a>
+                        <a href="#" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                        <button wire:click="createSave()" class="btn btn-primary" data-dismiss="modal">Create</a>
                     </div>
                 </div>
             </div>

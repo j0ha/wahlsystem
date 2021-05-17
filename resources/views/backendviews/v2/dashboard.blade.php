@@ -7,7 +7,7 @@
   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
       <div class="card border-3 border-top border-top-primary">
           <div class="card-body">
-              <h5 class="text-muted">Nutzer*innen</h5>
+              <h5 class="text-muted">Users</h5>
               <div class="metric-value d-inline-block">
                   <h1 class="mb-1">{{$stat_voters}}</h1>
               </div>
@@ -17,7 +17,7 @@
   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
       <div class="card border-3 border-top border-top-primary">
           <div class="card-body">
-              <h5 class="text-muted">Fragen</h5>
+              <h5 class="text-muted">Questtions</h5>
               <div class="metric-value d-inline-block">
                   <h1 class="mb-1">{{$stat_questions}}</h1>
               </div>
@@ -28,7 +28,7 @@
   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
       <div class="card border-3 border-top border-top-primary">
           <div class="card-body">
-              <h5 class="text-muted">Gezählte Stimmen</h5>
+              <h5 class="text-muted">Counted votes</h5>
               <div class="metric-value d-inline-block">
                   <h1 class="mb-1">{{$stat_votes}}</h1>
               </div>
@@ -38,7 +38,7 @@
   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
       <div class="card border-3 border-top border-top-primary">
           <div class="card-body">
-              <h5 class="text-muted">Wahlbeteiligung</h5>
+              <h5 class="text-muted">Turnout</h5>
               <div class="metric-value d-inline-block">
                   @if($stat_votes AND $stat_voters)
                     <h1 class="mb-1">{{round($stat_votes/$stat_voters*100,3)}}%</h1>
@@ -63,10 +63,10 @@
                           <tr class="border-0">
                               <th class="border-0">#</th>
                               <th class="border-0">Name</th>
-                              <th class="border-0">Ort</th>
-                              <th class="border-0">Start Zeit</th>
-                              <th class="border-0">End Zeit</th>
-                              <th class="border-0">IP-Beschränkung</th>
+                              <th class="border-0">Location</th>
+                              <th class="border-0">Start Time</th>
+                              <th class="border-0">End Time</th>
+                              <th class="border-0">IP-Restriction</th>
                               <th class="border-0">Status</th>
                           </tr>
                       </thead>
@@ -76,10 +76,10 @@
                               <td>1</td>
                               <td>{{$terminal->name}}</td>
                               <td>{{$terminal->position}} </td>
-                              <td>@if($terminal->start_time){{$terminal->start_time}}@else <span class="badge badge-pill badge-light mx-1">nicht festgelegt</span> @endif</td>
-                              <td>@if($terminal->end_time){{$terminal->end_time}}@else <span class="badge badge-pill badge-light mx-1">nicht festgelegt</span> @endif</td>
-                              <td>@if($terminal->ip_restriction){{$terminal->ip_restriction}}@else<span class="badge badge-pill badge-light mx-1">Deaktiv</span>@endif</td>
-                              <td>@if($terminal->status == 1)<span class="badge badge-pill badge-success mx-1">Aktiv</span>@else<span class="badge badge-pill badge-danger mx-1">Deaktiv</span>@endif</td>
+                              <td>@if($terminal->start_time){{$terminal->start_time}}@else <span class="badge badge-pill badge-light mx-1">not defined</span> @endif</td>
+                              <td>@if($terminal->end_time){{$terminal->end_time}}@else <span class="badge badge-pill badge-light mx-1">not defined</span> @endif</td>
+                              <td>@if($terminal->ip_restriction){{$terminal->ip_restriction}}@else<span class="badge badge-pill badge-light mx-1">Inactive</span>@endif</td>
+                              <td>@if($terminal->status == 1)<span class="badge badge-pill badge-success mx-1">Active</span>@else<span class="badge badge-pill badge-danger mx-1">Inactive</span>@endif</td>
                           </tr>
                           @endforeach
                       </tbody>
@@ -93,7 +93,7 @@
 <div class="row">
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
       <div class="card">
-          <h5 class="card-header">Nutzungsverteilung der Terminals</h5>
+          <h5 class="card-header">Terminal Usage</h5>
           <div class="card-body">
               <div id="terminal_usage_dounut"></div>
           </div>
@@ -101,7 +101,7 @@
   </div>
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
       <div class="card">
-          <h5 class="card-header">Wahlbeteiligung Klassen in %</h5>
+          <h5 class="card-header">Turnout per class in %</h5>
           <div class="card-body">
               <div id="klassenwahlbeteiligung_bar"></div>
           </div>
@@ -111,7 +111,7 @@
 <div class="row">
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
       <div class="card">
-          <h5 class="card-header">Nutzerverteilung</h5>
+          <h5 class="card-header">Student greade spread</h5>
           <div class="card-body">
               <div id="jahrgang_dounut"></div>
           </div>
@@ -120,7 +120,7 @@
 
   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
       <div class="card">
-          <h5 class="card-header">Schülerverteilung auf Klassen</h5>
+          <h5 class="card-header">Student class spread</h5>
           <div class="card-body">
               <div id="klassenverteilung_bar"></div>
           </div>

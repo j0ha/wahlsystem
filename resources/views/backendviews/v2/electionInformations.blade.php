@@ -35,7 +35,7 @@
 <div class="form-group row">
      <label class="col-md-4 col-form-label text-md-right" for="email"><h4>{{ __('Abstention-Mode:') }}</h4></label>
      <div class="col-md-6">
-     <label class="form-control "><h5>@if($selectedE[0]->abstention == 0 ) Deaktiviert @else Aktiviert @endif</h5></label>
+     <label class="form-control "><h5>@if($selectedE[0]->abstention == 0 ) Deactivated @else Active @endif</h5></label>
     </div>
 </div>
 

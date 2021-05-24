@@ -20,6 +20,10 @@ use App\Http\Controllers\securityController;
 /*==============================================================
                            HOMEROUTE
     ==============================================================*/
+
+Route::get('/time', function (){
+    dd(\Carbon\Carbon::now()->format('Y-m-d H:i:00'), date(now()), config('app.timezone'));
+});
 Route::get('/', '\App\Http\Controllers\HomeController@index')->name('home');
 Route::get('/impressum', '\App\Http\Controllers\HomeController@indexImpressum')->name('impressum');
 
@@ -122,9 +126,9 @@ Route::group(['prefix' => 'dvi'], function() {
                            BEGIN DOWNLOAD ROUTES
     ==============================================================*/
     Route::group(['prefix' => 'downloads'], function(){
-      Route::get('/singelInvitation/{voterUUID}/{electionUUID}', function($voterUUID, $electionUUID){
+      Route::get('/singelInvitation/{voterUUID}/{electionUUID}/{terminalUUID}', function($voterUUID, $electionUUID, $terminalUUID){
           $papercontroler = new \App\Http\Controllers\paperController($electionUUID);
-          return $papercontroler->downloadSingelInvitation($voterUUID);
+          return $papercontroler->downloadSingelInvitation($voterUUID, $terminalUUID);
       })->name('download.singelInvitation');
         Route::get('/evaluation/{electionUUID}', 'App\Http\Controllers\paperController@downloadEvaluation')->name('download.evaluation');
         Route::get('/terminals/{electionUUID}', function($electionUUID){

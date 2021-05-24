@@ -28,11 +28,11 @@ class paperController extends Controller
         $this->election = Election::where('uuid', $electionUUID)->firstOrFail();
     }
 
-    public function downloadSingelInvitation($voterUUID) {
+    public function downloadSingelInvitation($voterUUID, $terminalUUID) {
 
         $voter = Voter::where('uuid', $voterUUID)->firstOrFail();
         $election = Election::find($voter->election_id);
-        $route = route('vote.direct', ['electionUUID'=>$election->uuid, 'terminalUUID'=>'70a07321-4847-47b0-a72e-95fbd10a65cd', 'directUUID'=>$voter->direct_uuid]);
+        $route = route('vote.direct', ['electionUUID'=>$election->uuid, 'terminalUUID'=>$terminalUUID, 'directUUID'=>$voter->direct_uuid]);
         $users = User::permission($election->uuid)->get();
         $pdf = PDF::loadView('pdf.invitation', ['voter'=>$voter, 'election' =>$election, 'route'=>$route, 'users'=>$users]);
         return $pdf->download($voter->name.$voter->surname.'_VoteInvitation_'.time().'.pdf');

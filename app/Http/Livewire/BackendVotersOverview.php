@@ -108,7 +108,7 @@ class BackendVotersOverview extends Component
       $emailController->sendSingelInvation($voter->uuid, $this->terminal_sel);
     }
     public function downloadSheet() {
-      redirect()->route('download.singelInvitation', ['voterUUID' => $this->voterUUID, 'electionUUID'=>$this->electionUUID], ['terminalUUID'=>$this->terminal_sel]);
+      redirect()->route('download.singelInvitation', ['voterUUID' => $this->voterUUID, 'electionUUID'=>$this->electionUUID, 'terminalUUID'=>$this->terminal_sel]);
     }
 
     public function direct() {
